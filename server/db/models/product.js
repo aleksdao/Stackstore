@@ -19,9 +19,8 @@ var productSchema = new Schema({
   },
   categories: [{
     type: Schema.ObjectId,
-    ref: Feature,
+    ref: 'Category',
     required: true,
-    validate: [notEmpty, 'Please add at least one category']
   }],
   quantity: {
     type: Number,

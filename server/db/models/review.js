@@ -17,7 +17,7 @@ var reviewSchema = new Schema({
     ref: 'Product'
   },
   user: {
-    type: Schema.Types.objectId,
+    type: Schema.Types.ObjectId,
     ref: 'User'
   }
 })
