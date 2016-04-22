@@ -22,22 +22,23 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
-var Product = mongoose.model('Product');
 var Review = mongoose.model('Review');
 var Category = mongoose.model('Category');
+var Experience = mongoose.model('Experience');
+
 
 var faker = require("faker");
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
     var removeCategories = Category.remove({});
-    var removeProducts = Product.remove({});
     var removeReviews = Review.remove({});
+    var removeExperiences = Experience.remove({});
     return Promise.all([
         removeUsers,
         removeCategories,
-        removeProducts,
-        removeReviews
+        removeReviews,
+        removeExperiences
     ]);
 };
 
@@ -64,78 +65,70 @@ var seedUsers = function () {
 
 var seedCategories = function () {
 
-  var categories = [];
+  var categories = [
+    'Adventures with animals',
+    'Great for families',
+    'Not for the faint of heart',
+    'The urban jungle',
+    'Sporting events',
+    'Culinary delights',
+    'Immersed in nature',
+    'Mindfulness and meditation',
+    'Margaritas by the beach'
+  ];
 
-  for (var i = 0; i < 10; i++) {
-    var category = {};
-    category.name = faker.commerce.productAdjective();
-    categories.push(category);
-  }
-
+  categories = categories.map(function (category) {
+    var categoryObj = {};
+    categoryObj.name = category;
+    return categoryObj;
+  })
 
   return Category.create(categories);
 
 }
 
-var seedProducts = function (seedCategoriesFn, randomizerIdx) {
+var seedExperiences = function (categories, randomizerIdx) {
 
-    var products = [];
+    var experiences = [];
 
     for (var i = 0; i < 50; i++) {
-      var product = {};
-      product.title = faker.commerce.productName();
-      product.description = faker.lorem.paragraphs();
-      product.quantity = Math.floor(Math.random() * 9) + 1;
-      product.price = faker.commerce.price();
-      product.categories = [];
-      product.imageUrl = faker.image.imageUrl();
-      products.push(product);
+      var experience = {};
+      experience.name = faker.lorem.words();
+      experience.description = faker.lorem.paragraphs();
+      experience.quantity = randomizerIdx(1, 10);
+      experience.price = faker.commerce.price();
+      experience.categories = [categories[randomizerIdx(0, 8)]];
+      experience.imageUrl = faker.image.nightlife();
+      experiences.push(experience);
     }
 
-
-
-    return seedCategoriesFn()
-      .then(function (categories) {
-        products = products.map(function (product) {
-          product.categories.push(categories[randomizerIdx(0, 9)]._id);
-          return product;
-        })
-        return Product.create(products);
-
-    })
+    return Experience.create(experiences);
 
 };
 
-var seedReviews = function (randomizerIdx) {
+// var seedReviews = function (randomizerIdx, products, users) {
+//
+//   var reviews = [];
+//
+//   for (var i = 0; i < 100; i++) {
+//     var review = {};
+//     review.description = faker.lorem.sentences();
+//     review.rating = randomizerIdx(1, 5);
+//     reviews.push(review);
+//   }
+//
+//
+//   reviews = reviews.map(function (review) {
+//     review.experience = experience[randomizerIdx(0, 49)]._id;
+//     review.user = users[randomizerIdx(0, 1)]._id;
+//     return review;
+//   })
+//
+//   return Review.create(reviews);
+//
+// }
 
-  var reviews = [];
-
-  for (var i = 0; i < 100; i++) {
-    var review = {};
-    review.description = faker.lorem.sentences();
-    review.rating = randomizerIdx(1, 5);
-    reviews.push(review);
-  }
-
-  return Product.find({})
-    .then(function (products) {
-      console.log("getting products", products)
-      reviews = reviews.map(function (review) {
-        review.product = products[randomizerIdx(0, 49)]._id
-        return review;
-      })
-      return User.find({})
-    })
-    .then(function (users) {
-      reviews = reviews.map(function (review) {
-        review.user = users[randomizerIdx(0, 1)]._id
-        return review;
-      })
-      return Review.create(reviews);
-    })
-
-}
-
+var _users;
 
 connectToDb
     .then(function () {
@@ -144,14 +137,14 @@ connectToDb
     .then(function () {
         return seedUsers();
     })
-    .then(function () {
-        return seedProducts(seedCategories, randomizerIdx);
+    .then(function (users) {
+        _users = users;
+        return seedCategories();
     })
-    .then(function (products) {
-        return seedReviews(randomizerIdx);
+    .then(function (categories) {
+        return seedExperiences(categories, randomizerIdx);
     })
-    .then(function (reviews) {
-      console.log("reviews", reviews);
+    .then(function (experiences) {
       console.log(chalk.green('Seed successful!'));
       process.kill(0);
     })

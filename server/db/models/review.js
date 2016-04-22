@@ -12,9 +12,9 @@ var reviewSchema = new Schema({
     max: 5,
     required: true
   },
-  product: {
+  experience: {
     type: Schema.Types.ObjectId,
-    ref: 'Product'
+    ref: 'Experience'
   },
   user: {
     type: Schema.Types.ObjectId,
