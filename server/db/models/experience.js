@@ -42,8 +42,7 @@ var experienceSchema = new Schema({
     default: 'https://s-media-cache-ak0.pinimg.com/736x/73/b3/aa/73b3aa2a1c61dd98362b9f9e7ed92ec5.jpg'
   },
   categories: {
-    type: [categorySchema],
-    required: true
+    type: [categorySchema]
   }
 })
 
