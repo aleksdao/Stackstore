@@ -1,7 +1,9 @@
 'use strict';
+var mongoose = require('mongoose');
 var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
+var User = (mongoose.model('User'));
 
 var ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -10,6 +12,27 @@ var ensureAuthenticated = function (req, res, next) {
         res.status(401).end();
     }
 };
+//below routes for member/users create, delete, list all
+router.post('/', function(req, res, next){
+  var newUser = new User({email: req.body.email, password: req.body.password});
+  newUser.save()
+  .then(function(user){
+    res.status(200).json(user);
+  });
+
+});
+router.delete('/:id', function(req, res, next){
+  User.remove({_id: req.params.id})
+  .then(function(){
+    res.sendStatus(204);
+  });
+});
+router.get('/', function(req, res, next){
+  User.find({})
+  .then(function(users){
+    res.status(200).json(users);
+  });
+});
 
 router.get('/secret-stash', ensureAuthenticated, function (req, res) {
 
