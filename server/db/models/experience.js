@@ -75,13 +75,15 @@ var experienceSchema = new Schema({
     type: Date
   },
   createdAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   updatedBy: {
-    type: Date
+    type: Date,
   },
   updatedAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   }
 })
 
