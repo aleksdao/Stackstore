@@ -4,6 +4,7 @@
   "description": "A generated project at Fullstack Academy",
   "main": "server/start.js",
   "scripts": {
+    "test:dev:server": "nodemon ./node_modules/.bin/mocha tests/server/**/*.js",
     "start": "nodemon --watch server -e js,html server/start.js",
     "seed": "node seed.js",
     "postinstall": "gulp build"
@@ -66,5 +67,8 @@
     "socket.io": "^1.3.4",
     "socket.io-client": "^1.3.5",
     "supertest": "^0.15.0"
+  },
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.2.3"
   }
 }
