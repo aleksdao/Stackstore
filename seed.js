@@ -21,6 +21,8 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
+var _ = require('lodash');
+
 var User = mongoose.model('User');
 var Review = mongoose.model('Review');
 var Category = mongoose.model('Category');
@@ -59,12 +61,12 @@ var seedUsers = function () {
         }
     ];
 
-    for (var i = 0; i < 20; i++) {
+    _.times(20, function() {
       var user = {};
       user.email = faker.internet.email();
       user.password = faker.internet.password();
       users.push(user);
-    }
+    });
 
     return User.create(users);
 
@@ -98,7 +100,7 @@ var seedExperiences = function (categories, randomizerIdx) {
 
     var experiences = [];
 
-    for (var i = 0; i < 50; i++) {
+    _.times(50, function () {
       var experience = {};
       experience.name = faker.lorem.words();
       experience.shortDescription = faker.lorem.sentences();
@@ -113,7 +115,7 @@ var seedExperiences = function (categories, randomizerIdx) {
       experience.postalCode = faker.address.zipCode();
       experience.country = faker.address.country();
       experiences.push(experience);
-    }
+    });
 
     return Experience.create(experiences);
 
