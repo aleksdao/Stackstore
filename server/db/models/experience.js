@@ -33,7 +33,7 @@ var experienceSchema = new Schema({
     required: true
   },
   quantity: {
-    type: String,
+    type: Number,
     required: true
   },
   price: {
@@ -75,13 +75,15 @@ var experienceSchema = new Schema({
     type: Date
   },
   createdAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   updatedBy: {
-    type: Date
+    type: Date,
   },
   updatedAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   }
 })
 
