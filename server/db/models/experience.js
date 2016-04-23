@@ -24,6 +24,10 @@ var experienceSchema = new Schema({
     type: String,
     required: true
   },
+  shortDescription: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -43,6 +47,41 @@ var experienceSchema = new Schema({
   },
   categories: {
     type: [categorySchema]
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  address2: {
+    type: String
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
+  postalCode: {
+    type: String,
+    required: true
+  },
+  country: {
+    type: String,
+    required: true
+  },
+  createdBy: {
+    type: Date
+  },
+  createdAt: {
+    type: Date
+  },
+  updatedBy: {
+    type: Date
+  },
+  updatedAt: {
+    type: Date
   }
 })
 

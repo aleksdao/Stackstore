@@ -59,6 +59,13 @@ var seedUsers = function () {
         }
     ];
 
+    for (var i = 0; i < 20; i++) {
+      var user = {};
+      user.email = faker.internet.email();
+      user.password = faker.internet.password();
+      users.push(user);
+    }
+
     return User.create(users);
 
 };
@@ -94,11 +101,17 @@ var seedExperiences = function (categories, randomizerIdx) {
     for (var i = 0; i < 50; i++) {
       var experience = {};
       experience.name = faker.lorem.words();
+      experience.shortDescription = faker.lorem.sentences();
       experience.description = faker.lorem.paragraphs();
       experience.quantity = randomizerIdx(1, 10);
       experience.price = faker.commerce.price();
       experience.categories = [categories[randomizerIdx(0, 8)]];
-      experience.imageUrl = faker.image.nightlife();
+      experience.photoUrl = faker.image.nightlife();
+      experience.address = faker.address.streetAddress();
+      experience.city = faker.address.city();
+      experience.state = faker.address.state();
+      experience.postalCode = faker.address.zipCode();
+      experience.country = faker.address.country();
       experiences.push(experience);
     }
 
