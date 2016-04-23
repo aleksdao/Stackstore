@@ -6,37 +6,47 @@ var _ = require('lodash');
 var User = (mongoose.model('User'));
 
 var ensureAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.status(401).end();
-    }
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(401).end();
+  }
 };
+
 //below routes for member/users create, delete, list all
-router.post('/', function(req, res, next){
-  var newUser = new User({email: req.body.email, password: req.body.password});
+router.post('/', function (req, res, next) {
+  var newUser = new User({ email: req.body.email, password: req.body.password });
   newUser.save()
-  .then(function(user){
+  .then(function (user) {
     res.status(200).json(user);
   });
 
 });
-router.delete('/:id', function(req, res, next){
-  User.remove({_id: req.params.id})
-  .then(function(){
+
+router.delete('/:id', function (req, res, next) {
+  User.remove({ _id: req.params.id })
+  .then(function () {
     res.sendStatus(204);
   });
 });
-router.get('/', function(req, res, next){
+
+router.get('/', function (req, res, next) {
   User.find({})
-  .then(function(users){
+  .then(function (users) {
     res.status(200).json(users);
+  });
+});
+
+router.post('/confirm/', function (req, res, next) {
+  User.findOne({ email: req.body.email })
+  .then(function (user) {
+    if (user === null) {res.json({ message: false }); } else { res.json({ message: true }); }
   });
 });
 
 router.get('/secret-stash', ensureAuthenticated, function (req, res) {
 
-    var theStash = [
+  var theStash = [
         'http://ep.yimg.com/ay/candy-crate/bulk-candy-store-2.gif',
         'http://www.dailybunny.com/.a/6a00d8341bfd0953ef0148c793026c970c-pi',
         'http://images.boomsbeat.com/data/images/full/44019/puppy-wink_1-jpg.jpg',
@@ -50,6 +60,6 @@ router.get('/secret-stash', ensureAuthenticated, function (req, res) {
         'http://www.dailymobile.net/wp-content/uploads/2014/10/lollipops.jpg'
     ];
 
-    res.send(_.shuffle(theStash));
+  res.send(_.shuffle(theStash));
 
 });
