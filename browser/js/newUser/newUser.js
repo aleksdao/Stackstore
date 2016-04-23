@@ -5,7 +5,6 @@ app.config(function ($stateProvider) {
       templateUrl: 'js/newUser/newUser.html',
       controller: 'newUserCtrl',
     });
-
 });
 
 app.factory('newUserFactory', function ($http) {
@@ -14,17 +13,6 @@ app.factory('newUserFactory', function ($http) {
       return $http.post('/api/members/', newUser)
         .then(function (user) {
           return user;
-        });
-    },
-
-    checkUser: function (user) {
-      return $http.post('/api/members/confirm',  user)
-        .then(function (back) {
-          if (back.data.message === true) {
-            return true;
-          }else {
-            return false;
-          }
         });
     },
   };  //end return
@@ -45,20 +33,13 @@ app.controller('newUserCtrl', function ($scope, AuthService, $state, newUserFact
   }// end sendLogin
 
   $scope.sendCreateUser = function () {
-    newUserFactory.checkUser($scope.newUser)
-        .then(function (res) {
-          if (res === true) {
-            $scope.userExists = true;
-            return;
-          } else {
-            newUserFactory.createNewUser($scope.newUser)
-              .then(function (user) {
-                sendLogin($scope.newUser);
-              }).catch(function () {
-                $scope.error = 'Create New User Failed';
-              });
-          }
-        }); //end then
+    newUserFactory.createNewUser($scope.newUser)
+      .then(function (user) {
+        sendLogin($scope.newUser);
+      }).catch(function () {
+        $scope.error = 'Create New User Failed';
+        $scope.userExists = true;
+      });
   };  //end sendCreateUser
 
 });
