@@ -60,14 +60,22 @@ describe('User Routes Tests', function () {
 			});
 		});//end it block
 
-		// it('rejects posting a user that already exists', function(done){
-		// 	guestAgent.post('/api/members/').send(userInfo).expect(500).end(function (err, response) {
-		// 		// if (err) return done(err);
-		// 		// console.log('err', err);
-		// 		// expect(response).to.equal('joe2@gmail.com');
-		// 		done();
-		// 	});
-		// });//end it block
+		it('rejects posting a user that already exists', function(done){
+			guestAgent.post('/api/members/').send(userInfo).expect(500).end(function (err, response) {
+				expect(response.text).to.equal('{"message":"User already exists"}');
+				done();
+			});
+		});//end it block
+
+		it('can delete a user via id', function(done){
+			var id;
+			guestAgent.get('/api/members/').expect(200).end(function (err, response) {
+				id = response.body[0]._id;
+			});
+			guestAgent.delete('/api/members/' + id).send(userInfo).expect(204).end(function (err, response) {
+				done();
+			});
+		});//end it block
 
 });//end Get all users
 

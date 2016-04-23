@@ -36,8 +36,8 @@ app.controller('newUserCtrl', function ($scope, AuthService, $state, newUserFact
     newUserFactory.createNewUser($scope.newUser)
       .then(function (user) {
         sendLogin($scope.newUser);
-      }).catch(function () {
-        $scope.error = 'Create New User Failed';
+      }).catch(function (response) {
+        $scope.error = response.data.message;
         $scope.userExists = true;
       });
   };  //end sendCreateUser

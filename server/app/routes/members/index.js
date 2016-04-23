@@ -15,12 +15,13 @@ var ensureAuthenticated = function (req, res, next) {
 
 //below routes for member/users create, delete, list all
 router.post('/', function (req, res, next) {
-  // var newUser = new User({ email: req.body.email, password: req.body.password });
   User.create({ email: req.body.email, password: req.body.password })
   .then(function (user) {
     res.status(200).json(user);
   })
-  .then(null, next);
+  .then(null, function () {
+    res.status(500).json( {message: 'User already exists'} );
+  });
 });
 
 router.delete('/:id', function (req, res, next) {
