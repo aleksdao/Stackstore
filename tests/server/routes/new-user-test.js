@@ -11,7 +11,7 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var supertest = require('supertest');
 var app = require('../../../server/app');
 
-describe('New User Route', function () {
+describe('User Routes Tests', function () {
 
 	beforeEach('Establish DB connection', function (done) {
 		if (mongoose.connection.db) return done();
@@ -22,9 +22,9 @@ describe('New User Route', function () {
 		clearDB(done);
 	});
 
-	describe('Create New User, and test User routes', function () {
+	describe('User Routes Tests', function () {
 
-		var loggedInAgent;
+		var guestAgent;
 
 		var userInfo = {
 			email: 'joe@gmail.com',
@@ -35,30 +35,40 @@ describe('New User Route', function () {
 			password: 'shoopdawoop'
 		};
 
-		beforeEach('Create a user', function (done) {
-			User.create(userInfo, done);
+		beforeEach('Create guest agent, add a member', function () {
+			guestAgent = supertest.agent(app);
+			guestAgent.post('/api/members/').send(userInfo).expect(200).end(function (err, response) {
+				if (err) return done(err);
+			});
 		});
 
-		beforeEach('Create loggedIn user agent and authenticate', function (done) {
-			myAgent = supertest.agent(app);
-			myAgent.post('/login').send(userInfo).end(done);
-		});
-
-		it('should create new user, retrieve all, and have count of 2', function (done) {
-			myAgent.post('/api/members/').send(userInfo2).expect(200).end(function (err, response) {
+		it('create a new user response is that created user', function(done){
+			guestAgent.post('/api/members/').send(userInfo2).expect(200).end(function (err, response) {
 				if (err) return done(err);
 				expect(response.body.email).to.equal('joe2@gmail.com');
-				// done();
-			});
-			myAgent.get('/api/members/').expect(200).end(function (err, response) {
-				if (err) return done(err);
-				expect(response.body).to.be.an('array');
-				expect(response.body.length).to.equal(2);
-
 				done();
 			});
 		});//end it block
 
-	});//end describe'Create New user'
+		it('Getting all users should return 1 with joe@gmail.com as email address', function (done) {
+			guestAgent.get('/api/members/').expect(200).end(function (err, response) {
+				if (err) return done(err);
+				expect(response.body[0].email).to.equal('joe@gmail.com');
+				expect(response.body).to.be.an('array');
+				expect(response.body.length).to.equal(1);
+				done();
+			});
+		});//end it block
 
-});
+		// it('rejects posting a user that already exists', function(done){
+		// 	guestAgent.post('/api/members/').send(userInfo).expect(500).end(function (err, response) {
+		// 		// if (err) return done(err);
+		// 		// console.log('err', err);
+		// 		// expect(response).to.equal('joe2@gmail.com');
+		// 		done();
+		// 	});
+		// });//end it block
+
+});//end Get all users
+
+}); //end describe New User Route
