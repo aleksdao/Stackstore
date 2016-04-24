@@ -1,4 +1,4 @@
-app.factory('experiences',function($http){
+app.factory('experiencesFactory',function($http){
 	
 	return{
 		fetchAll : function(){
@@ -34,9 +34,9 @@ app.factory('experiences',function($http){
 			});
 		},
 		remove : function(id){
-			return $http.delete('api/experiences/'+id)
+			return $http.delete('/api/experiences/'+id)
 			.then(function(deletedExp){
-				return 'experience delete';
+				return 'experience '+ deletedExp.data.name +' deleted';
 			},function(err){
 				return err;
 			});

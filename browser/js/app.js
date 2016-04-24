@@ -2,10 +2,12 @@
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
+  if(typeof(TEST_MODE) === 'undefined'){
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
-    $locationProvider.html5Mode(true);
+     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+    }
     // Trigger page refresh when accessing an OAuth route
     $urlRouterProvider.when('/auth/:provider', function () {
         window.location.reload();
@@ -19,7 +21,6 @@ app.run(function ($rootScope, AuthService, $state) {
     var destinationStateRequiresAuth = function (state) {
         return state.data && state.data.authenticate;
     };
-
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -29,16 +30,13 @@ app.run(function ($rootScope, AuthService, $state) {
             // Short circuit with return.
             return;
         }
-
         if (AuthService.isAuthenticated()) {
             // The user is authenticated.
             // Short circuit with return.
             return;
         }
-
         // Cancel navigating to new state.
         event.preventDefault();
-
         AuthService.getLoggedInUser().then(function (user) {
             // If a user is retrieved, then renavigate to the destination
             // (the second time, AuthService.isAuthenticated() will work)
