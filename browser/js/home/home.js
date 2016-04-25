@@ -1,6 +1,10 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('home', {
-        url: '/',
-        templateUrl: 'js/home/home.html'
+        url: '/'
+        // controller : 'redirectCTRL'
     });
+
+//
+// app.controller('redirectCTRL', function($scope,$state){
+// 		$state.go('experiences');
 });
