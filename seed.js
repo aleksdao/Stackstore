@@ -27,6 +27,8 @@ var User = mongoose.model('User');
 var Review = mongoose.model('Review');
 var Category = mongoose.model('Category');
 var Experience = mongoose.model('Experience');
+var Cart = mongoose.model('Cart');
+
 
 
 var faker = require("faker");
@@ -36,11 +38,13 @@ var wipeCollections = function () {
     var removeCategories = Category.remove({});
     var removeReviews = Review.remove({});
     var removeExperiences = Experience.remove({});
+    var removeCarts = Cart.remove({});
     return Promise.all([
         removeUsers,
         removeCategories,
         removeReviews,
-        removeExperiences
+        removeExperiences,
+        removeCarts
     ]);
 };
 
@@ -121,6 +125,24 @@ var seedExperiences = function (categories, randomizerIdx) {
 
 };
 
+var seedCarts = function (users, experiences) {
+  var carts = [];
+  for (var i = 0; i < users.length; i++) {
+    var cart = {};
+    cart.userId = users[i]._id;
+    cart.lineItems = [];
+    for (var j = 0; j < 10; j++) {
+      var lineItem = {};
+      lineItem.experienceId = experiences[randomizerIdx(0, 49)];
+      lineItem.quantity = randomizerIdx(0,5);
+      cart.lineItems.push(lineItem);
+    }
+    carts.push(cart);
+  }
+
+  return Cart.create(carts);
+}
+
 // var seedReviews = function (randomizerIdx, products, users) {
 //
 //   var reviews = [];
@@ -144,6 +166,7 @@ var seedExperiences = function (categories, randomizerIdx) {
 // }
 
 var _users;
+var _experiences;
 
 connectToDb
     .then(function () {
@@ -160,6 +183,10 @@ connectToDb
         return seedExperiences(categories, randomizerIdx);
     })
     .then(function (experiences) {
+        _experiences = experiences;
+        return seedCarts(_users, _experiences);
+    })
+    .then(function () {
       console.log(chalk.green('Seed successful!'));
       process.kill(0);
     })
