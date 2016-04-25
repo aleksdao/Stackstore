@@ -72,7 +72,7 @@ describe('User Routes Tests', function () {
 			guestAgent.get('/api/members/').expect(200).end(function (err, response) {
 				id = response.body[0]._id;
 			});
-			guestAgent.delete('/api/members/' + id).expect(204).end(function (err, response) {
+			guestAgent.delete('/api/members' + id).expect(204).end(function (err, response) {
 				done();
 			});
 		});//end it block

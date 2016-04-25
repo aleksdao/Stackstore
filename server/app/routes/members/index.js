@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
     res.status(200).json(user);
   })
   .then(null, function () {
-    res.status(500).json( {message: 'User already exists'} );
+    res.status(500).json({ message: 'User already exists' });
   });
 });
 

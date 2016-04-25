@@ -3,11 +3,16 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 
+function toLower (str) {
+    return str.toLowerCase();
+}
+
 var schema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        set: toLower
     },
     password: {
         type: String,
@@ -49,14 +54,18 @@ var encryptPassword = function (plainText, salt) {
 };
 
 schema.pre('save', function (next) {
-
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-
+    this.constructor.find({email: this.email}, function(err, user){
+      if (err) {
+        return next(err);
+      } else  {
+        next( new Error("email is already registered"));
+      }
+    });
     next();
-
 });
 
 schema.statics.generateSalt = generateSalt;
