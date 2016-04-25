@@ -2,9 +2,10 @@
 	<div class="col-sm-2">filter</div>
 	<div class="col-sm-10">
 		<div ng-repeat="exp in allexp">
-			<a ui-sref="expreience">
+			<a ui-sref="experience">
 				<div class="col-sm-4" >  
 					<div class="expcard">
+					 {{exp.name}}
 						<img class="img-responsive" ng-src="{{exp.photoUrl}}">
 						<p class="price">${{exp.price}}</p>
 						<p class="shortDescription">{{exp.shortDescription}}</p>
