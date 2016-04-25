@@ -93,7 +93,6 @@ app.factory('CartFactory', function ($http) {
     return subtotal;
   }
 
-
   return factory;
-
+  
 })
