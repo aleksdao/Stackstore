@@ -4,11 +4,9 @@
 		<div ng-repeat="exp in allexp">
 			<a ui-sref="expreience">
 				<div class="col-sm-4" >  
-					<div class="expcard">
-						<img class="img-responsive" ng-src="{{exp.photoUrl}}">
-						<p class="price">${{exp.price}}</p>
-						<p class="shortDescription">{{exp.shortDescription}}</p>
-					</div>
+					<img class="img-responsive" ng-src="{{exp.photoUrl}}">
+					<p>{{exp.price}}}</p>
+					<p>{{exp.shortDescription}}</p>
 				</div>
 			</a>
 		</div>
