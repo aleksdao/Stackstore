@@ -58,7 +58,7 @@ schema.pre('save', function (next) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-    this.constructor.find({email: this.email}, function(err, user){
+    this.constructor.findOne({email: this.email}, function(err, user){
       if (err) {
         return next(err);
       } else  {

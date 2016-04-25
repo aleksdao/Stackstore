@@ -1,4 +1,5 @@
 // Instantiate all models
+var bluebird = require('bluebird');
 var mongoose = require('mongoose');
 require('../../../server/db/models');
 var User = mongoose.model('User');
@@ -69,11 +70,11 @@ describe('User Routes Tests', function () {
 
 		it('can delete a user via id', function(done){
 			var id;
-			guestAgent.get('/api/members/').expect(200).end(function (err, response) {
-				id = response.body[0]._id;
-			});
-			guestAgent.delete('/api/members' + id).expect(204).end(function (err, response) {
-				done();
+			guestAgent.post('/api/members/').send(userInfo2).expect(200).end(function (err, response) {
+				id = response.body._id;
+				guestAgent.delete('/api/members/' + id).expect(204).end(function (err, response) {
+					done();
+				});
 			});
 		});//end it block
 
