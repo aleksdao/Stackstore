@@ -8,8 +8,9 @@
     </tr>
     <tr ng-repeat='lineItem in cart.lineItems'>
       <td>{{ lineItem.experienceId.name }}</td>
-      <td>{{ lineItem.experienceId.quantity }}</td>
+      <td>{{ lineItem.quantity }}</td>
       <td>{{ lineItem.experienceId.price }}</td>
+      <td><button class='btn btn-med btn-warning' ng-click='removeFromCart(lineItem)'>Remove</button></td>
     </tr>
   </table>
 </div>

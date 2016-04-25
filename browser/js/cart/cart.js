@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
 })
 
 app.controller('CartCtrl', function ($scope, cart, CartFactory) {
-  console.log(cart);
+
   $scope.cart = cart;
 
   $scope.addToCart = function (lineItem) {
@@ -25,8 +25,9 @@ app.controller('CartCtrl', function ($scope, cart, CartFactory) {
 
   $scope.removeFromCart = function (lineItem) {
     CartFactory.removeFromCart(lineItem, $scope.cart)
-      .then(function (cart) {
-        $scope.cart = cart;
+      .then(function (modifiedCart) {
+        console.log('this is the cart htat is returned to scope: ', modifiedCart);
+        $scope.cart = modifiedCart;
       })
   }
 })
@@ -37,10 +38,11 @@ app.factory('CartFactory', function ($http) {
   var depopulateLineItemsArr = function (lineItems) {
     var depopulatedLineItems = lineItems.map(function (lineItem) {
       var depopulatedLineItem = {};
-      depopulatedLineItem.experienceId = lineItem.experienceId;
+      depopulatedLineItem.experienceId = lineItem.experienceId._id;
       depopulatedLineItem.quantity = lineItem.quantity;
       return depopulatedLineItem;
     })
+    console.log('depopulated line items', depopulatedLineItems);
     return depopulatedLineItems;
   }
 
@@ -59,22 +61,22 @@ app.factory('CartFactory', function ($http) {
 
   factory.addToCart = function (lineItem, cart) {
     var lineItems = depopulateLineItemsArr(cart.lineItems);
-    lineItems.push(lineItem._id);
-    return $http.put('/api/cart/' + cart._id, lineItems)
+    lineItems.push(lineItem.experienceId._id);
+    return $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
       .then(function (response) {
-        var cart = response.data;
-        return cart;
+        var modifiedCart = response.data;
+        return modifiedCart;
       })
   }
 
   factory.removeFromCart = function (lineItem, cart) {
-    var lineItems = depopulateLineItemsArr(cart.lineItems);
-    var lineItemIdx = lineItems.indexOf(lineItem._id);
-    lineItems.splice(lineItemIdx, 1);
-    return $http.put('/api/cart/' + cart._id, lineItems)
+    var lineItemIdx = cart.lineItems.indexOf(lineItem);
+    cart.lineItems.splice(lineItemIdx, 1);
+    var depopulatedLineItems = depopulateLineItemsArr(cart.lineItems);
+    return $http.put('/api/cart/' + cart._id, { lineItems: depopulatedLineItems })
       .then(function (response) {
-        var cart = response.data;
-        return cart;
+        var modifiedCart = response.data;
+        return modifiedCart;
       })
   }
 
