@@ -1,0 +1,13 @@
+<div class="container-fluid">
+	<div class="col-sm-2">filter</div>
+	<div class="col-sm-10">
+		<div ng-repeat="exp in allexp">
+			<a ui-sref="expreience">
+				<div class="col-sm-4" >  
+					<img class="img-responsive" ng-src="{{exp.photoUrl}}">
+					<p>{{exp.price}}}</p>
+					<p>{{exp.shortDescription}}</p>
+				</div>
+			</a>
+		</div>
+	</div>

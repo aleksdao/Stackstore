@@ -1,9 +1,6 @@
-app.controller('experiencesCTRL',function($scope,experiencesFactory){
-experiencesFactory.fetchAll()
-.then(function(experiences){
-	$scope.experiences=experiences;
-	//console.log($scope.experiences);
-});
-
-
+app.controller('experiencesCTRL',function($scope,experiencesFactory,$state,$timeout){
+	experiencesFactory.fetchAll()
+	.then(function(allexp){
+		$scope.allexp=allexp;
+	});
 });
