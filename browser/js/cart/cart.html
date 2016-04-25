@@ -1,0 +1,15 @@
+<div class='container'>
+  <h3>Shopping Cart</h3>
+  <table class='table'>
+    <tr>
+      <th>Experience</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    <tr ng-repeat='lineItem in cart.lineItems'>
+      <td>{{ lineItem.experienceId.name }}</td>
+      <td>{{ lineItem.experienceId.quantity }}</td>
+      <td>{{ lineItem.experienceId.price }}</td>
+    </tr>
+  </table>
+</div>

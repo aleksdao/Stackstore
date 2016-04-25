@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Experience = mongoose.model('Experience');
+var User = mongoose.model('User');
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
@@ -16,8 +17,18 @@ router.param('id', function (req, res, next, id) {
   next();
 });
 
+//ALex: Middleware below is setting a user for easier testing with Postman.
+//Feel free to remove if you don't need it
+
+router.use('/', function (req, res, next) {
+  User.find({})
+    .then(function (users) {
+      req.user = users[0];
+      next();
+    })
+})
+
 router.get('/', function (req, res, next) {
-  console.log(req.user);
   Experience.find({})
     .then(function (experiences) {
       res.send(experiences);

@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
+var User = mongoose.model('User');
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
@@ -12,24 +13,36 @@ var ensureAuthenticated = function (req, res, next) {
   }
 };
 
-router.get('/', ensureAuthenticated, function (req, res, next) {
+//Alex: Middleware below is setting a user for easier testing with Postman.
+//Feel free to remove if you don't need it
+
+router.use('/', function (req, res, next) {
+  User.find({})
+    .then(function (users) {
+      req.user = users[0];
+      next();
+    })
+})
+
+router.get('/', function (req, res, next) {
   Cart.findOne({ userId: req.user._id })
-    .populate('experiences')
+    .populate('lineItems.experienceId')
     .then(function (retrievedCart) {
       res.send(retrievedCart);
     })
 })
 
-router.post('/', ensureAuthenticated, function (req, res, next) {
+router.post('/', function (req, res, next) {
   Cart.create({ userId: req.user._id })
     .then(function (createdCart) {
       res.status(201).send(createdCart);
     })
 })
 
-router.put('/:id', ensureAuthenticated, function (req, res, next) {
+router.put('/:id', function (req, res, next) {
+  console.log(req.body);
   Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .populate('experiences')
+    .populate('lineItems.experienceId')
     .then(function (modifiedCart) {
       res.send(modifiedCart);
     })

@@ -2,17 +2,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var cartSchema = new Schema({
-  user_id: {type: Schema.Types.ObjectId, ref: 'User'},
-  line_items: [
+  userId: {type: Schema.Types.ObjectId, ref: 'User'},
+  lineItems: [
     {
-      experience_id: {type: Schema.Types.ObjectId, ref: 'Experience'},
+      experienceId: {type: Schema.Types.ObjectId, ref: 'Experience'},
       quantity: Number
     }
   ],
-  created_by: {type: Schema.Types.ObjectId, ref: 'User'},
-  created_date: Date,
-  updated_by: {type: Schema.Types.ObjectId, ref: 'User'},
-  updated_date: Date
+  createdBy: {type: Schema.Types.ObjectId, ref: 'User'},
+  createdDate: Date,
+  updatedBy: {type: Schema.Types.ObjectId, ref: 'User'},
+  updatedDate: Date
 });
 
 
