@@ -1,16 +1,25 @@
 <div class='container'>
   <h3>Shopping Cart</h3>
-  <table class='table'>
-    <tr>
-      <th>Experience</th>
-      <th>Quantity</th>
-      <th>Price</th>
-    </tr>
-    <tr ng-repeat='lineItem in cart.lineItems'>
-      <td>{{ lineItem.experienceId.name }}</td>
-      <td>{{ lineItem.quantity }}</td>
-      <td>{{ lineItem.experienceId.price }}</td>
-      <td><button class='btn btn-med btn-warning' ng-click='removeFromCart(lineItem)'>Remove</button></td>
-    </tr>
+  <table class='table table-hover'>
+    <thead class='thead-default'>
+      <tr>
+        <th>Experience</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='lineItem in cart.lineItems'>
+        <td>{{ lineItem.experienceId.name }}</td>
+        <td>{{ lineItem.quantity }}</td>
+        <td>{{ lineItem.experienceId.price }}</td>
+        <td><button class='btn btn-med btn-warning' ng-click='removeFromCart(lineItem)'>Remove</button></td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>{{ subtotal }}</td>
+        <td>{{ getSubtotal(cart) }}</td>
+      </tr>
+    </tbody>
   </table>
 </div>

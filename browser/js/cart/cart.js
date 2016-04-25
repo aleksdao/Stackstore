@@ -14,7 +14,9 @@ app.config(function ($stateProvider) {
 
 app.controller('CartCtrl', function ($scope, cart, CartFactory) {
 
+  // $scope.cart = cart;
   $scope.cart = cart;
+
 
   $scope.addToCart = function (lineItem) {
     CartFactory.addToCart(lineItem, $scope.cart)
@@ -30,6 +32,10 @@ app.controller('CartCtrl', function ($scope, cart, CartFactory) {
         $scope.cart = modifiedCart;
       })
   }
+
+  $scope.getSubtotal = function (cart) {
+    return CartFactory.getSubtotal(cart);
+  }
 })
 
 app.factory('CartFactory', function ($http) {
@@ -42,7 +48,6 @@ app.factory('CartFactory', function ($http) {
       depopulatedLineItem.quantity = lineItem.quantity;
       return depopulatedLineItem;
     })
-    console.log('depopulated line items', depopulatedLineItems);
     return depopulatedLineItems;
   }
 
@@ -79,6 +84,15 @@ app.factory('CartFactory', function ($http) {
         return modifiedCart;
       })
   }
+
+  factory.getSubtotal = function (cart) {
+    var subtotal = 0;
+    cart.lineItems.forEach(function (lineItem) {
+      subtotal += lineItem.quantity * lineItem.experienceId.price;
+    })
+    return subtotal;
+  }
+
 
   return factory;
 
