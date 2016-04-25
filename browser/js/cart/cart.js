@@ -53,11 +53,7 @@ app.factory('CartFactory', function ($http) {
     return $http.get('/api/cart')
       .then(function (response) {
         var cart = response.data;
-        if (cart) {
-          console.log('found cart', cart._id)
-          return cart;
-        }
-
+        return cart;
       })
   }
 
