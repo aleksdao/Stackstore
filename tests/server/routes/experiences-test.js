@@ -31,7 +31,7 @@ describe('Experiences Route', function () {
       guestAgent = supertest.agent(app);
     })
 
-    it('should get a 401 repsonse', function (done) {
+    xit('should get a 401 repsonse', function (done) {
       guestAgent.get('/api/experiences')
         .expect(401)
         .end(done);
