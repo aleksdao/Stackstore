@@ -15,13 +15,22 @@ app.config(function ($stateProvider) {
 app.controller('CartCtrl', function ($scope, cart, CartFactory) {
   $scope.cart = cart;
 
+  var depopulateExperiencesArr = function (experiences) {
+    var depopulatedExperiences = experiences.map(function (experience) {
+      return experience._id;
+    })
+    return depopulatedExperiences;
+  }
+
   $scope.addToCart = function (experience) {
+    $scope.cart.experiences = depopulateExperiencesArr($scope.cart.experiences);
     $scope.cart.experiences.push(experience._id);
     return CartFactory.addToCart($scope.cart._id, $scope.cart.experiences);
   }
 
   $scope.removeFromCart = function (experience) {
-    var experienceIdx = $scope.cart.experiences.indexOf(experience);
+    $scope.cart.experiences = depopulateExperiencesArr($scope.cart.experiences);
+    var experienceIdx = $scope.cart.experiences.indexOf(experience._id);
     $scope.cart.experiences.splice(experienceIdx, 1);
     return CartFactory.removeFromCart($scope.cart._id, $scope.cart.experiences);
   }
