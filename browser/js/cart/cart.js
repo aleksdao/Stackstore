@@ -61,8 +61,8 @@ app.factory('CartFactory', function ($http) {
 
   factory.addToCart = function (lineItem, cart) {
     var lineItems = depopulateLineItemsArr(cart.lineItems);
-    lineItems.push(lineItem._id);
-    return $http.put('/api/cart/' + cart._id, lineItems)
+    lineItems.push(lineItem.experienceId._id);
+    return $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
       .then(function (response) {
         var modifiedCart = response.data;
         return modifiedCart;
@@ -71,11 +71,8 @@ app.factory('CartFactory', function ($http) {
 
   factory.removeFromCart = function (lineItem, cart) {
     var lineItemIdx = cart.lineItems.indexOf(lineItem);
-    console.log('found index', lineItemIdx);
     cart.lineItems.splice(lineItemIdx, 1);
-    console.log('line items before depopulate', cart.lineItems);
     var depopulatedLineItems = depopulateLineItemsArr(cart.lineItems);
-    console.log('this should be ' + depopulatedLineItems.length, depopulatedLineItems);
     return $http.put('/api/cart/' + cart._id, { lineItems: depopulatedLineItems })
       .then(function (response) {
         var modifiedCart = response.data;
