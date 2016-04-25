@@ -134,7 +134,7 @@ var seedCarts = function (users, experiences) {
     for (var j = 0; j < 10; j++) {
       var lineItem = {};
       lineItem.experienceId = experiences[randomizerIdx(0, 49)];
-      lineItem.quantity = randomizerIdx(0,5);
+      lineItem.quantity = randomizerIdx(1,5);
       cart.lineItems.push(lineItem);
     }
     carts.push(cart);
