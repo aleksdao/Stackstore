@@ -5,6 +5,8 @@
   "main": "server/start.js",
   "scripts": {
     "test:dev:server": "nodemon ./node_modules/.bin/mocha tests/server/**/*.js",
+    "test:dev:browser": "nodemon ./node_modules/.bin/karma start tests/browser/karma.conf.js tests/browser/**/*.js",
+    
     "start": "nodemon --watch server -e js,html server/start.js",
     "seed": "node seed.js",
     "postinstall": "gulp build"

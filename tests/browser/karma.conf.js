@@ -10,6 +10,7 @@ module.exports = function (config) {
         'node_modules/angular-ui-bootstrap/ui-bootstrap.js',
         'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
         'node_modules/socket.io-client/socket.io.js',
+        'tests/browser/env.js',
         'public/main.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
