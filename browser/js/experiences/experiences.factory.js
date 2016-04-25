@@ -1,5 +1,5 @@
 app.factory('experiencesFactory',function($http){
-	
+
 	return{
 		fetchAll : function(){
 			return $http.get('/api/experiences/')
@@ -15,7 +15,7 @@ app.factory('experiencesFactory',function($http){
 				return result.data;
 			},function(err){
 				return err;
-			});	
+			});
 		},
 		add : function(data){
 			return $http.post('/api/experiences/')
@@ -41,6 +41,6 @@ app.factory('experiencesFactory',function($http){
 				return err;
 			});
 		},
-		
+
 	};
 });
