@@ -16,21 +16,22 @@ router.param('id', function (req, res, next, id) {
   next();
 })
 
-router.get('/', ensureAuthenticated, function (req, res, next) {
+router.get('/', function (req, res, next) {
+  console.log(req.user);
   Experience.find({})
     .then(function (experiences) {
       res.send(experiences);
     })
 })
 
-router.get('/:id', ensureAuthenticated, function (req, res, next) {
+router.get('/:id', function (req, res, next) {
   Experience.findById(req.id)
     .then(function (experience) {
       res.send(experience);
     })
 })
 
-router.post('/', ensureAuthenticated, function (req, res, next) {
+router.post('/', function (req, res, next) {
   Experience.create(req.body)
     .then(function (createdExperience) {
       res.status(201).send(createdExperience);
@@ -40,7 +41,7 @@ router.post('/', ensureAuthenticated, function (req, res, next) {
 //the { new: true } option tells mongoose to send back the modified document.
 //default is false, which is to return original document. Strange behavior
 
-router.put('/:id', ensureAuthenticated, function (req, res, next) {
+router.put('/:id', function (req, res, next) {
   Experience.findByIdAndUpdate(req.id, req.body, { new: true })
     .then(function (updatedExperience) {
       res.send(updatedExperience);

@@ -12,33 +12,30 @@ var ensureAuthenticated = function (req, res, next) {
   }
 };
 
-router.param('id', function (req, res, next, id) {
-  // req.id = id;
-  Cart.findById(id)
+router.get('/', ensureAuthenticated, function (req, res, next) {
+  Cart.findOne({ userId: req.user._id })
+    .populate('experiences')
     .then(function (retrievedCart) {
-      req.cart = retrievedCart;
+      res.send(retrievedCart);
     })
-  next();
 })
 
-router.get('/:id', function (req, res, next) {
-  res.send(req.cart);
-})
-
-router.post('/', function (req, res, next) {
-  Cart.create({ userId: req.body.userId })
+router.post('/', ensureAuthenticated, function (req, res, next) {
+  Cart.create({ userId: req.user._id })
     .then(function (createdCart) {
       res.status(201).send(createdCart);
     })
 })
 
-router.put('/:id', function (req, res, next) {
-  req.cart.set(req.body);
-  req.cart.save()
+router.put('/:id', ensureAuthenticated, function (req, res, next) {
+  Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .populate('experiences')
     .then(function (modifiedCart) {
       res.send(modifiedCart);
     })
 })
+
+module.exports = router;
 
 // Do we need a delete route? I don't see us ever deleting the cart. Users
 // can remove items from the cart but the cart should persist, right?
