@@ -4,6 +4,9 @@
 
 body {
   background: #fdfdfd;
+  font-family: "tenso",sans-serif;
+  font-style: normal;
+  font-weight: 500;
 }
 
 @mixin clearfix {
@@ -15,7 +18,7 @@ body {
 }
 
 #main {
-  padding-top: 60px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 

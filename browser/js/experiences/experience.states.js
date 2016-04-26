@@ -16,10 +16,10 @@ app.config(function($stateProvider){
 		.state('experience',{
 			url:'/experiences/:id',
 			templateUrl: '/js/experiences/experienceDetail.html',
-			controller : 'experiencesCTRL',
+			controller : 'experienceDetailCTRL',
 			resolve : {
-				experience : function(){
-
+				experience: function  (experiencesFactory, $stateParams) {
+					return experiencesFactory.fetch($stateParams.id);
 				}
 			}
 	});
