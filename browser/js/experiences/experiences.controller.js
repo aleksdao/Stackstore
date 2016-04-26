@@ -12,18 +12,21 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 	}
 
 	$scope.toggle = function (category) {
-		var refreshCatsAndExperiences;
 		if ($scope.isSelected(category)) {
-			refreshCatsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category)
-		}
-		else {
-			refreshCatsAndExperiences = CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
-		}
-		refreshCatsAndExperiences
-			.then(function (catsAndExperiences) {
+			var catsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category);
+
 				$scope.allexp = catsAndExperiences.experiences;
 				$scope.checkedCategories = catsAndExperiences.categories;
+
+		}
+		else {
+			CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
+				.then(function (catsAndExperiences) {
+					$scope.allexp = catsAndExperiences.experiences;
+					$scope.checkedCategories = catsAndExperiences.categories;
 			})
+		}
+
 	}
 
 
