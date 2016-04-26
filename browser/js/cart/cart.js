@@ -59,6 +59,13 @@ app.factory('CartFactory', function ($http) {
   factory.fetchCart = function () {
     return $http.get('/api/cart')
       .then(function (response) {
+        if (response.data)
+          return response;
+        else {
+          return $http.post('/api/cart');
+        }
+      })
+      .then(function (response) {
         var cart = response.data;
         return cart;
       })
@@ -94,5 +101,5 @@ app.factory('CartFactory', function ($http) {
   }
 
   return factory;
-  
+
 })
