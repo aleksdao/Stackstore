@@ -1,7 +1,6 @@
-app.directive('experieceCard',function(){
+app.directive('experienceCard',function(){
 	return{
-		restrict : AE,
-		templateUrl : '/js/experiences/expcard.html'
-
+		restrict : 'AE',
+		templateUrl : '/js/experiences/experience-card.html'
 	};
 });
