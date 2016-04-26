@@ -51,10 +51,9 @@ app.factory('CartFactory', function ($http) {
     return depopulatedLineItems;
   }
 
-  //Alex: I seeded the database with a cart for every single user, so the
-  //below always returns a cart. I think any time a new user is created,
-  //a corresponding cart should also be created. that functionality still
-  //needs to be added
+  //Alex: The following function retrieves a cart based on the logged in user's
+  //id. If it's a new user and cart doesn't exist, we make POST call to /api/cart//
+  //to create a cart.
 
   factory.fetchCart = function () {
     return $http.get('/api/cart')
