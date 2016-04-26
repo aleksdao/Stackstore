@@ -40,7 +40,6 @@ router.post('/', function (req, res, next) {
 })
 
 router.put('/:id', function (req, res, next) {
-  console.log(req.body);
   Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .populate('lineItems.experienceId')
     .then(function (modifiedCart) {
