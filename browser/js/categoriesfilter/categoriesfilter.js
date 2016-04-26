@@ -20,7 +20,7 @@ app.factory('CategoriesFactory', function ($http) {
     var catsAndExperiences = {};
     var categoryIdx = categories.indexOf(category);
     experiences = experiences.filter(function (experience) {
-      return experience._id === category._id;
+      return experience.category._id !== category._id;
     })
     categories.splice(categoryIdx, 1);
     catsAndExperiences.experiences = experiences;
