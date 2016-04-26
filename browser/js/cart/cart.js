@@ -28,7 +28,6 @@ app.controller('CartCtrl', function ($scope, cart, CartFactory) {
   $scope.removeFromCart = function (lineItem) {
     CartFactory.removeFromCart(lineItem, $scope.cart)
       .then(function (modifiedCart) {
-        console.log('this is the cart htat is returned to scope: ', modifiedCart);
         $scope.cart = modifiedCart;
       })
   }
@@ -64,9 +63,18 @@ app.factory('CartFactory', function ($http) {
       })
   }
 
-  factory.addToCart = function (lineItem, cart) {
-    var lineItems = depopulateLineItemsArr(cart.lineItems);
-    lineItems.push(lineItem.experienceId._id);
+  factory.addToCart = function (cart, experience) {
+    console.log(cart);
+    var lineItems;
+    if(cart.lineItems)
+      lineItems = depopulateLineItemsArr(cart.lineItems);
+    else {
+      lineItems = [];
+    }
+    var newLineItem = {};
+    newLineItem.experienceId = experience._id;
+    newLineItem.quantity = 1;
+    lineItems.push(newLineItem);
     return $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
       .then(function (response) {
         var modifiedCart = response.data;
@@ -94,5 +102,5 @@ app.factory('CartFactory', function ($http) {
   }
 
   return factory;
-  
+
 })

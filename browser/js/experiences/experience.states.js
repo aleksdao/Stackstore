@@ -20,7 +20,11 @@ app.config(function($stateProvider){
 			resolve : {
 				experience: function  (experiencesFactory, $stateParams) {
 					return experiencesFactory.fetch($stateParams.id);
+				},
+				cart: function (CartFactory) {
+					return CartFactory.fetchCart();
 				}
+
 			}
 	});
 });
