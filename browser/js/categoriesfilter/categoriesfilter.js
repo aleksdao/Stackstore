@@ -8,33 +8,34 @@ app.factory('CategoriesFactory', function ($http) {
       })
   }
 
-  factory.fetchProductsByCategory = function (category) {
-    return $http.get('/api/categories/' + category._id)
+  factory.fetchExperiencesByCategory = function (category) {
+    return $http.get('/api/categories/' + category._id + '/experiences')
       .then(function (response) {
-        var products = response.data;
-        return products;
+        var experiences = response.data;
+        return experiences;
       })
   }
 
-  factory.toggleCategory = function (categories, category) {
+  factory.removeCatAndExp = function (experiences, categories, category) {
+    var catsAndExperiences = {};
     var categoryIdx = categories.indexOf(category);
-    if (categoryIdx === -1) {
-      categories.push(category);
-    }
-    else {
-      categories.splice(categoryIdx, 1);
-    }
-    return $http.get('/api/experiences')
-      .then(function (response) {
-        var catsAndExperiences = {};
-        var allExperiences = response.data;
-        categories = categories.map(function (category) {
-          return category._id;
-        })
-        var experiencesWithCats = allExperiences.filter(function (experience) {
-          return (categories.indexOf(experience.category._id) >= 0);
-        })
-        catsAndExperiences.experiences = experiencesWithCats;
+    experiences = experiences.filter(function (experience) {
+      return experience._id === category._id;
+    })
+    categories.splice(categoryIdx, 1);
+    catsAndExperiences.experiences = experiences;
+    catsAndExperiences.categories = categories;
+    return catsAndExperiences;
+  }
+
+  factory.addCatAndExp = function (experiences, categories, category) {
+    if (categories.length === 0) experiences = [];
+    var catsAndExperiences = {};
+    categories.push(category);
+    return this.fetchExperiencesByCategory(category)
+      .then(function (newExperiences) {
+        experiences = experiences.concat(newExperiences);
+        catsAndExperiences.experiences = experiences;
         catsAndExperiences.categories = categories;
         return catsAndExperiences;
       })

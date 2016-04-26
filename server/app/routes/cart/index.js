@@ -25,11 +25,14 @@ var ensureAuthenticated = function (req, res, next) {
 // })
 
 router.get('/', function (req, res, next) {
+
   Cart.findOne({ userId: req.user._id })
     .populate('lineItems.experienceId')
     .then(function (retrievedCart) {
       res.send(retrievedCart);
     })
+
+
 })
 
 router.post('/', function (req, res, next) {
