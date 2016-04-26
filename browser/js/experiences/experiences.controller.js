@@ -1,19 +1,31 @@
 app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories){
 
-	$scope.allexp = experiences;
+	// $scope.allexp = experiences;
+	$scope.allexp = [];
 
 	$scope.categories = categories;
-	$scope.checkedCategories = categories.slice();
+	$scope.checkedCategories = [];
 
-	$scope.toggleCategory = function (category) {
+	$scope.isSelected = function (category) {
+		return $scope.checkedCategories.indexOf(category) >= 0;
+	}
 
-		CategoriesFactory.toggleCategory($scope.checkedCategories, category)
+	$scope.toggle = function (category) {
+		var refreshCatsAndExperiences;
+		if ($scope.isSelected(category)) {
+			refreshCatsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category)
+		}
+		else
+		{
+			refreshCatsAndExperiences = CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
+		}
+		refreshCatsAndExperiences
 			.then(function (catsAndExperiences) {
 				$scope.allexp = catsAndExperiences.experiences;
-				$scope.checkedCategories = $scope.checkedCategories.filter(function (category) {
-					return catsAndExperiences.categories.indexOf(category._id) >= 0;
-				});
-			});
-	};
+				$scope.checkedCategories = catsAndExperiences.categories;
+			})
+	}
+
+
 
 });

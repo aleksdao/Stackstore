@@ -70,7 +70,6 @@ app.factory('CartFactory', function ($http) {
   }
 
   factory.addToCart = function (cart, experience) {
-    console.log(cart);
     var lineItems;
     if(cart.lineItems)
       lineItems = depopulateLineItemsArr(cart.lineItems);
