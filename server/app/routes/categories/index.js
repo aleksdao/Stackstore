@@ -14,7 +14,6 @@ router.get('/', function (req, res, next) {
 router.get('/:id/experiences', function (req, res, next) {
   Category.findById(req.params.id)
     .then(function (category) {
-      console.log('category',category);
       return Experience.find({ 'category.name' : category.name });
     })
     .then(function (experiences) {

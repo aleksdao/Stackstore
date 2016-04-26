@@ -1,7 +1,8 @@
 app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories){
 
 	// $scope.allexp = experiences;
-	$scope.allexp = [];
+	// $scope.numCatsSelected = 0;
+	$scope.allexp = experiences;
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
@@ -15,8 +16,7 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 		if ($scope.isSelected(category)) {
 			refreshCatsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category)
 		}
-		else
-		{
+		else {
 			refreshCatsAndExperiences = CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
 		}
 		refreshCatsAndExperiences
@@ -25,6 +25,7 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 				$scope.checkedCategories = catsAndExperiences.categories;
 			})
 	}
+
 
 
 

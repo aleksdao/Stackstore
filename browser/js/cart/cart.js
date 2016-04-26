@@ -55,10 +55,12 @@ app.factory('CartFactory', function ($http) {
   //to create a cart.
 
   factory.fetchCart = function () {
+    console.log('here tho is ok')
     return $http.get('/api/cart')
       .then(function (response) {
-        if (response.data)
+        if (response.data) {
           return response;
+        }
         else {
           return $http.post('/api/cart');
         }

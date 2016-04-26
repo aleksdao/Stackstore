@@ -29,6 +29,7 @@ app.factory('CategoriesFactory', function ($http) {
   }
 
   factory.addCatAndExp = function (experiences, categories, category) {
+    if (categories.length === 0) experiences = [];
     var catsAndExperiences = {};
     categories.push(category);
     return this.fetchExperiencesByCategory(category)
