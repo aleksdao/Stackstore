@@ -13,7 +13,7 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 				$scope.checkedCategories = $scope.checkedCategories.filter(function (category) {
 					return catsAndExperiences.categories.indexOf(category._id) >= 0;
 				});
-			})
-	}
+			});
+	};
 
 });
