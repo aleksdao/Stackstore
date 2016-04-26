@@ -1,9 +1,17 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-2">filter</div>
+		<div class="col-sm-2">
+			<label><h3>Categories</h3></label>
+			<div class='btn-group-vertical'>
+				<button type='button' class='btn btn-default btn-med' ng-click='toggleCategory(category)' ng-repeat='category in categories' ng-class='{ "btn-primary" : checkedCategories.indexOf(category) >= 0 }'>
+				  {{ category.name }}
+				</button>
+			</div>
+		</div>
 		<div class="col-sm-10">
 			<div class="row">
 		    <div class="col-xs-12">
+					Number of experiences: {{ allexp.length }}
 		      <div class="input-group input-group-lg">
 		        <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
 		        <input type="text" class="form-control" placeholder="Search Experiences" ng-model="expsearch"/>
