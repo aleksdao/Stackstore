@@ -13,7 +13,7 @@ app.config(function($stateProvider){
 				}
 			}
 		})
-		.state('experience',{
+		.state('experience', {
 			url:'/experiences/:id',
 			templateUrl: '/js/experiences/experienceDetail.html',
 			controller : 'experienceDetailCTRL',
@@ -26,5 +26,9 @@ app.config(function($stateProvider){
 				}
 
 			}
-	});
+		})
+		.state('newExperience', {
+			url:'/experiences/new',
+			templateUrl: '/js/experiences/new.html'
+		})
 });

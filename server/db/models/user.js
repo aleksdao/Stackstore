@@ -18,6 +18,10 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    admin: {
+      type: Boolean,
+      default: false
+    },
     salt: {
         type: String
     },
