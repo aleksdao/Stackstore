@@ -124,6 +124,7 @@ var seedExperiences = function (categories, randomizerIdx) {
       experience.shortDescription = faker.lorem.sentences();
       experience.description = faker.lorem.paragraphs();
       experience.quantity = randomizerIdx(1, 10);
+      experience.tempQuantity = experience.quantity;
       experience.price = faker.commerce.price();
       experience.category = categories[randomizerIdx(0, categories.length - 1)];
       experience.photoUrl = _photoUrls[randomizerIdx(0, _photoUrls.length-1)];

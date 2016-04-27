@@ -50,6 +50,10 @@ app.factory('CartFactory', function ($http) {
     return depopulatedLineItems;
   }
 
+  var experiencesLeft = function (experience) {
+    return experience.quantity;
+  }
+
   //Alex: The following function retrieves a cart based on the logged in user's
   //id. If it's a new user and cart doesn't exist, we make POST call to /api/cart//
   //to create a cart.
@@ -78,15 +82,29 @@ app.factory('CartFactory', function ($http) {
     else {
       lineItems = [];
     }
-    var newLineItem = {};
-    newLineItem.experienceId = experience._id;
-    newLineItem.quantity = 1;
-    lineItems.push(newLineItem);
-    return $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
+    var experienceIsInCart = false;
+
+    lineItems = lineItems.map(function (lineItem) {
+      if (lineItem.experienceId === experience._id) {
+        experienceIsInCart = true;
+        lineItem.quantity += 1;
+      }
+      return lineItem;
+    })
+    if (!experienceIsInCart) {
+      var newLineItem = {};
+      newLineItem.experienceId = experience._id;
+      newLineItem.quantity = 1;
+      lineItems.push(newLineItem);
+    }
+
+
+    $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
       .then(function (response) {
         var modifiedCart = response.data;
         return modifiedCart;
       })
+
   }
 
   factory.removeFromCart = function (lineItem, cart) {
