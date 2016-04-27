@@ -97,12 +97,20 @@ app.factory('CartFactory', function ($http) {
       newLineItem.quantity = 1;
       lineItems.push(newLineItem);
     }
+    experience.tempQuantity--;
 
+    var toReturn = {};
 
-    $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
+    return $http.put('/api/experiences/' + experience._id, experience)
+      .then(function (response) {
+        console.log(response.data);
+        toReturn.tempQuantity = response.data.tempQuantity;
+        return $http.put('/api/cart/' + cart._id, { lineItems: lineItems })
+      })
       .then(function (response) {
         var modifiedCart = response.data;
-        return modifiedCart;
+        toReturn.modifiedCart = response.data;
+        return toReturn;
       })
 
   }
