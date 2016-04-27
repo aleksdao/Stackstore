@@ -14,6 +14,7 @@ app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, exp
 					content: '<h2>Item added to Cart</h2>'
 				});//end ngToast.create
 			});
+
 	};
 
 $scope.experienceInStock = function () {

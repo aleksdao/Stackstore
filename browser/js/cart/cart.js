@@ -97,8 +97,8 @@ app.factory('CartFactory', function ($http) {
       newLineItem.quantity = 1;
       lineItems.push(newLineItem);
     }
-
     experience.tempQuantity--;
+
 
     var toReturn = {};
 
