@@ -27,7 +27,9 @@
 
 						<h4 class="pull-right">Only {{experience.quantity}} spots left. Reserve now! &nbsp &nbsp ${{experience.price}}</h4>
 							<div class="clear"></div>
-						<button type="button" class="btn btn-success pull-right" ng-click="addToCart(experience)">Add to Cart</button>
+						<!-- <button type="button" class="btn btn-success pull-right" ng-click="addToCart(experience)">Add to Cart</button> -->
+						<md-button class="md-raised pull-right" ng-click="addToCart(experience)"><md-icon class="material-icons" ng-style='{ color: "rgb(89, 226, 168)" }'>add_shopping_cart</md-icon></md-button>
+
 					</div>
 					<div class="col-sm-2 ">
 					</div>
