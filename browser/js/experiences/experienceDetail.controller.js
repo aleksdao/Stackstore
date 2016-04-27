@@ -4,17 +4,18 @@ app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, exp
 
 	$scope.tempQuantity = experience.tempQuantity;
 
-$scope.addToCart	= function (experience) {
-	CartFactory.addToCart($scope.cart, experience)
-		.then(function (returnedObj) {
-			$scope.cart = returnedObj.modifiedCart;
-			$scope.tempQuantity = returnedObj.tempQuantity;
-			ngToast.create({
-				className: 'success',
-				content: '<h2>Item added to Cart</h2>'
-			});//end ngToast.create
-		});//end then
-};//end addToCart
+	$scope.addToCart	= function (experience) {
+		$scope.tempQuantity--;
+		CartFactory.addToCart($scope.cart, experience)
+			.then(function (returnedObj) {
+				$scope.cart = returnedObj.modifiedCart;
+				$scope.tempQuantity = returnedObj.tempQuantity;
+				ngToast.create({
+					className: 'success',
+					content: '<h2>Item added to Cart</h2>'
+				});//end ngToast.create
+			});
+	};
 
 $scope.experienceInStock = function () {
 	return $scope.tempQuantity > 0;
