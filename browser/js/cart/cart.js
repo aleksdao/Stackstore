@@ -50,16 +50,11 @@ app.factory('CartFactory', function ($http) {
     return depopulatedLineItems;
   }
 
-  var experiencesLeft = function (experience) {
-    return experience.quantity;
-  }
-
   //Alex: The following function retrieves a cart based on the logged in user's
   //id. If it's a new user and cart doesn't exist, we make POST call to /api/cart//
   //to create a cart.
 
   factory.fetchCart = function () {
-    console.log('here tho is ok')
     return $http.get('/api/cart')
       .then(function (response) {
         if (response.data) {
