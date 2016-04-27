@@ -7,6 +7,9 @@ app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, exp
 	$scope.addToCart	= function (experience) {
 		$scope.tempQuantity--;
 		CartFactory.addToCart($scope.cart, experience)
+			.then(function (modifiedCart) {
+				$scope.cart = modifiedCart;
+			})
 			.then(function (returnedObj) {
 				$scope.cart = returnedObj.modifiedCart;
 				$scope.tempQuantity = returnedObj.tempQuantity;
@@ -21,4 +24,4 @@ $scope.experienceInStock = function () {
 	return $scope.tempQuantity > 0;
 };
 
-});//end controller
+});
