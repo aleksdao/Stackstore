@@ -1,9 +1,6 @@
 app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories){
 
-	// $scope.allexp = experiences;
-	// $scope.numCatsSelected = 0;
 	$scope.allexp = experiences;
-
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
 
@@ -14,10 +11,8 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 	$scope.toggle = function (category) {
 		if ($scope.isSelected(category)) {
 			var catsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category);
-
-				$scope.allexp = catsAndExperiences.experiences;
-				$scope.checkedCategories = catsAndExperiences.categories;
-
+			$scope.allexp = catsAndExperiences.experiences;
+			$scope.checkedCategories = catsAndExperiences.categories;
 		}
 		else {
 			CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
@@ -26,10 +21,6 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 					$scope.checkedCategories = catsAndExperiences.categories;
 			})
 		}
-
 	}
-
-
-
 
 });
