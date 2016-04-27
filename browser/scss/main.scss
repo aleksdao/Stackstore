@@ -5,6 +5,7 @@
 body {
   background: #fdfdfd;
   font-family: "tenso",sans-serif;
+  // font-family: "Noto Sans",sans-serif; this is Material Design
   font-style: normal;
   font-weight: 500;
 }
@@ -29,3 +30,4 @@ body {
 @import 'login/main';
 @import 'newUser/main';
 @import 'experiences/main';
+@import 'cart/main';

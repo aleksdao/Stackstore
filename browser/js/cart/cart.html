@@ -1,25 +1,73 @@
-<div class='container'>
-  <h3>Shopping Cart</h3>
-  <table class='table table-hover'>
-    <thead class='thead-default'>
-      <tr>
-        <th>Experience</th>
-        <th>Quantity</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat='lineItem in cart.lineItems'>
-        <td>{{ lineItem.experienceId.name }}</td>
-        <td>{{ lineItem.quantity }}</td>
-        <td>{{ lineItem.experienceId.price }}</td>
-        <td><button class='btn btn-med btn-warning' ng-click='removeFromCart(lineItem)'>Remove</button></td>
-      </tr>
-      <tr>
-        <td>Subtotal</td>
-        <td>{{ subtotal }}</td>
-        <td>{{ getSubtotal(cart) }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<section id='cart'>
+  <div class='container'>
+    <md-toolbar class='md-table-toolbar md-default'>
+      <div class='md-toolbar-tools md-title'>
+        <span>Shopping Cart</span>
+      </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <!-- <md-list>
+      <md-list-item class='md-subhead' ng-style='{ background: "#69F0AE" }' ng-repeat = 'lineItem in cart.lineItems'>
+        <p>{{ lineItem.experienceId.name }}</p>
+        <p>{{ lineItem.quantity }}</p>
+        <p>{{ lineItem.experienceId.price }}</p>
+        <md-button class='md-raised md-warn' ng-click='removeFromCart(lineItem)'><md-icon class="material-icons">remove_shopping_cart</md-icon></md-button>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class='md-subhead'>
+        <p>Subtotal</p>
+        <p>{{ getSubtotal(cart) }}</p>
+      </md-list-item>
+    </md-list> -->
+    <md-table-container>
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+            <th md-column>Experience</th>
+            <th md-column>Quantity</th>
+            <th md-column>Price</th>
+            <th md-column></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class='md-subhead' ng-style='{ background: "#B9F6CA" }' class='accent line' md-row ng-repeat='lineItem in cart.lineItems'>
+            <td md-cell>{{ lineItem.experienceId.name }}</td>
+            <td md-cell>{{ lineItem.quantity }}</td>
+            <td md-cell>{{ lineItem.experienceId.price }}</td>
+            <td md-cell><md-button class='md-icon-button'  ng-click='removeFromCart(lineItem)'><md-icon class="material-icons md-18" ng-style='{ color: "#000000" }'>remove_shopping_cart</md-icon></md-button>
+          </tr>
+          <tr class='accent line' ng-style='{ background: "#FF8A80" }'>
+            <td md-cell>Subtotal</td>
+            <td md-cell>Nada here</td>
+            <td md-cell>{{ getSubtotal(cart) }}</td>
+            <td md-cell></td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <!-- <h3>Shopping Cart</h3>
+    <table class='table table-hover'>
+      <thead class='thead-default'>
+        <tr>
+          <th>Experience</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr ng-repeat='lineItem in cart.lineItems'>
+          <td>{{ lineItem.experienceId.name }}</td>
+          <td>{{ lineItem.quantity }}</td>
+          <td>{{ lineItem.experienceId.price }}</td>
+          <td><button class='btn btn-med btn-warning' ng-click='removeFromCart(lineItem)'>Remove</button></td>
+        </tr>
+        <tr>
+          <td>Subtotal</td>
+          <td>{{ subtotal }}</td>
+          <td>{{ getSubtotal(cart) }}</td>
+        </tr>
+      </tbody>
+    </table> -->
+  </div>
+</section>
