@@ -29,6 +29,7 @@ var Category = mongoose.model('Category');
 var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var Address = mongoose.model('Address');
+var Review = mongoose.model('Review');
 
 var faker = require("faker");
 
@@ -39,6 +40,7 @@ var wipeCollections = function () {
     var removeExperiences = Experience.remove({});
     var removeCarts = Cart.remove({});
     var removeAddresses = Address.remove({});
+
     return Promise.all([
         removeUsers,
         removeCategories,
@@ -71,7 +73,6 @@ var seedAddresses = function () {
 }
 
 var seedUsers = function (addresses) {
-  console.log('think we get here', addresses.length);
     var users = [
         {
             email: 'testing@fsa.com',
@@ -86,7 +87,6 @@ var seedUsers = function (addresses) {
             admin: true
         }
     ];
-    console.log(users);
 
     _.times(20, function() {
       var user = {};
@@ -179,27 +179,22 @@ var seedCarts = function (users, experiences) {
   return Cart.create(carts);
 }
 
-// var seedReviews = function (randomizerIdx, products, users) {
-//
-//   var reviews = [];
-//
-//   for (var i = 0; i < 100; i++) {
-//     var review = {};
-//     review.description = faker.lorem.sentences();
-//     review.rating = randomizerIdx(1, 5);
-//     reviews.push(review);
-//   }
-//
-//
-//   reviews = reviews.map(function (review) {
-//     review.experience = experience[randomizerIdx(0, 49)]._id;
-//     review.user = users[randomizerIdx(0, 1)]._id;
-//     return review;
-//   })
-//
-//   return Review.create(reviews);
-//
-// }
+var seedReviews = function (experiences, users) {
+
+  var reviews = [];
+
+  for (var i = 0; i < 100; i++) {
+    var review = {};
+    review.description = faker.lorem.sentences();
+    review.rating = randomizerIdx(1, 5);
+    review.experience = experiences[randomizerIdx(0, 49)]._id;
+    review.user = users[randomizerIdx(0, 1)]._id;
+    reviews.push(review);
+  }
+
+  return Review.create(reviews);
+
+}
 
 var _users;
 var _experiences;
@@ -213,7 +208,6 @@ connectToDb
       return seedAddresses();
     })
     .then(function (addresses) {
-      console.log(addresses);
       _addresses = addresses;
       return seedUsers(_addresses);
     })
@@ -227,6 +221,9 @@ connectToDb
     .then(function (experiences) {
       _experiences = experiences;
       return seedCarts(_users, _experiences);
+    })
+    .then(function () {
+      return seedReviews(_experiences, _users);
     })
     .then(function () {
       console.log(chalk.green('Seed successful!'));
