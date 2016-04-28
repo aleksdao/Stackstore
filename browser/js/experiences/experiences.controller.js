@@ -1,11 +1,12 @@
-app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories){
+app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, category){
 
-	// $scope.allexp = experiences;
-	// $scope.numCatsSelected = 0;
 	$scope.allexp = experiences;
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
+	$scope.isChecked;
+
+
 
 	$scope.isSelected = function (category) {
 		return $scope.checkedCategories.indexOf(category) >= 0;
@@ -24,11 +25,19 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 				.then(function (catsAndExperiences) {
 					$scope.allexp = catsAndExperiences.experiences;
 					$scope.checkedCategories = catsAndExperiences.categories;
-			})
+
+			});
 		}
 
-	}
+	};//end $scope.toggle
 
+	function loadCategory () {
+		if(category.name !== undefined){
+			// $scope.checkedCategories.push(category);
+			$scope.toggle(category);
+		}
+	}
+	loadCategory();
 
 
 
