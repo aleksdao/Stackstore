@@ -7,15 +7,27 @@ app.config(function ($stateProvider) {
       resolve: {
         cart: function (CartFactory) {
           return CartFactory.fetchCart();
-        }
+        },
       }
     })
 })
 
-app.controller('CartCtrl', function ($scope, cart, CartFactory) {
+app.controller('CartCtrl', function ($scope, cart, CartFactory, UserFactory) {
 
   // $scope.cart = cart;
   $scope.cart = cart;
+  UserFactory.getCurrentUser(cart.userId)
+    .then(function (user) {
+      console.log(user);
+      $scope.user = user;
+    });
+
+  $scope.checkout = function () {
+    $scope.cart.billingAddress = $scope.billingAddressSelected;
+    $scope.cart.shippingAddress = $scope.shippingAddressSelected;
+    $scope.cart.subtotal = $scope.getSubtotal($scope.cart);
+    return CartFactory.checkout($scope.cart)
+  }
 
 
   $scope.addToCart = function (lineItem) {
@@ -129,6 +141,14 @@ app.factory('CartFactory', function ($http) {
       subtotal += lineItem.quantity * lineItem.experienceId.price;
     })
     return subtotal;
+  }
+
+  factory.checkout = function (cart) {
+    return $http.post('/api/checkout', cart)
+      .then(function (response) {
+        var order = response.data;
+        return order;
+      })
   }
 
   return factory;

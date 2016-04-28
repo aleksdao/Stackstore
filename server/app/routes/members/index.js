@@ -32,6 +32,14 @@ router.delete('/:id', function (req, res, next) {
   .then(null, next);
 });
 
+router.get('/me/:id', function (req, res, next) {
+  User.findById(req.params.id)
+    .populate('addresses')
+    .then(function (user) {
+      res.send(user);
+    })
+})
+
 router.get('/', function (req, res, next) {
   User.find({})
   .then(function (users) {

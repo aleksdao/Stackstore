@@ -28,8 +28,7 @@ var Review = mongoose.model('Review');
 var Category = mongoose.model('Category');
 var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
-
-
+var Address = mongoose.model('Address');
 
 var faker = require("faker");
 
@@ -39,12 +38,14 @@ var wipeCollections = function () {
     var removeReviews = Review.remove({});
     var removeExperiences = Experience.remove({});
     var removeCarts = Cart.remove({});
+    var removeAddresses = Address.remove({});
     return Promise.all([
         removeUsers,
         removeCategories,
         removeReviews,
         removeExperiences,
-        removeCarts
+        removeCarts,
+        removeAddresses
     ]);
 };
 
@@ -52,25 +53,49 @@ var randomizerIdx = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-var seedUsers = function () {
+var seedAddresses = function () {
+  var addresses = [];
 
+  _.times(100, function () {
+    var address = {};
+    address.address = faker.address.streetAddress();
+    address.city = faker.address.city();
+    address.state = faker.address.state();
+    address.postalCode = faker.address.zipCode();
+    address.country = faker.address.country();
+    addresses.push(address);
+  })
+
+  return Address.create(addresses);
+
+}
+
+var seedUsers = function (addresses) {
+  console.log('think we get here', addresses.length);
     var users = [
         {
             email: 'testing@fsa.com',
             password: 'password',
+            addresses: [addresses[randomizerIdx(0, addresses.length - 1)]._id, addresses[randomizerIdx(0, addresses.length - 1)]._id],
             admin: true
         },
         {
             email: 'obama@gmail.com',
             password: 'potus',
+            addresses: [addresses[randomizerIdx(0, addresses.length - 1)]._id, addresses[randomizerIdx(0, addresses.length - 1)]._id],
             admin: true
         }
     ];
+    console.log(users);
 
     _.times(20, function() {
       var user = {};
       user.email = faker.internet.email();
       user.password = faker.internet.password();
+      user.addresses = [];
+      _.times(3, function () {
+        user.addresses.push(addresses[randomizerIdx(0, addresses.length - 1)]._id);
+      });
       users.push(user);
     });
 
@@ -114,7 +139,7 @@ function makePhotoUrls () {
   return photoUrls;
 }
 
-var seedExperiences = function (categories, randomizerIdx) {
+var seedExperiences = function (addresses, categories, randomizerIdx) {
     var _photoUrls = makePhotoUrls();
     var experiences = [];
 
@@ -127,12 +152,8 @@ var seedExperiences = function (categories, randomizerIdx) {
       experience.tempQuantity = experience.quantity;
       experience.price = faker.commerce.price();
       experience.category = categories[randomizerIdx(0, categories.length - 1)];
+      experience.address = addresses[randomizerIdx(0, addresses.length - 1)];
       experience.photoUrl = _photoUrls[randomizerIdx(0, _photoUrls.length-1)];
-      experience.address = faker.address.streetAddress();
-      experience.city = faker.address.city();
-      experience.state = faker.address.state();
-      experience.postalCode = faker.address.zipCode();
-      experience.country = faker.address.country();
       experiences.push(experience);
     });
 
@@ -182,24 +203,30 @@ var seedCarts = function (users, experiences) {
 
 var _users;
 var _experiences;
+var _addresses;
 
 connectToDb
     .then(function () {
-        return wipeCollections();
+      return wipeCollections();
     })
     .then(function () {
-        return seedUsers();
+      return seedAddresses();
+    })
+    .then(function (addresses) {
+      console.log(addresses);
+      _addresses = addresses;
+      return seedUsers(_addresses);
     })
     .then(function (users) {
-        _users = users;
-        return seedCategories();
+      _users = users;
+      return seedCategories();
     })
     .then(function (categories) {
-        return seedExperiences(categories, randomizerIdx);
+      return seedExperiences(_addresses, categories, randomizerIdx);
     })
     .then(function (experiences) {
-        _experiences = experiences;
-        return seedCarts(_users, _experiences);
+      _experiences = experiences;
+      return seedCarts(_users, _experiences);
     })
     .then(function () {
       console.log(chalk.green('Seed successful!'));
