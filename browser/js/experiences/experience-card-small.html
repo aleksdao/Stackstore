@@ -1,0 +1,10 @@
+<div class="">
+	 <h4>{{experience.name}}</h4>
+		<img class="img-responsive" ng-src="{{experience.photoUrl}}">
+		<p class="price">${{experience.price}}
+			<h5>Rating :
+				<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating>
+			</h5>
+		</p>
+		<p class="block-ellipsis">{{experience.shortDescription}}</p>
+</div>
