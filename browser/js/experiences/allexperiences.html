@@ -4,7 +4,7 @@
 			<md-list>
 				<md-subheader class='md-no-sticky md-primary'>Categories</md-subheader>
 				<md-list-item ng-repeat='category in categories'>
-					<md-checkbox class='md-accent' ng-checked="isSameAsBreadcrumb(category)" ng-click="toggle(category)"></md-checkbox>
+					<md-checkbox class='md-accent' ng-checked="isSameAsBreadcrumb(category) || isSelected(category)" ng-click="toggle(category)"></md-checkbox>
 					<p> {{ category.name }} </p>
 				</md-list-item>
 			</md-list>
