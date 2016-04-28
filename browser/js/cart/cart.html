@@ -45,29 +45,31 @@
         </tbody>
       </table>
     </md-table-container>
-    <!-- <h3>Shopping Cart</h3>
-    <table class='table table-hover'>
-      <thead class='thead-default'>
-        <tr>
-          <th>Experience</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-
-      </thead>
-      <tbody>
-        <tr ng-repeat='lineItem in cart.lineItems'>
-          <td>{{ lineItem.experienceId.name }}</td>
-          <td>{{ lineItem.quantity }}</td>
-          <td>{{ lineItem.experienceId.price }}</td>
-          <td><button class='btn btn-med btn-warning' ng-click='removeFromCart(lineItem)'>Remove</button></td>
-        </tr>
-        <tr>
-          <td>Subtotal</td>
-          <td>{{ subtotal }}</td>
-          <td>{{ getSubtotal(cart) }}</td>
-        </tr>
-      </tbody>
-    </table> -->
+    <!-- <md-button class='md-primary' ui-sref='checkout'>Check out!</md-button> -->
+    <div>
+      <h2 class='md-title'>Tell us some info about you</h2>
+      <div layout='row'>
+        <md-input-container>
+          <label>Shipping Address</label>
+          <md-select ng-model='shippingAddressSelected' md-selected-text='getAddressText()'>
+            <md-optgroup label='items'>
+              <md-option ng-value='address' ng-repeat='address in user.addresses'>{{ address.address }}</md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout='row'>
+        <md-input-container>
+          <label>Billing Address</label>
+          <md-select ng-model='billingAddressSelected' md-selected-text='getAddressText()'>
+            <md-optgroup label='items'>
+              <md-option ng-value='address' ng-repeat='address in user.addresses'>{{ address.address }}</md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+    <md-button class='md-primary' ng-click='checkout()'>Check out!</md-button>
   </div>
+
 </section>

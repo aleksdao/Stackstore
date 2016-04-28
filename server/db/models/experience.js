@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var addressSchema = mongoose.model('Address').schema;
+
 
 var categorySchema = new Schema({
   name: {
@@ -52,29 +54,7 @@ var experienceSchema = new Schema({
   category: {
     type: categorySchema
   },
-  address: {
-    type: String,
-    required: true
-  },
-  address2: {
-    type: String
-  },
-  city: {
-    type: String,
-    required: true
-  },
-  state: {
-    type: String,
-    required: true
-  },
-  postalCode: {
-    type: String,
-    required: true
-  },
-  country: {
-    type: String,
-    required: true
-  },
+  address: addressSchema,
   createdBy: {
     type: Date
   },
