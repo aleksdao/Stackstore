@@ -1,11 +1,14 @@
-app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, category){
+app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, breadcrumbCategory){
 
 	$scope.allexp = experiences;
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
 	// $scope.isChecked;
-
+	$scope.isSameAsBreadcrumb = function (category) {
+		console.log(category.name, breadcrumbCategory.name)
+		return breadcrumbCategory._id === category._id;
+	}
 
 
 	$scope.isSelected = function (category) {
@@ -32,9 +35,9 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 	};//end $scope.toggle
 
 	function loadCategory () {
-		if(category.name !== undefined){
+		if(breadcrumbCategory.name !== undefined){
 			// $scope.checkedCategories.push(category);
-			$scope.toggle(category);
+			$scope.toggle(breadcrumbCategory);
 		}
 	}
 	loadCategory();

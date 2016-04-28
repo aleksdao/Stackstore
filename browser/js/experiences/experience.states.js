@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 				experiences: function (experiencesFactory) {
 					return experiencesFactory.fetchAll();
 				},
-				category:	function($stateParams){
+				breadcrumbCategory:	function($stateParams){
 					return	$stateParams.category;
 				}
 			}//end resolve
