@@ -21,10 +21,13 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 	$scope.toggle = function (category) {
 		if ($scope.isSelected(category)) {
 			var catsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category);
-
-				$scope.allexp = catsAndExperiences.experiences;
 				$scope.checkedCategories = catsAndExperiences.categories;
+				if ($scope.checkedCategories.length === 0)
+					$scope.allexp = experiences;
+				else {
+					$scope.allexp = catsAndExperiences.experiences;
 
+				}
 		}
 		else {
 			CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
