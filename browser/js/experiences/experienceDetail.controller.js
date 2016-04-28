@@ -1,11 +1,9 @@
-app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast) {
+app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast,$state) {
 	$scope.experience = experience;
 	$scope.cart = cart;
-
 	$scope.tempQuantity = experience.tempQuantity;
 
 	$scope.addToCart	= function (experience) {
-		console.log("in button");
 		CartFactory.addToCart($scope.cart, experience)
 			.then(function (returnedObj) {
 				$scope.cart = returnedObj.modifiedCart;

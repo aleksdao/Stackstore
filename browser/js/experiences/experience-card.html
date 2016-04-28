@@ -1,6 +1,18 @@
-<div class="expcard">
-	 <h4>{{exp.name | uppercase}}</h4>
-		<img class="img-responsive" ng-src="{{exp.photoUrl}}">
-		<p class="price">${{exp.price}}</p>
-		<p class="block-ellipsis">{{exp.shortDescription}}</p>
-</div>
+<md-card>
+        <img ng-src="{{exp.photoUrl}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{exp.name }}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p class="block-ellipsis">
+            {{exp.shortDescription}}
+          </p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+
+          <md-button class="md-raised" ng-click="gotoDetail(exp)">Details</md-button>
+          <md-button class="md-raised">Add to cart</md-button>
+        </md-card-actions>
+      </md-card>

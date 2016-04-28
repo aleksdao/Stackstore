@@ -6,6 +6,9 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
+	$scope.gotoDetail=function(exp){
+		$state.go('experience',{ id: exp._id });
+	};
 
 	$scope.isSelected = function (category) {
 		return $scope.checkedCategories.indexOf(category) >= 0;
