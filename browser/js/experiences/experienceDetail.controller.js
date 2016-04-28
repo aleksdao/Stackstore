@@ -34,6 +34,8 @@ $scope.rate = experience.ratingAverage;
 	 {stateOff: 'glyphicon-off'}
  ];
 
+//look into putting this into state, if possible
+
  function getSimilar(){
 	 experiencesFactory.fetchAll()
 	 .then(function(experiences){
