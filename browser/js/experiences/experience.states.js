@@ -1,7 +1,7 @@
 app.config(function($stateProvider){
 	$stateProvider
 		.state('experiences',{
-			url:'/experiences/',
+			url:'/experiences',
 			templateUrl: '/js/experiences/allexperiences.html',
 			controller : 'experiencesCTRL',
 			params:	{

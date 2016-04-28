@@ -4,7 +4,7 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
-	$scope.isChecked;
+	// $scope.isChecked;
 
 
 
