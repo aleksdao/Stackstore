@@ -7,11 +7,11 @@
 				<div class="col-sm-12" >
 					<div class="col-sm-2 location" >
 						<h4>Location:</h4>
-						{{experience.city}}
+						{{experience.address.city}}
 						<br>
-						{{experience.state}}
+						{{experience.address.state}}
 						<br>
-						{{experience.country}}
+						{{experience.address.country}}
 
 					</div>
 					<div class="col-sm-8 moreBottomPadding" >
@@ -20,6 +20,12 @@
 						<div id="singleImage" class="col-sm-8" ng-style="{'background': 'url({{experience.photoUrl}})','background-size': '100%, 500px', 'background-repeat': 'no-repeat'}">
 							<div id="experienceName">{{experience.name}}</div>
 
+						</div>
+						<!-- begin rating area -->
+						<div>
+							<h4>Rating :
+								<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating>
+							</h4>
 						</div>
 
 						<h4 class="description">{{experience.description}}</h4>
@@ -35,5 +41,20 @@
 				</div><!-- end card div -->
 				<toast></toast>
 		</div>
-		<toast></toast>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<h4 class="col-sm-4" id="moreTitle">You may also like:</h4>
+	</div>
+	<div class="row" id="moreThingsToLike">
+		<div class="col-sm-12" >
+
+				<div class="col-sm-2"></div>
+				<span ng-repeat="exp in similarExperiences">
+					<experience-small></experience-small>
+				</span>
+				<div class="col-sm-2"></div>
+
+		</div>
 	</div>

@@ -58,6 +58,9 @@ var experienceSchema = new Schema({
   createdBy: {
     type: Date
   },
+  ratingAverage:  {
+    type: Number
+  },
   createdAt: {
     type: Date,
     default: Date.now
