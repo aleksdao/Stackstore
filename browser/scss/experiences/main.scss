@@ -83,3 +83,17 @@ position: relative;
 .moreBottomPadding	{
 	padding-bottom: 40px;
 }
+// .md-raised	{
+// 	width:120px;
+// 	height:40px;
+// 	margin: 0;
+// }
+button.md-raised.success.pull-right.md-button.md-ink-ripple	{
+	background-color: green;
+	width:120px;
+	height:40px;
+	margin: 0;
+	line-height: 40px;
+ 	min-height: 40px;
+ vertical-align: top;
+}

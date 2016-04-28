@@ -1,7 +1,5 @@
-app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories){
+app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, breadcrumbCategory){
 
-	// $scope.allexp = experiences;
-	// $scope.numCatsSelected = 0;
 	$scope.allexp = experiences;
 
 	$scope.categories = categories;
@@ -10,6 +8,12 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 	$scope.gotoDetail=function(exp){
 		$state.go('experience',{ id: exp._id });
 	};
+	// $scope.isChecked;
+	$scope.isSameAsBreadcrumb = function (category) {
+		console.log(category.name, breadcrumbCategory.name)
+		return breadcrumbCategory._id === category._id;
+	}
+
 
 	$scope.isSelected = function (category) {
 		return $scope.checkedCategories.indexOf(category) >= 0;
@@ -30,8 +34,15 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 			});
 		}
 
-	}
+	};//end $scope.toggle
 
+	function loadCategory () {
+		if(breadcrumbCategory.name !== undefined){
+			// $scope.checkedCategories.push(category);
+			$scope.toggle(breadcrumbCategory);
+		}
+	}
+	loadCategory();
 
 
 

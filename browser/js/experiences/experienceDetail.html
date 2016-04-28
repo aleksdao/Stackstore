@@ -15,8 +15,7 @@
 
 					</div>
 					<div class="col-sm-8 moreBottomPadding" >
-
-						<h2 id="breadcrumb"><a ui-sref="experiences">Experiences&nbsp</a><span class="glyphicon glyphicon-arrow-right"></span> &nbsp{{experience.category.name}} <span class="glyphicon glyphicon-arrow-right"></span>&nbsp {{experience.name}}</h2>
+						<h2 id="breadcrumb"><a ui-sref="experiences">Experiences&nbsp</a><span class="glyphicon glyphicon-arrow-right"></span> &nbsp<a ui-sref="experiences({'category': experience.category})">{{experience.category.name}} </a><span class="glyphicon glyphicon-arrow-right"></span>&nbsp {{experience.name}}</h2>
 
 						<div id="singleImage" class="col-sm-8" ng-style="{'background': 'url({{experience.photoUrl}})','background-size': '100%, 500px', 'background-repeat': 'no-repeat'}">
 							<div id="experienceName">{{experience.name}}</div>
@@ -28,7 +27,7 @@
 						<h4 class="pull-right">Only {{tempQuantity}} spots left. Reserve now! &nbsp &nbsp ${{experience.price}}</h4>
 							<div class="clear"></div>
 						<!-- <button type="button" class="btn btn-success pull-right" ng-click="addToCart(experience)">Add to Cart</button> -->
-						<md-button class="md-raised pull-right" ng-disabled='!tempQuantity' ng-click="addToCart(experience)"><md-icon class="material-icons" ng-style='{ color: "rgb(89, 226, 168)" }'>add_shopping_cart</md-icon></md-button>
+						<md-button class="md-raised  pull-right" ng-disabled='!tempQuantity' ng-click="addToCart(experience)"><md-icon class="material-icons" ng-style='{ color: "rgb(89, 226, 168)" }'>add_shopping_cart</md-icon></md-button>
 
 					</div>
 					<div class="col-sm-2 ">

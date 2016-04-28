@@ -1,6 +1,7 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var _ = require('lodash');
 
 function toLower (str) {
@@ -22,6 +23,10 @@ var schema = new mongoose.Schema({
       type: Boolean,
       default: false
     },
+    addresses: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Address'
+    }],
     salt: {
         type: String
     },

@@ -4,14 +4,20 @@ app.config(function($stateProvider){
 			url:'/experiences',
 			templateUrl: '/js/experiences/allexperiences.html',
 			controller : 'experiencesCTRL',
+			params:	{
+				category:	{}
+			},
 			resolve: {
 				categories: function (CategoriesFactory) {
 					return CategoriesFactory.fetchAll();
 				},
 				experiences: function (experiencesFactory) {
 					return experiencesFactory.fetchAll();
+				},
+				breadcrumbCategory:	function($stateParams){
+					return	$stateParams.category;
 				}
-			}
+			}//end resolve
 		})
 		.state('experience', {
 			url:'/experiences/:id',
@@ -30,5 +36,5 @@ app.config(function($stateProvider){
 		.state('newExperience', {
 			url:'/experiences/new',
 			templateUrl: '/js/experiences/new.html'
-		})
+		});
 });
