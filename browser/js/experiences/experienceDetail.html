@@ -25,7 +25,6 @@
 						<div>
 							<h4>Rating :
 								<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating>
-								<!-- <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span> -->
 							</h4>
 						</div>
 
@@ -43,25 +42,19 @@
 				<toast></toast>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-sm-2"></div>
-		<h4 class="col-sm-4" id="moreTitle">More stuff to like</h4>
+		<h4 class="col-sm-4" id="moreTitle">You may also like:</h4>
 	</div>
 	<div class="row" id="moreThingsToLike">
 		<div class="col-sm-12" >
-			<div class="col-sm-2"></div>
-			<div class="col-sm-2" >
-			<experience-small></experience-small>
-			</div>
-			<div class="col-sm-2" >
-			<experience-small></experience-small>
-			</div>
-			<div class="col-sm-2" >
-			<experience-small></experience-small>
-			</div>
-			<div class="col-sm-2" >
-			<experience-small></experience-small>
-			</div>
-			<div class="col-sm-2"></div>
+
+				<div class="col-sm-2"></div>
+				<span ng-repeat="exp in similarExperiences">
+					<experience-small></experience-small>
+				</span>
+				<div class="col-sm-2"></div>
+
 		</div>
 	</div>

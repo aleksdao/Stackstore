@@ -30,7 +30,6 @@ app.config(function($stateProvider){
 				cart: function (CartFactory) {
 					return CartFactory.fetchCart();
 				}
-
 			}
 		})
 		.state('newExperience', {

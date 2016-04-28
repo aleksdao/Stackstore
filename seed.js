@@ -130,7 +130,7 @@ var seedCategories = function () {
 //create photoURLs
 function makePhotoUrls () {
   var photoNames = [
-    '1.png','5311511_orig.jpg','55c92bc9dcd4d.image.jpg','7-22-13.jpg','Custom-Programs-10.jpg','Heliskiing.JPG','MASW_AnC_Class.jpg','PaintNite21.jpeg','PortTownsendClass1.jpg','Pottery-Mug.jpg','Sailing-Courses.jpg','Sippin-and-Paintin.jpg','SupAir_Player.jpg','archery-camp.jpg','archery-lessons.jpg','balloons.jpg','baseball-camp.jpg','camels.jpg','climbing.jpg','enyoing-a-camel-ride.jpg','hands-on-clay.jpg','helmet-dive.jpg','large.jpg','mike-wiegele-Deluxe-212.jpg','napali_coast17.JPG','paint_brush_palette_colors.jpg','painting-class.jpg','painting_class_closeup02.jpg','pot.jpg','pottery-class.jpg','reaching-for-brushes.jpg','rome-segway.jpg','sailing-class.jpg','sailing.jpg','snowmobiles_wit.jpg','storm-trooper-paintball.jpg','web10.jpg','wet-brushes.jpg'
+    '1.png','5311511_orig.jpg','snowmobiles_2.jpg','7-22-13.jpg','Custom-Programs-10.jpg','Heliskiing.JPG','MASW_AnC_Class.jpg','PaintNite21.jpeg','PortTownsendClass1.jpg','Pottery-Mug.jpg','Sailing-Courses.jpg','Sippin-and-Paintin.jpg','SupAir_Player.jpg','archery-camp.jpg','archery-lessons.jpg','balloons.jpg','baseball-camp.jpg','camels.jpg','climbing.jpg','enyoing-a-camel-ride.jpg','hands-on-clay.jpg','helmet-dive.jpg','large.jpg','mike-wiegele-Deluxe-212.jpg','napali_coast17.JPG','paint_brush_palette_colors.jpg','painting-class.jpg','painting_class_closeup02.jpg','pot.jpg','pottery-class.jpg','reaching-for-brushes.jpg','rome-segway.jpg','sailing-class.jpg','sailing.jpg','snowmobiles_wit.jpg','storm-trooper-paintball.jpg','web10.jpg','wet-brushes.jpg'
   ];
   var photoUrls = photoNames.map(function(file){
     var _file = 'http://www.hillphoto.com/experience_fpo/' + file;

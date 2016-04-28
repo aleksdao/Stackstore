@@ -1,5 +1,6 @@
 app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast) {
 	$scope.experience = experience;
+	$scope.similarExperiences;
 	$scope.cart = cart;
 
 	$scope.tempQuantity = experience.tempQuantity;
@@ -24,10 +25,6 @@ $scope.rate = experience.ratingAverage;
  $scope.max = 5;
  $scope.isReadonly = true;
 
- $scope.hoveringOver = function(value) {
-	 $scope.overStar = value;
-	 $scope.percent = 100 * (value / $scope.max);
- };
 
  $scope.ratingStates = [
 	 {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
@@ -37,7 +34,20 @@ $scope.rate = experience.ratingAverage;
 	 {stateOff: 'glyphicon-off'}
  ];
 
+ function getSimilar(){
+	 experiencesFactory.fetchAll()
+	 .then(function(experiences){
+		 return experiences.filter(function(experience){
+			 if (experience.category._id === $scope.experience.category._id && experience._id !== $scope.experience._id){
+				 return experience;
+			 }
+		 });//end filter
+	 })
+	 .then(function(experiences){
+		 var cutExperiences = experiences.slice(0,4)
+		 $scope.similarExperiences = cutExperiences;
+	 });
+ }//end getSimilar
+ getSimilar();
 
-
-
-});
+});//end controller
