@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="col-sm-6 col-sm-offset-3">
+	<div class="col-sm-8 col-sm-offset-2">
 		<div ng-repeat="fn in adminFunctions">
 			<md-card>
 			        <md-card-title>
@@ -7,8 +7,8 @@
 			            <span class="md-headline">{{fn.label}}</span>
 			          </md-card-title-text>
 			        </md-card-title>
-			        <md-card-actions layout="row" layout-align="end center">
-			          <md-button class="md-raised" ng-click="gotoDetail(exp)">GO</md-button>
+			        <md-card-actions layout="row" ayout-align="space-around center">
+			          <md-button class="actionsbut" ng-repeat="action in fn.actions" class="md-raised" ng-click="gotoDetail(exp)">{{action.label}}</md-button>
 			        </md-card-actions>
 			</md-card>
 		</div>
