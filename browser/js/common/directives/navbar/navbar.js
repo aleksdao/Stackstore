@@ -12,7 +12,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 // { label: 'Documentation', state: 'docs' },
                 { label: 'Members Only', state: 'membersOnly', auth: true },
                 { label: 'Experiences', state: 'experiences'},
-                { label: 'Cart', state: 'cart', auth: true}
+                { label: 'Cart', state: 'cart', auth: true},
+                { label: 'Admin', state: 'admin', auth: true}
             ];
 
             scope.user = null;
@@ -38,7 +39,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             };
 
             setUser();
-
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
