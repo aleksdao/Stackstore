@@ -1,0 +1,16 @@
+<div class="container-fluid">
+	<div class="col-sm-6 col-sm-offset-3">
+		<div ng-repeat="fn in adminFunctions">
+			<md-card>
+			        <md-card-title>
+			          <md-card-title-text>
+			            <span class="md-headline">{{fn.label}}</span>
+			          </md-card-title-text>
+			        </md-card-title>
+			        <md-card-actions layout="row" layout-align="end center">
+			          <md-button class="md-raised" ng-click="gotoDetail(exp)">GO</md-button>
+			        </md-card-actions>
+			</md-card>
+		</div>
+	</div>
+</div>
