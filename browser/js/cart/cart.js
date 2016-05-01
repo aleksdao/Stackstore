@@ -12,20 +12,19 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory) {
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, ngToast) {
 
   // $scope.cart = cart;
   $scope.cart = cart;
-  UserFactory.getCurrentUser(cart.userId)
-    .then(function (user) {
-      console.log(user);
-      $scope.user = user;
-    });
+  // UserFactory.getCurrentUser(cart.userId)
+  //   .then(function (user) {
+  //     console.log(user);
+  //     $scope.user = user;
+  //   });
 
   $scope.checkout = function () {
     $state.go('checkout');
   };
-
 
   $scope.addToCart = function (lineItem) {
     CartFactory.addToCart(lineItem, $scope.cart)
@@ -67,6 +66,7 @@ app.factory('CartFactory', function ($http) {
     return $http.get('/api/cart')
       .then(function (response) {
         if (response.data) {
+          console.log('is this cart', response.data);
           return response;
         }
         else {

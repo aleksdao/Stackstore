@@ -9,6 +9,9 @@ var cartSchema = new Schema({
       quantity: Number
     }
   ],
+  sessionId: {
+    type: String
+  },
   createdBy: {type: Schema.Types.ObjectId, ref: 'User'},
   createdDate: Date,
   updatedBy: {type: Schema.Types.ObjectId, ref: 'User'},

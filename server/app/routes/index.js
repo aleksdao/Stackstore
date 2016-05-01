@@ -8,11 +8,13 @@ module.exports = router;
 //Feel free to remove if you don't need it
 
 router.use('/', function (req, res, next) {
-  User.find({})
-    .then(function (users) {
-      req.user = users[0];
-      next();
-    })
+  console.log('session', req.sessionID);
+  next();
+  // User.find({})
+  //   .then(function (users) {
+  //     req.user = users[0];
+  //     next();
+  //   })
 })
 
 router.use('/members', require('./members'));
