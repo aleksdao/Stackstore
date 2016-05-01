@@ -16,28 +16,17 @@ var ensureAuthenticated = function (req, res, next) {
   }
 };
 
-//Alex: Middleware below is setting a user for easier testing with Postman.
-//Feel free to remove if you don't need it
-
-// router.use('/', function (req, res, next) {
-//   User.find({})
-//     .then(function (users) {
-//       req.user = users[0];
-//       next();
-//     })
-// })
-
 router.get('/', function (req, res, next) {
   if (req.user) {
     Cart.findOne({ userId: req.user._id })
       .populate('lineItems.experienceId')
       .then(function (foundCart) {
         if (!foundCart) {
-          console.log('created one from user')
+          console.log('created a cart for user')
           return Cart.create({ userId: req.user._id })
         }
         else {
-          console.log('found one from user')
+          console.log('found existing cart from user')
           return foundCart;
         }
       })
@@ -46,15 +35,21 @@ router.get('/', function (req, res, next) {
       })
   }
   else {
+
+    //Todo: I'm currently casting req.sessionID to type String because I haven't
+    //figured out how to reference the 'Session' model/schema that is automatically
+    //created by the mongo-store. Ideally we would have the Cart schema have a
+    //sessionId field with Schema.Types.ObjectId, ref: 'Session' type
+
     Cart.findOne({ sessionId: String(req.sessionID) })
       .populate('lineItems.experienceId')
       .then(function (foundCart) {
         if (!foundCart) {
-          console.log('created one from session')
+          console.log('created a cart for non-logged-in-user from sessionID')
           return Cart.create({ sessionId: String(req.sessionID) })
         }
         else {
-          console.log('found one from session', foundCart);
+          console.log('found a cart for non-logged-in-user from sessionID', foundCart);
           return foundCart;
         }
       })
@@ -63,8 +58,9 @@ router.get('/', function (req, res, next) {
       })
   }
 
-
 })
+
+// currently this is not being used
 
 router.post('/', function (req, res, next) {
   Cart.create({ userId: req.user._id })
