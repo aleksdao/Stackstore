@@ -1,7 +1,7 @@
 app.directive('experienceCard',function(){
 	return{
 		restrict : 'AE',
-		templateUrl : '/js/experiences/directive-views/experience-card.html'
+		templateUrl : '/js/experiences/experience-card.html'
 	};
 });
 app.directive('experienceSmall',function(){

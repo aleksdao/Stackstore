@@ -29,16 +29,6 @@ router.param('id', function (req, res, next, id) {
 //     })
 // })
 
-// //below gets all reviews
-// router.get('/reviews', function (req, res, next) {
-//   // console.log('req.id', req.id);
-//   Review.find({})
-//     .then(function (reviews) {
-//       // console.log('reviews inside route', reviews);
-//       res.send(reviews);
-//     });
-// });
-
 router.get('/', function (req, res, next) {
   Experience.find({})
     .then(function (experiences) {
