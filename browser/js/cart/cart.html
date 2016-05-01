@@ -1,8 +1,8 @@
-<section id='cart'>
+<section id="cart">
 
-  <div class='container'>
-      <md-toolbar class='md-table-toolbar md-accent'>
-        <div class='md-toolbar-tools'>
+  <div class="container">
+      <md-toolbar class="md-table-toolbar md-accent">
+        <div class="md-toolbar-tools">
           <h1>Shopping Cart</h1>
         </div>
       </md-toolbar>
@@ -20,7 +20,7 @@
           <p>{{ getSubtotal(cart) }}</p>
         </md-list-item>
       </md-list> -->
-      <md-table-container class='md-whiteframe-4dp'>
+      <md-table-container class="md-whiteframe-4dp">
         <table md-table>
           <thead md-head>
             <tr md-row>
@@ -31,13 +31,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr class='md-subhead' ng-style='{ background: "#B9F6CA" }' class='accent line' md-row ng-repeat='lineItem in cart.lineItems'>
+            <tr class="md-subhead accent line" ng-style="{ background: '#B9F6CA' }" md-row ng-repeat="lineItem in cart.lineItems">
               <td md-cell>{{ lineItem.experienceId.name }}</td>
               <td md-cell>{{ lineItem.quantity }}</td>
               <td md-cell>{{ lineItem.experienceId.price }}</td>
-              <td md-cell><md-button class='md-icon-button'  ng-click='removeFromCart(lineItem)'><md-icon class="material-icons md-18" ng-style='{ color: "#000000" }'>remove_shopping_cart</md-icon></md-button>
+              <td md-cell><md-button class="md-icon-button"  ng-click="removeFromCart(lineItem)"><md-icon class="material-icons md-18" ng-style="{ color: '#000000' }">remove_shopping_cart</md-icon></md-button></td>
             </tr>
-            <tr class='accent line' ng-style='{ background: "#FF8A80" }'>
+            <tr class="accent line" ng-style="{ background: '#FF8A80' }">
               <td md-cell>Subtotal</td>
               <td md-cell>Nada here</td>
               <td md-cell>{{ getSubtotal(cart) }}</td>
@@ -47,7 +47,7 @@
         </table>
       </md-table-container>
       <!-- <md-button class='md-primary' ui-sref='checkout'>Check out!</md-button> -->
-      <div class='md-whiteframe-4dp'>
+      <!-- <div class='md-whiteframe-4dp'>
         <h2 class='md-title'>Tell us some info about you</h2>
         <div layout='row'>
           <md-input-container flex>
@@ -69,8 +69,8 @@
             </md-select>
           </md-input-container>
         </div>
-      </div>
-      <md-button class='md-primary' flex='15' ng-style='{ background: "#B9F6CA" }' ng-click='checkout()'>Check out!</md-button>
+      </div> -->
+      <md-button class="md-primary" flex="15" ng-style="{ background: '#B9F6CA' }" ng-click="checkout()">Check out!</md-button>
       <toast></toast>
   </div>
 
