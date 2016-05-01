@@ -1,7 +1,7 @@
-<section id='cart'>
-  <div class='container'>
-    <md-toolbar class='md-table-toolbar md-default'>
-      <div class='md-toolbar-tools md-title'>
+<section id="cart">
+  <div class="container">
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools md-title">
         <span>Shopping Cart</span>
       </div>
     </md-toolbar>
@@ -30,13 +30,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr class='md-subhead' ng-style='{ background: "#B9F6CA" }' class='accent line' md-row ng-repeat='lineItem in cart.lineItems'>
+          <tr class="md-subhead accent line" ng-style="{ background: '#B9F6CA' }" md-row ng-repeat="lineItem in cart.lineItems">
             <td md-cell>{{ lineItem.experienceId.name }}</td>
             <td md-cell>{{ lineItem.quantity }}</td>
             <td md-cell>{{ lineItem.experienceId.price }}</td>
-            <td md-cell><md-button class='md-icon-button'  ng-click='removeFromCart(lineItem)'><md-icon class="material-icons md-18" ng-style='{ color: "#000000" }'>remove_shopping_cart</md-icon></md-button>
+            <td md-cell><md-button class="md-icon-button" ng-click="removeFromCart(lineItem)"><md-icon class="material-icons md-18" ng-style="{ color: '#000000' }">remove_shopping_cart</md-icon></md-button></td>
           </tr>
-          <tr class='accent line' ng-style='{ background: "#FF8A80" }'>
+          <tr class="accent line" ng-style="{ background: '#FF8A80' }">
             <td md-cell>Subtotal</td>
             <td md-cell>Nada here</td>
             <td md-cell>{{ getSubtotal(cart) }}</td>
@@ -46,7 +46,7 @@
       </table>
     </md-table-container>
     <!-- <md-button class='md-primary' ui-sref='checkout'>Check out!</md-button> -->
-    <div>
+    <!-- <div>
       <h2 class='md-title'>Tell us some info about you</h2>
       <div layout='row'>
         <md-input-container>
@@ -68,8 +68,8 @@
           </md-select>
         </md-input-container>
       </div>
-    </div>
-    <md-button class='md-primary' ng-click='checkout()'>Check out!</md-button>
+    </div> -->
+    <md-button class="md-primary" ng-click="checkout()">Check out!</md-button>
   </div>
 
 </section>
