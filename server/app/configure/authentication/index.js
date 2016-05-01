@@ -45,6 +45,9 @@ module.exports = function (app) {
     // This is used by the browser application (Angular) to determine if a user is
     // logged in already.
     app.get('/session', function (req, res) {
+        if (!req.session.cart) req.session.cart = 0;
+        req.session.cart++;
+        console.log('here user', req.user, 'sessionID', req.sessionID, 'cart', req.session.cart)
         if (req.user) {
             res.send({ user: req.user.sanitize() });
         } else {
@@ -54,7 +57,10 @@ module.exports = function (app) {
 
     // Simple /logout route.
     app.get('/logout', function (req, res) {
+        // console.log(req.sessionID);
+        req.session.destroy();
         req.logout();
+        // console.log('req.usr', req.user);
         res.status(200).end();
     });
 

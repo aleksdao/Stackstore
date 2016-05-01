@@ -2,13 +2,15 @@
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast'])
   .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('red')
-    .accentPalette('green');
+    .primaryPalette('blue')
+    .accentPalette('orange');
   });
 
   app.config(['ngToastProvider', function(ngToastProvider) {
   ngToastProvider.configure({
-    animation: 'slide' // or 'fade'
+    animation: 'slide', // or 'fade'
+    verticalPosition: 'bottom',
+    horizontalPosition: 'middle'
   });
 }]);
 

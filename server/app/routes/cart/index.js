@@ -5,6 +5,9 @@ var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
 
+
+//i don't think user needs to be authenticated to add to cart
+
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -25,12 +28,40 @@ var ensureAuthenticated = function (req, res, next) {
 // })
 
 router.get('/', function (req, res, next) {
-
-  Cart.findOne({ userId: req.user._id })
-    .populate('lineItems.experienceId')
-    .then(function (retrievedCart) {
-      res.send(retrievedCart);
-    })
+  if (req.user) {
+    Cart.findOne({ userId: req.user._id })
+      .populate('lineItems.experienceId')
+      .then(function (foundCart) {
+        if (!foundCart) {
+          console.log('created one from user')
+          return Cart.create({ userId: req.user._id })
+        }
+        else {
+          console.log('found one from user')
+          return foundCart;
+        }
+      })
+      .then(function (retrievedCart) {
+        res.send(retrievedCart);
+      })
+  }
+  else {
+    Cart.findOne({ sessionId: String(req.sessionID) })
+      .populate('lineItems.experienceId')
+      .then(function (foundCart) {
+        if (!foundCart) {
+          console.log('created one from session')
+          return Cart.create({ sessionId: String(req.sessionID) })
+        }
+        else {
+          console.log('found one from session', foundCart);
+          return foundCart;
+        }
+      })
+      .then(function (retrievedCart) {
+        res.send(retrievedCart);
+      })
+  }
 
 
 })
