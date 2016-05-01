@@ -178,7 +178,7 @@ var seedCarts = function (users, experiences) {
   }
 
   return Cart.create(carts);
-}
+};
 
 var seedReviews = function (experiences, users) {
 
@@ -195,7 +195,7 @@ var seedReviews = function (experiences, users) {
 
   return Review.create(reviews);
 
-}
+};
 
 var _users;
 var _experiences;

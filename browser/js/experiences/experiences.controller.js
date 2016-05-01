@@ -4,13 +4,12 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
-	
+
 	$scope.gotoDetail=function(exp){
 		$state.go('experience',{ id: exp._id });
 	};
 	// $scope.isChecked;
 	$scope.isSameAsBreadcrumb = function (category) {
-		console.log(category.name, breadcrumbCategory.name)
 		return breadcrumbCategory._id === category._id;
 	}
 

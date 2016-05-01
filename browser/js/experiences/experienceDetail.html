@@ -21,8 +21,9 @@
 							<div id="experienceName">{{experience.name}}</div>
 
 						</div>
+						<div class="clear"></div>
 						<!-- begin rating area -->
-						<div>
+						<div id="ratingUnderPhoto">
 							<h4>Rating :
 								<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating>
 							</h4>
@@ -43,9 +44,10 @@
 		</div>
 	</div>
 
+<!-- begin you may also like -->
 	<div class="row">
 		<div class="col-sm-2"></div>
-		<h4 class="col-sm-4" id="moreTitle">You may also like:</h4>
+		<h3 class="col-sm-4" class="title">You may also like:</h3>
 	</div>
 	<div class="row" id="moreThingsToLike">
 		<div class="col-sm-12" >
@@ -57,4 +59,31 @@
 				<div class="col-sm-2"></div>
 
 		</div>
+	</div>
+
+	<!-- begin reviews -->
+	<div class="row">
+		<div class="col-sm-2"></div>
+
+		<h3 class="col-sm-6 title" id="reviewSectionTitle">Reviews:</h3>
+
+
+		<div class="col-sm-2 ">
+
+			<md-button class="md-raised" ng-disabled='!tempQuantity' ng-click="writeReview(experience._id)">Write review<md-icon class="material-icons" ng-style='{ color: "rgb(89, 226, 168)" }'>create</md-icon></md-button>
+		</div>
+
+		<div class="col-sm-2"></div>
+
+	</div>
+
+	<div class="row" ng-repeat="review in reviews">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<review></review>
+		</div>
+	</div>
+
+	<div class="moreBottomPadding">
+
 	</div>

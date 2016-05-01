@@ -1,8 +1,9 @@
-app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast,$state) {
+app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, reviews) {
 	$scope.experience = experience;
 	$scope.similarExperiences;
 	$scope.cart = cart;
 	$scope.tempQuantity = experience.tempQuantity;
+	$scope.reviews	= reviews;
 
 	$scope.addToCart	= function (experience) {
 		CartFactory.addToCart($scope.cart, experience)

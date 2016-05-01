@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Experience = mongoose.model('Experience');
 var User = mongoose.model('User');
+var Review = mongoose.model('Review');
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
@@ -28,6 +29,16 @@ router.param('id', function (req, res, next, id) {
 //     })
 // })
 
+// //below gets all reviews
+// router.get('/reviews', function (req, res, next) {
+//   // console.log('req.id', req.id);
+//   Review.find({})
+//     .then(function (reviews) {
+//       // console.log('reviews inside route', reviews);
+//       res.send(reviews);
+//     });
+// });
+
 router.get('/', function (req, res, next) {
   Experience.find({})
     .then(function (experiences) {
@@ -39,6 +50,14 @@ router.get('/:id', function (req, res, next) {
   Experience.findById(req.id)
     .then(function (experience) {
       res.send(experience);
+    });
+});
+
+//below gets all reviews by experience.id
+router.get('/:id/reviews', function (req, res, next) {
+  Review.find({experience: req.id})
+    .then(function (reviews) {
+      res.send(reviews);
     });
 });
 
