@@ -8,7 +8,7 @@
 			          </md-card-title-text>
 			        </md-card-title>
 			        <md-card-actions layout="row" ayout-align="space-around center">
-			          <md-button class="actionsbut" ng-repeat="action in fn.actions" class="md-raised" ng-click="gotoDetail(exp)">{{action.label}}</md-button>
+			          <md-button class="actionsbut" ng-repeat="action in fn.actions" class="md-raised" ui-sref="{{action.value}}">{{action.label}}</md-button>
 			        </md-card-actions>
 			</md-card>
 		</div>
