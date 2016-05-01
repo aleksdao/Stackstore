@@ -58,27 +58,18 @@ app.factory('CartFactory', function ($http) {
     return depopulatedLineItems;
   };
 
-  //Alex: The following function retrieves a cart based on the logged in user's
-  //id. If it's a new user and cart doesn't exist, we make POST call to /api/cart//
-  //to create a cart.
+  //Alex: The following function retrieves the cart. A cart is always returned
+  //whether it is via sessionID from non-logged-in-user or via userId from logged
+  //in user. check routes/cart/index.js to see the logic
 
   factory.fetchCart = function () {
     return $http.get('/api/cart')
       .then(function (response) {
-        if (response.data) {
-          console.log('is this cart', response.data);
-          return response;
-        }
-        else {
-          return $http.post('/api/cart');
-        }
-      })
-      .then(function (response) {
-        var cart = response.data;
-        return cart;
+          var cart = response.data;
+          return cart;
       });
-  };
-
+  }
+  
   factory.addToCart = function (cart, experience) {
     var lineItems;
     if(cart.lineItems)
