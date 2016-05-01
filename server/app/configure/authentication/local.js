@@ -41,6 +41,7 @@ module.exports = function (app) {
             req.logIn(user, function (loginErr) {
                 if (loginErr) return next(loginErr);
                 // We respond with a response object that has user with _id and email.
+                console.log('user from login route', user, user.sanitize());
                 res.status(200).send({
                     user: user.sanitize()
                 });
