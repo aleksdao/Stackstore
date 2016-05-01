@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var addressSchema = mongoose.model('Address').schema;
 
+//good.. nice simple Schema
 var orderSchema = Schema ({
   lineItems: [
     {
@@ -19,6 +20,6 @@ var orderSchema = Schema ({
   },
   shippingAddress: addressSchema,
   billingAddress: addressSchema
-})
+});
 
 mongoose.model('Order', orderSchema);

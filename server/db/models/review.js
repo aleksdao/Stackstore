@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+// beatufiful Schemas!!
 var reviewSchema = new Schema({
   description: {
     type: String,
@@ -20,6 +20,6 @@ var reviewSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+});
 
 mongoose.model('Review', reviewSchema);

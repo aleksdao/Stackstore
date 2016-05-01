@@ -13,11 +13,12 @@ var ensureAuthenticated = function (req, res, next) {
 };
 
 router.param('id', function (req, res, next, id) {
-  req.id = id;
+  req.id = id;//not sure this buys us much
   next();
 });
 
 //ALex: Middleware below is setting a user for easier testing with Postman.
+// instead of doing this.. which I understand.. write a test
 //Feel free to remove if you don't need it
 
 // router.use('/', function (req, res, next) {
@@ -53,6 +54,7 @@ router.post('/', function (req, res, next) {
 //default is false, which is to return original document. Strange behavior
 
 router.put('/:id', function (req, res, next) {
+  //my advice is to find what you are editing.. and just update it..
   Experience.findByIdAndUpdate(req.id, req.body, { new: true })
     .then(function (updatedExperience) {
       res.send(updatedExperience);

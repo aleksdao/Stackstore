@@ -25,30 +25,31 @@ var ensureAuthenticated = function (req, res, next) {
 // })
 
 router.get('/', function (req, res, next) {
+  //will we always find one?
 
   Cart.findOne({ userId: req.user._id })
     .populate('lineItems.experienceId')
     .then(function (retrievedCart) {
       res.send(retrievedCart);
-    })
+    }, next);
 
-
-})
+});
 
 router.post('/', function (req, res, next) {
   Cart.create({ userId: req.user._id })
-    .then(function (createdCart) {
-      res.status(201).send(createdCart);
-    })
-})
+    .then(function (cart) {
+      res.status(201).send(cart);
+    });
+});
 
 router.put('/:id', function (req, res, next) {
+  //again.. I would just find it and update it
   Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .populate('lineItems.experienceId')
     .then(function (modifiedCart) {
       res.send(modifiedCart);
-    })
-})
+    }, next);
+});
 
 module.exports = router;
 

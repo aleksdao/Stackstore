@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 
+//if this is creating an Order.. shouldn't this be a POST to /orders
+
 router.post('/', function (req, res, next) {
   console.log(cart);
   var cart = req.body;
@@ -11,7 +13,7 @@ router.post('/', function (req, res, next) {
     return lineItem;
   });
   Order.create({
-    userId: cart.userId,
+    userId: cart.userId,//don't we have the user from passport? req.user?
     totalCost: cart.subtotal,
     lineItems: cart.lineItems,
     shippingAddress: cart.shippingAddress,
