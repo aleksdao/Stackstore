@@ -60,6 +60,13 @@ router.get('/:id/reviews', function (req, res, next) {
       res.send(reviews);
     });
 });
+//creates a new review
+router.post('/:id/reviews', function (req, res, next) {
+  Review.create(req.body)
+    .then(function (review) {
+      res.send(review);
+    });
+});
 
 router.post('/', function (req, res, next) {
   Experience.create(req.body)

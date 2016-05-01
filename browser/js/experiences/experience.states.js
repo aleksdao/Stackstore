@@ -31,7 +31,7 @@ app.config(function($stateProvider){
 					return CartFactory.fetchCart();
 				},
 				reviews: function(experiencesFactory, $stateParams){
-					return experiencesFactory.getExperiences($stateParams.id);
+					return experiencesFactory.getReviews($stateParams.id);
 				}
 			}
 		})

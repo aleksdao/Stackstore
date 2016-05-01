@@ -20,6 +20,6 @@ var reviewSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+});
 
 mongoose.model('Review', reviewSchema);

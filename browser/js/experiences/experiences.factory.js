@@ -41,10 +41,18 @@ app.factory('experiencesFactory',function($http){
 				return err;
 			});
 		},
-		getExperiences : function(id){
+		getReviews : function(id){
 			return $http.get('api/experiences/'+ id +'/reviews')
 			.then(function(reviews){
 				return reviews.data;
+			},function(err){
+				return err;
+			});
+		},
+		postReview : function(review){
+			return $http.post('api/experiences/'+ review.experience +'/reviews', review)
+			.then(function(review){
+				return review.data;
 			},function(err){
 				return err;
 			});
