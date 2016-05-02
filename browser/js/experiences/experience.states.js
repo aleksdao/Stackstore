@@ -16,6 +16,9 @@ app.config(function($stateProvider){
 				},
 				breadcrumbCategory:	function($stateParams){
 					return	$stateParams.category;
+				},
+				cart: function (CartFactory) {
+					return CartFactory.fetchCart();
 				}
 			}//end resolve
 		})
