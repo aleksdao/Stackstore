@@ -1,0 +1,70 @@
+<div class="col-sm-4"x1
+	 <p>Experience ID ({{newExperience._id}})</p>
+	 <md-input-container class="md-block" flex-gt-sm>
+            <label>Categories</label>
+            <md-select ng-change="addCategory()" ng-model="tempdata.selectedCategory">
+              <md-option ng-repeat="cat in categories" value="{{cat}}">
+                {{cat.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>   
+        <md-input-container class="md-block" ng-require="true" flex-gt-sm>
+            <label>Experiece Name</label>
+            <input ng-model="newExperience.name">
+      </md-input-container>	
+     <md-input-container class="md-block" flex-gt-sm>
+            <label>Hero Image Url</label>
+            <input ng-model="newExperience.photoUrl">
+      </md-input-container>	
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>Quantity</label>
+            <input ng-model="newExperience.quantity">
+      </md-input-container>   
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>Price</label>
+            <input ng-model="newExperience.price">
+      </md-input-container>   
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>Short Description</label>
+            <input ng-model="newExperience.shortDescription">
+      </md-input-container>	
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>Long Decription</label>
+            <input ng-model="newExperience.description">
+      </md-input-container>	
+      
+</div>
+
+<div class="col-sm-4">
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>Address</label>
+            <input ng-model="newExperience.address.address">
+      </md-input-container>	<md-input-container class="md-block" flex-gt-sm>
+            <label>Address 2</label>
+            <input ng-model="newExperience.address.address2">
+      </md-input-container>	
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>City</label>
+            <input ng-model="newExperience.address.city">
+      </md-input-container> 
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>State</label>
+            <input ng-model="newExperience.address.state">
+      </md-input-container>	
+       <md-input-container class="md-block" flex-gt-sm>
+            <label>Postal Code</label>
+            <input ng-model="newExperience.address.postalCode">
+      </md-input-container> 
+       <md-input-container class="md-block" flex-gt-sm>
+            <label>Country</label>
+            <input ng-model="newExperience.address.country">
+      </md-input-container>	
+
+      
+</div>
+ <md-button  class="md-raised" ng-click="sendExperience()">SAVE</md-button>
+
+
+
+
+

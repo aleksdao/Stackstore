@@ -40,6 +40,12 @@ app.config(function($stateProvider){
 		})
 		.state('newExperience', {
 			url:'/experiences/new',
-			templateUrl: '/js/experiences/new.html'
+			templateUrl: '/js/experiences/new.html',
+			resolve:{
+				categories : function(CategoriesFactory){
+					return CategoriesFactory.fetchAll();
+				}
+			},
+			controller:'experienceAddCtrl'
 		});
 });

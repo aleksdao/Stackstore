@@ -20,7 +20,7 @@ Trigger password reset for a user (next time they successfully log in—with the
 
 	$scope.adminFunctions=[
 		{label : 'Manager Experiences', value : 'editexp', url : 'manageexp',actions:[
-																						{label : 'Add Experiences', value : 'newexperience'},
+																						{label : 'Add Experiences', value : 'newExperience'},
 																						{label : 'Manager Availability', value : 'managestock'},
 																						{label : 'Edit Experience', value : 'editexperience'},
 																						{label : 'Manager Categories', value : 'editexperience'}
