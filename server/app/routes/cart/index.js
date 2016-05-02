@@ -17,21 +17,111 @@ var ensureAuthenticated = function (req, res, next) {
 };
 
 router.get('/', function (req, res, next) {
+  var sessionCart;
+  var existingUserCart;
+
   if (req.user) {
+    // if (req.session.cart) {
+    //   Cart.findOne({ sessionId: String(req.sessionID) })
+    //     .populate('lineItems.experienceId')
+    //     .then(function (foundSessionCart) {
+    //       sessionCart = foundSessionCart;
+    //       return sessionCart;
+    //     })
+    //     .then(function (sessionCart) {
+    //       return Cart.findOne({ userId: req.user._id}).populate('lineItems.experienceId');
+    //     })
+    //     .then(function (userCart) {
+    //       if (!userCart) {
+    //         return Cart.findOneAndUpdate({ sessionId: String(req.sessionID) }, { userId: req.user._id }, { new: true });
+    //       }
+          // else {
+          //   var sessionLineItems = sessionCart.lineItems;
+          //   var foundSameItem = false;
+          //   sessionCart.lineItems.forEach(function (sessionLineItem) {
+          //     userCart.lineItems.map(function (userCartLineItem) {
+          //       if (userCartLineItem.experienceId._id === sessionLineItem.experienceId._id) {
+          //         foundSameItem = true;
+          //         userCartLineItem.quantity += sessionLineItem.quantity;
+          //       }
+          //       return userCartLineItem;
+          //     })
+          //     if (!foundSameItem)
+          //       userCart.lineItems.push(sessionLineItem);
+          //   })
+          //   return userCart.save();
+    //       }
+    //     })
+    //     .then(function (retrievedCart) {
+    //       req.session.sessionCart = null;
+    //       res.send(retrievedCart);
+    //     })
+    //   }
+    // else {
+    //   Cart.create({ userId: req.user._id })
+    //     .then(function (createdCart) {
+    //       req.session.sessionCart = null;
+    //       res.send(createdCart);
+    //     })
+    // }
+
+    var combineCarts = false;
+    var existingUserCart;
     Cart.findOne({ userId: req.user._id })
       .populate('lineItems.experienceId')
-      .then(function (foundCart) {
-        if (!foundCart) {
-          console.log('created a cart for user')
-          return Cart.create({ userId: req.user._id })
+      .then(function (userCart) {
+        if (!userCart) {
+          //if no cart for user is found, then check if there is a session cart. if there is a session cart,
+          //take the session cart and add the userId to it. the logged in user inherits the session cart.
+          //if there is no session cart, create a new cart for the user.
+
+          if (req.session.sessionCart) {
+            req.session.sessionCart = null;
+            return Cart.findOneAndUpdate({ sessionId: String(req.sessionID) }, { userId: req.user._id }, { new: true }).populate('lineItems.experienceId');
+          }
+          else {
+            console.log('created a cart for user')
+            return Cart.create({ userId: req.user._id })
+          }
         }
         else {
           console.log('found existing cart from user')
-          return foundCart;
+          if (req.session.sessionCart) {
+            existingUserCart = userCart;
+            combineCarts = true;
+            req.session.sessionCart = null;
+          }
+          return Cart.findOne({ sessionId: String(req.sessionID) }).populate('lineItems.experienceId');
         }
       })
       .then(function (retrievedCart) {
-        res.send(retrievedCart);
+        if (!combineCarts)
+          res.send(retrievedCart);
+        else {
+          var sessionLineItems = retrievedCart.lineItems;
+          var foundSameItem = false;
+          sessionLineItems.forEach(function (sessionLineItem) {
+            existingUserCart.lineItems.map(function (userCartLineItem) {
+              //why does this require String? the below conditional didn't pass until I casted with String
+              if (String(userCartLineItem.experienceId._id) === String(sessionLineItem.experienceId._id)) {
+
+                console.log('found same item');
+                foundSameItem = true;
+                userCartLineItem.quantity += sessionLineItem.quantity;
+              }
+              return userCartLineItem;
+            })
+            if (!foundSameItem) {
+              console.log('adding this item', sessionLineItem);
+              existingUserCart.lineItems.push(sessionLineItem);
+            }
+          })
+          return existingUserCart.save();
+        }
+      })
+      .then(function (combinedCart) {
+        if (combineCarts)
+          res.send(combinedCart);
       })
   }
   else {
@@ -54,6 +144,7 @@ router.get('/', function (req, res, next) {
         }
       })
       .then(function (retrievedCart) {
+        req.session.sessionCart = retrievedCart._id;
         res.send(retrievedCart);
       })
   }
