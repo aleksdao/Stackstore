@@ -1,18 +1,23 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast'])
+
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe'])
   .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
     .accentPalette('orange');
   });
 
-  app.config(['ngToastProvider', function(ngToastProvider) {
+app.config(['ngToastProvider', function(ngToastProvider) {
   ngToastProvider.configure({
     animation: 'slide', // or 'fade'
     verticalPosition: 'bottom',
     horizontalPosition: 'middle'
   });
 }]);
+
+app.config(function(stripeProvider) {
+  stripeProvider.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+});
 
 app.config(function ($urlRouterProvider, $locationProvider) {
   if(typeof(TEST_MODE) === 'undefined'){
