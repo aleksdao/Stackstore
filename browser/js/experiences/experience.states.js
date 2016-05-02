@@ -16,6 +16,9 @@ app.config(function($stateProvider){
 				},
 				breadcrumbCategory:	function($stateParams){
 					return	$stateParams.category;
+				},
+				cart: function (CartFactory) {
+					return CartFactory.fetchCart();
 				}
 			}//end resolve
 		})
@@ -29,10 +32,10 @@ app.config(function($stateProvider){
 				},
 				cart: function (CartFactory) {
 					return CartFactory.fetchCart();
-				},
-				reviews: function(experiencesFactory, $stateParams){
-					return experiencesFactory.getReviews($stateParams.id);
 				}
+				// reviews: function(experiencesFactory, $stateParams){
+				// 	return experiencesFactory.getReviews($stateParams.id);
+				// }
 			}
 		})
 		.state('newExperience', {

@@ -18,6 +18,17 @@ router.param('id', function (req, res, next, id) {
   next();
 });
 
+//calculates average review rating and adds to each review
+function reviewWorks (experience, reviews) {
+  var total = 0;
+  for (var k = 0; k < reviews.length; k++) {
+    total += reviews[k].rating;
+  }
+  experience.averageRating = (total/reviews.length);
+  experience.reviews  = reviews;
+  return experience;
+}//end reviewWorks
+
 //ALex: Middleware below is setting a user for easier testing with Postman.
 //Feel free to remove if you don't need it
 
@@ -36,20 +47,30 @@ router.get('/', function (req, res, next) {
     });
 });
 
+
 router.get('/:id', function (req, res, next) {
   Experience.findById(req.id)
-    .then(function (experience) {
-      res.send(experience);
-    });
+  .then(function(experience){
+    Review.find({'experience': experience._id})
+      .then(function (reviews) {
+            if(reviews !== undefined){
+            var experiencez = reviewWorks(experience, reviews);
+            console.log('experiencez',experiencez);
+            res.send(experiencez);
+          } else {
+            return;
+          }//end else
+        });//end inner then
+  });//end first then
 });
 
-//below gets all reviews by experience.id
-router.get('/:id/reviews', function (req, res, next) {
-  Review.find({experience: req.id})
-    .then(function (reviews) {
-      res.send(reviews);
-    });
-});
+// //below gets all reviews by experience.id
+// router.get('/:id/reviews', function (req, res, next) {
+//   Review.find({experience: req.id})
+//     .then(function (reviews) {
+//           res.send(reviews);
+//       });
+// });
 //creates a new review
 router.post('/:id/reviews', function (req, res, next) {
   Review.create(req.body)

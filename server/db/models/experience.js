@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var addressSchema = mongoose.model('Address').schema;
 
-
 var categorySchema = new Schema({
   name: {
     type: String,
@@ -19,7 +18,7 @@ var categorySchema = new Schema({
     ],
     required: true
   }
-})
+});
 
 var experienceSchema = new Schema({
   name: {
@@ -58,8 +57,11 @@ var experienceSchema = new Schema({
   createdBy: {
     type: Date
   },
-  ratingAverage:  {
+  averageRating:  {
     type: Number
+  },
+  reviews:  {
+    type:[Schema.Types.Mixed]
   },
   createdAt: {
     type: Date,
@@ -72,9 +74,7 @@ var experienceSchema = new Schema({
     type: Date,
     default: Date.now
   }
-})
-
-
+});
 
 mongoose.model('Category', categorySchema);
 mongoose.model('Experience', experienceSchema);

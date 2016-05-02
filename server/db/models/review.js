@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 var reviewSchema = new Schema({
   description: {
     type: String,
@@ -21,5 +22,6 @@ var reviewSchema = new Schema({
     ref: 'User'
   }
 });
+
 
 mongoose.model('Review', reviewSchema);

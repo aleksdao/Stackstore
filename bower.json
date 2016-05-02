@@ -1,0 +1,20 @@
+{
+  "name": "FullstackGeneratedApp",
+  "description": "A generated project at Fullstack Academy",
+  "main": "server/start.js",
+  "authors": [
+    "Alex Dao <rahx1t@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/aleksdao/Stackstore",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-stripe": "^4.2.12"
+  }
+}

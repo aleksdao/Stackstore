@@ -1,14 +1,33 @@
-app.controller('CheckoutCtrl', function($scope, cart, CheckoutFactory) {
-  $scope.cart = cart
-  $scope.checkout = function () {
-    return CartFactory.checkout($scope.cart)
-      .then(function (order) {
-          $scope.order = order;
-          ngToast.create({
-  					className: 'success',
-  					content: 'Order successfully placed!'
-  				});
-      });
+app.controller('CheckoutCtrl', function($scope, $state, cart, stripe, CartFactory, CheckoutFactory) {
+  $scope.cart = cart;
+  $scope.subtotal = function() {
+    return CartFactory.getSubtotal(cart);
   };
+
+  $scope.charge = function () {
+    var amount = $scope.subtotal();
+    stripe.card.createToken($scope.payment.card)
+    .then(function(response) {
+      console.log('token created for card ending in ', response.card.last4);
+      var payment = angular.copy($scope.payment);
+      payment.card = void 0;
+      payment.token = response.id;
+      payment.amount = amount;
+      console.log(payment);
+      return CheckoutFactory.order(payment, cart);
+    })
+    .then(function (orderConfirmation) {
+      console.log('Successfully submitted payment for $', orderConfirmation.stripeCharge.amount);
+      $state.go('experiences');
+    })
+    .catch(function (err) {
+      if (err.type && /^Stripe/.test(err.type)) {
+        console.log('Stripe error: ', err.message);
+      } else {
+        console.log('Other error occurred, possibly with API', err.message);
+      }
+    });
+  };
+
 
 });
