@@ -22,6 +22,7 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var _ = require('lodash');
+var Promise = require('bluebird');
 
 var User = mongoose.model('User');
 var Review = mongoose.model('Review');
@@ -185,7 +186,8 @@ var seedReviews = function (experiences, users) {
 
   var reviews = [];
 
-  for (var i = 0; i < 100; i++) {
+
+  for (var i = 0; i < 200; i++) {
     var review = {};
     review.description = faker.lorem.sentences();
     review.rating = randomizerIdx(1, 5);
@@ -194,9 +196,32 @@ var seedReviews = function (experiences, users) {
     reviews.push(review);
   }
 
-  return Review.create(reviews);
+  return Review.create(reviews)
+    .then(function (reviews) {
+      var promisifyExperiences = [];
+      experiences.forEach(function (experience) {
+        var reviewAdded = false;
+        reviews.forEach(function (review) {
+          // console.log('experience', experience._id)
+          // console.log(review.experience);
+          if (String(review.experience) === String(experience._id)) {
+            // console.log('heres one', review.experience)
+            reviewAdded = true;
+            experience.reviews.push(review);
+
+          }
+        })
+        if(reviewAdded) {
+          console.log('yes added')
+          promisifyExperiences.push(experience.save());
+        }
+      })
+      return Promise.all(promisifyExperiences);
+    })
 
 };
+
+var seedExperiencesWithReviews
 
 var _users;
 var _experiences;
