@@ -186,7 +186,7 @@ var seedReviews = function (experiences, users) {
   var reviews = [];
 
 
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 200; i++) {
     var review = {};
     review.description = faker.lorem.sentences();
     review.rating = randomizerIdx(1, 5);
@@ -198,11 +198,13 @@ var seedReviews = function (experiences, users) {
   return Review.create(reviews)
     .then(function (reviews) {
       experiences = experiences.map(function (experience) {
-        reviews.map(function (review) {
-          if (review.experience === experience.__id) {
-            experience.push(review);
+        reviews.forEach(function (review) {
+          // console.log('experience', experience._id)
+          // console.log(review.experience);
+          if (String(review.experience) === String(experience._id)) {
+            console.log('heres one', review.experience)
+            experience.reviews.push(review);
           }
-          return review;
         })
         return experience;
       })

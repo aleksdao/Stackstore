@@ -43,7 +43,8 @@ var experienceSchema = new Schema({
     required: true
   },
   reviews: {
-    type: [reviewSchema]
+    type: [reviewSchema],
+    default: []
   },
   price: {
     type: Number,
@@ -63,9 +64,6 @@ var experienceSchema = new Schema({
   },
   averageRating:  {
     type: Number
-  },
-  reviews:  {
-    type:[Schema.Types.Mixed]
   },
   createdAt: {
     type: Date,
