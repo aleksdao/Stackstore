@@ -185,6 +185,7 @@ var seedReviews = function (experiences, users) {
 
   var reviews = [];
 
+
   for (var i = 0; i < 100; i++) {
     var review = {};
     review.description = faker.lorem.sentences();
@@ -194,9 +195,23 @@ var seedReviews = function (experiences, users) {
     reviews.push(review);
   }
 
-  return Review.create(reviews);
+  return Review.create(reviews)
+    .then(function (reviews) {
+      experiences = experiences.map(function (experience) {
+        reviews.map(function (review) {
+          if (review.experience === experience.__id) {
+            experience.push(review);
+          }
+          return review;
+        })
+        return experience;
+      })
+      return experiences;
+    })
 
 };
+
+var seedExperiencesWithReviews
 
 var _users;
 var _experiences;

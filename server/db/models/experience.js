@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var addressSchema = mongoose.model('Address').schema;
+var reviewSchema = mongoose.model('Review').schema;
 
 var categorySchema = new Schema({
   name: {
@@ -40,6 +41,9 @@ var experienceSchema = new Schema({
   tempQuantity: {
     type: Number,
     required: true
+  },
+  reviews: {
+    type: [reviewSchema]
   },
   price: {
     type: Number,
