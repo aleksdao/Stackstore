@@ -2,7 +2,6 @@
 	<!-- <div class="col-sm-2">filter</div> -->
 	<div class="col-sm-12"	id="singleExperience">
 		<div>
-			<!-- <a ui-sref="experience"> -->
 			<!-- begin the card itself -->
 				<div class="col-sm-12" >
 					<div class="col-sm-2 location" >
@@ -21,8 +20,9 @@
 							<div id="experienceName">{{experience.name}}</div>
 
 						</div>
+						<div class="clear"></div>
 						<!-- begin rating area -->
-						<div>
+						<div id="ratingUnderPhoto">
 							<h4>Rating :
 								<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating>
 							</h4>
@@ -32,7 +32,6 @@
 
 						<h4 class="pull-right">Only {{tempQuantity}} spots left. Reserve now! &nbsp &nbsp ${{experience.price}}</h4>
 							<div class="clear"></div>
-						<!-- <button type="button" class="btn btn-success pull-right" ng-click="addToCart(experience)">Add to Cart</button> -->
 						<md-button class="md-raised  pull-right" ng-disabled='!tempQuantity' ng-click="addToCart(experience)"><md-icon class="material-icons" ng-style='{ color: "rgb(89, 226, 168)" }'>add_shopping_cart</md-icon></md-button>
 
 					</div>
@@ -43,9 +42,10 @@
 		</div>
 	</div>
 
+<!-- begin you may also like -->
 	<div class="row">
 		<div class="col-sm-2"></div>
-		<h4 class="col-sm-4" id="moreTitle">You may also like:</h4>
+		<h3 class="col-sm-4" class="title">You may also like:</h3>
 	</div>
 	<div class="row" id="moreThingsToLike">
 		<div class="col-sm-12" >
@@ -57,4 +57,34 @@
 				<div class="col-sm-2"></div>
 
 		</div>
+	</div>
+
+	<!-- begin reviews -->
+	<div class="row">
+		<div class="col-sm-2"></div>
+
+		<h3 class="col-sm-6 title" id="reviewSectionTitle">Reviews:</h3>
+
+		<div class="col-sm-2 " ng-show="loggedInTrue">
+			<div ng-show="!alreadyReviewed">
+				<md-button class="md-raised" ng-disabled='!tempQuantity' ng-click="writeReview(experience._id)">Write review<md-icon class="material-icons" ng-style='{ color: "rgb(89, 226, 168)" }'>create</md-icon></md-button>
+			</div>
+			<div ng-show="alreadyReviewed">
+				<h3 class="_italic">You reviewed this product.</h3>
+			</div>
+		</div>
+
+		<div class="col-sm-2"></div>
+
+	</div>
+
+	<div class="row" ng-repeat="review in reviews">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<review></review>
+		</div>
+	</div>
+
+	<div class="moreBottomPadding">
+
 	</div>

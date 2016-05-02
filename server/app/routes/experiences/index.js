@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Experience = mongoose.model('Experience');
 var User = mongoose.model('User');
+var Review = mongoose.model('Review');
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
@@ -39,6 +40,21 @@ router.get('/:id', function (req, res, next) {
   Experience.findById(req.id)
     .then(function (experience) {
       res.send(experience);
+    });
+});
+
+//below gets all reviews by experience.id
+router.get('/:id/reviews', function (req, res, next) {
+  Review.find({experience: req.id})
+    .then(function (reviews) {
+      res.send(reviews);
+    });
+});
+//creates a new review
+router.post('/:id/reviews', function (req, res, next) {
+  Review.create(req.body)
+    .then(function (review) {
+      res.send(review);
     });
 });
 
