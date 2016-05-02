@@ -154,7 +154,8 @@ var seedExperiences = function (addresses, categories, randomizerIdx) {
       experience.category = categories[randomizerIdx(0, categories.length - 1)];
       experience.address = addresses[randomizerIdx(0, addresses.length - 1)];
       experience.photoUrl = _photoUrls[randomizerIdx(0, _photoUrls.length-1)];
-      experience.ratingAverage = randomizerIdx(2,5);
+      experience.averageRating = 0;
+      // experience.ratingAverage = randomizerIdx(2,5);
       experiences.push(experience);
     });
 
