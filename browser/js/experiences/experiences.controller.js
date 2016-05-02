@@ -1,9 +1,13 @@
-app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, breadcrumbCategory){
+app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, breadcrumbCategory, cart, CartFactory){
 
 	$scope.allexp = experiences;
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
+
+	$scope.cart = cart;
+
+	// var experience = {}
 
 	$scope.gotoDetail=function(exp){
 		$state.go('experience',{ id: exp._id });
@@ -12,6 +16,22 @@ app.controller('experiencesCTRL',function($scope,experiencesFactory,experiences,
 	$scope.isSameAsBreadcrumb = function (category) {
 		return breadcrumbCategory._id === category._id;
 	}
+
+	$scope.experienceInStock = function (experience) {
+		return experience.tempQuantity > 0;
+	};
+
+	$scope.addToCart	= function (experience) {
+		CartFactory.addToCart($scope.cart, experience)
+			.then(function (returnedObj) {
+				$scope.cart = returnedObj.modifiedCart;
+				experience.tempQuantity = returnedObj.tempQuantity;
+				ngToast.create({
+					className: 'success',
+					content: '<h2>Item added to Cart</h2>'
+				});//end ngToast.create
+			});
+	};
 
 
 	$scope.isSelected = function (category) {
