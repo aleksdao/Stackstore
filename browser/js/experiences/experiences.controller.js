@@ -10,7 +10,7 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 	// var experience = {}
 
 	$scope.gotoDetail=function(exp){
-		$state.go('experience',{ id: exp._id });
+		$state.go('experience',{ id: exp._id , _experience: exp});
 	};
 	// $scope.isChecked;
 	$scope.isSameAsBreadcrumb = function (category) {
