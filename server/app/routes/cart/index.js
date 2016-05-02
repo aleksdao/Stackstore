@@ -102,8 +102,6 @@ router.get('/', function (req, res, next) {
           var foundSameItem = false;
           sessionLineItems.forEach(function (sessionLineItem) {
             existingUserCart.lineItems.map(function (userCartLineItem) {
-              console.log('user cart line item', userCartLineItem._id);
-              console.log('session cart line item', sessionLineItem._id);
               //why does this require String? the below conditional didn't pass until I casted with String
               if (String(userCartLineItem.experienceId._id) === String(sessionLineItem.experienceId._id)) {
 
