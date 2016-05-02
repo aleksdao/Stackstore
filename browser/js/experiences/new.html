@@ -1,5 +1,5 @@
 <div class="col-sm-4"x1
-	 <p>Experience ID ({{exp._id}})</p>
+	 <p>Experience ID ({{newExperience._id}})</p>
 	 <md-input-container class="md-block" flex-gt-sm>
             <label>Categories</label>
             <md-select ng-change="addCategory()" ng-model="tempdata.selectedCategory">
@@ -62,7 +62,7 @@
 
       
 </div>
- <md-button  class="md-raised" ng-click="addExperience(newExperience)">SAVE</md-button>
+ <md-button  class="md-raised" ng-click="sendExperience()">SAVE</md-button>
 
 
 

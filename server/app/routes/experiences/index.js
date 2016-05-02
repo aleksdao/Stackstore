@@ -59,10 +59,8 @@ router.post('/:id/reviews', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  console.log(req.body);
   Experience.create(req.body)
     .then(function (createdExperience) {  
-      console.log(createdExperience);
       res.status(201).send(createdExperience);
     });
 });

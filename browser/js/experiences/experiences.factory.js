@@ -26,7 +26,7 @@ app.factory('experiencesFactory',function($http){
 			});
 		},
 		update : function(id,data){
-			return $http.put('/api/experiences/'+id)
+			return $http.put('/api/experiences/'+id,data)
 			.then(function(newExp){
 				return newExp.data;
 			},function(err){
