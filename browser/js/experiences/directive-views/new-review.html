@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3 class="modal-title">Please Review {{experience.name}}</h3>
+</div>
+
+<div class="modal-body">
+
+  <!-- star rating section -->
+  <h2>
+    <uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating">
+    </uib-rating>
+
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+  </h2>
+
+
+  <form>
+    <textarea rows="12" ng-model="review.description" id="newReviewBody" placeholder="What did you think?">
+    </textarea>
+  </form>
+  
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="sendReview()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

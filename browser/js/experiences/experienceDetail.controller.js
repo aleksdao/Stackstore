@@ -1,8 +1,31 @@
-app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast,$state) {
+app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, reviews, $uibModal, AuthService) {
+
+$scope.loggedInTrue = false;
+$scope.alreadyReviewed	= false;
+
+
+function isLoggedIn () {
+			return  AuthService.getLoggedInUser()
+				.then(function(user){
+					$scope.isLoggedIn = user;
+					if(user !== null){
+						$scope.loggedInTrue = true;
+						for (var i = 0; i < reviews.length; i++) {
+							if (reviews[i].user === user._id){
+								$scope.alreadyReviewed	= true;
+							}
+
+						}
+					}
+				});
+	}
+	isLoggedIn();
+
 	$scope.experience = experience;
 	$scope.similarExperiences;
 	$scope.cart = cart;
 	$scope.tempQuantity = experience.tempQuantity;
+	$scope.reviews	= reviews;
 
 	$scope.addToCart	= function (experience) {
 		CartFactory.addToCart($scope.cart, experience)
@@ -26,11 +49,7 @@ $scope.rate = experience.ratingAverage;
 
 
  $scope.ratingStates = [
-	 {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-	 {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-	 {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-	 {stateOn: 'glyphicon-heart'},
-	 {stateOff: 'glyphicon-off'}
+	 {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'}
  ];
 
 //look into putting this into state, if possible
@@ -50,5 +69,31 @@ $scope.rate = experience.ratingAverage;
 	 });
  }//end getSimilar
  getSimilar();
+
+
+// below launches modal window for review creation
+ $scope.writeReview = function () {
+
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/js/experiences/directive-views/new-review.html',
+      controller: 'ModalInstanceCtrl',
+      resolve: {
+        experience: function () {
+          return $scope.experience;
+        },
+				loggedInUser:	function () {
+					return $scope.isLoggedIn;
+				}
+      }
+    });
+
+    modalInstance.result.then(function (review) {
+			$scope.alreadyReviewed	= true;
+      $scope.reviews.unshift(review);
+    }, function () {
+      console.log('Added a new review to array ', review);
+    });
+  };
 
 });//end controller
