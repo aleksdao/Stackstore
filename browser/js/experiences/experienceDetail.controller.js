@@ -1,7 +1,8 @@
-app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, reviews, $uibModal, AuthService) {
+app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, $uibModal, AuthService) {
 
 $scope.loggedInTrue = false;
 $scope.alreadyReviewed	= false;
+$scope.similarExperiences =[];
 
 
 function isLoggedIn () {
@@ -10,8 +11,8 @@ function isLoggedIn () {
 					$scope.isLoggedIn = user;
 					if(user !== null){
 						$scope.loggedInTrue = true;
-						for (var i = 0; i < reviews.length; i++) {
-							if (reviews[i].user === user._id){
+						for (var i = 0; i < experience.reviews.length; i++) {
+							if (experience.reviews[i].user === user._id){
 								$scope.alreadyReviewed	= true;
 							}
 
@@ -25,7 +26,9 @@ function isLoggedIn () {
 	$scope.similarExperiences;
 	$scope.cart = cart;
 	$scope.tempQuantity = experience.tempQuantity;
-	$scope.reviews	= reviews;
+	$scope.reviews	= experience.reviews || [];
+	//below sets number of stars in display under photo
+	$scope.rate	= experience.averageRating;
 
 	$scope.addToCart	= function (experience) {
 		CartFactory.addToCart($scope.cart, experience)
@@ -43,11 +46,9 @@ $scope.experienceInStock = function () {
 	return $scope.tempQuantity > 0;
 };
 
-$scope.rate = experience.ratingAverage;
+//below specs are for star display directive
  $scope.max = 5;
  $scope.isReadonly = true;
-
-
  $scope.ratingStates = [
 	 {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'}
  ];
@@ -64,8 +65,15 @@ $scope.rate = experience.ratingAverage;
 		 });//end filter
 	 })
 	 .then(function(experiences){
-		 var cutExperiences = experiences.slice(0,4)
-		 $scope.similarExperiences = cutExperiences;
+		 return	 experiences.slice(0,4);
+	 })
+	 .then(function(experiences){
+		 return experiences.forEach(function(experience){
+			 experiencesFactory.fetch(experience._id)
+			 .then(function(experience){
+				 $scope.similarExperiences.push(experience);
+			 });
+		 });
 	 });
  }//end getSimilar
  getSimilar();
@@ -87,10 +95,17 @@ $scope.rate = experience.ratingAverage;
 				}
       }
     });
-
+//below is passed back to after modal closes, also averages review again
     modalInstance.result.then(function (review) {
 			$scope.alreadyReviewed	= true;
       $scope.reviews.unshift(review);
+			var sum = 0;
+			if($scope.reviews.length > 1){
+				for (var i = 0; i < $scope.reviews.length; i++) {
+					sum += $scope.reviews[i].rating;
+				}//end for
+				$scope.rate = (sum / $scope.reviews.length);
+			}//end if
     }, function () {
       console.log('Added a new review to array ', review);
     });
