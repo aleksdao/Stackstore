@@ -46,6 +46,9 @@ $scope.experienceInStock = function () {
 	return $scope.tempQuantity > 0;
 };
 
+$scope.gotoDetail=function(exp){
+	$state.go('experience',{ id: exp._id });
+};
 //below specs are for star display directive
  $scope.max = 5;
  $scope.isReadonly = true;
@@ -100,12 +103,13 @@ $scope.experienceInStock = function () {
 			$scope.alreadyReviewed	= true;
       $scope.reviews.unshift(review);
 			var sum = 0;
-			if($scope.reviews.length > 1){
+
 				for (var i = 0; i < $scope.reviews.length; i++) {
 					sum += $scope.reviews[i].rating;
 				}//end for
 				$scope.rate = (sum / $scope.reviews.length);
-			}//end if
+
+
     }, function () {
       console.log('Added a new review to array ', review);
     });
