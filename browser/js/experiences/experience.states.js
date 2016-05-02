@@ -32,7 +32,6 @@ app.config(function($stateProvider){
 			resolve : {
 				experience: function  (experiencesFactory, $stateParams) {
 					if($stateParams._experience !== {}){
-						console.log('in here', $stateParams._experience);
 						return $stateParams._experience;
 					}	else {
 					return experiencesFactory.fetch($stateParams.id);
@@ -41,9 +40,6 @@ app.config(function($stateProvider){
 				cart: function (CartFactory) {
 					return CartFactory.fetchCart();
 				}
-				// reviews: function(experiencesFactory, $stateParams){
-				// 	return experiencesFactory.getReviews($stateParams.id);
-				// }
 			}
 		})
 		.state('newExperience', {
