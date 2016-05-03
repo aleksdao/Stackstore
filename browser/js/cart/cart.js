@@ -78,9 +78,11 @@ app.factory('CartFactory', function ($http, ngToast) {
     return $http.get('/api/cart')
       .then(function (response) {
           var cart = response.data;
+          console.log(cart);
           return cart;
       });
   };
+
 
   factory.addToCart = function (cart, experience) {
     var lineItems;
