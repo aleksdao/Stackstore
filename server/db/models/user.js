@@ -11,13 +11,11 @@ function toLower (str) {
 var schema = new mongoose.Schema({
     email: {
         type: String,
-        required: true,
         unique: true,
         set: toLower
     },
     password: {
         type: String,
-        required: true
     },
     admin: {
       type: Boolean,

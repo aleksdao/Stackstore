@@ -1,17 +1,23 @@
-<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-    <h3>Login</h3>
+<div class="container">
 
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
+  <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+      <h3>Login</h3>
 
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+      <alert type="danger" ng-show="error">
+          {{ error }}
+      </alert>
+
+      <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+    <!-- <p><oauth-button provider-name="Google"></oauth-button></p> -->
+    <p><oauth-button provider-name="Twitter"></oauth-button></p>
+    <!-- <p><oauth-button provider-name="GitHub"></oauth-button></p> -->
+</div>
