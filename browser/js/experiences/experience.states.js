@@ -30,7 +30,7 @@ app.config(function($stateProvider){
 				}
 			},
 			controller:'experienceAddCtrl'
-		}).state('editexperience', {
+		}).state('editExperience', {
 			url:'/experiences/admin/edit',
 			templateUrl: '/js/admin/editexperience.html',
 			resolve:{
