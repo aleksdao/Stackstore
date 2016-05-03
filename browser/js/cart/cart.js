@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, ngToast) {
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory) {
 
   // $scope.cart = cart;
   $scope.cart = cart;
@@ -45,7 +45,7 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
   };
 });
 
-app.factory('CartFactory', function ($http) {
+app.factory('CartFactory', function ($http, ngToast) {
   var factory = {};
 
   var depopulateLineItemsArr = function (lineItems) {
@@ -68,8 +68,8 @@ app.factory('CartFactory', function ($http) {
           var cart = response.data;
           return cart;
       });
-  }
-  
+  };
+
   factory.addToCart = function (cart, experience) {
     var lineItems;
     if(cart.lineItems)
@@ -119,6 +119,11 @@ app.factory('CartFactory', function ($http) {
     return $http.put('/api/cart/' + cart._id, { lineItems: depopulatedLineItems })
       .then(function (response) {
         var modifiedCart = response.data;
+        ngToast.create({
+          className: 'danger',
+          content: '<h2>Item removed from Cart</h2>'
+        });//end ngToast.create
+
         return modifiedCart;
       });
   };

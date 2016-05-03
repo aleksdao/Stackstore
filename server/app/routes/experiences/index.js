@@ -47,9 +47,22 @@ router.get('/:id', function (req, res, next) {
 
 //creates a new review
 router.post('/:id/reviews', function (req, res, next) {
-  Review.create(req.body)
-    .then(function (review) {
-      res.send(review);
+  var _experience;
+  var _review;
+  Experience.findById(req.id)
+  .then(function(experience){
+    _experience = experience;
+    return Review.create(req.body);
+  })
+  .then(function(review){
+    _review = review;
+    return _experience.reviews.push(review);
+  })
+  .then(function(){
+    return _experience.save();
+  })
+    .then(function (experience) {
+      res.send(_review);
     });
 });
 

@@ -10,8 +10,8 @@ window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router'
 app.config(['ngToastProvider', function(ngToastProvider) {
   ngToastProvider.configure({
     animation: 'slide', // or 'fade'
-    verticalPosition: 'bottom',
-    horizontalPosition: 'middle'
+    verticalPosition: 'top',
+    horizontalPosition: 'right'
   });
 }]);
 
