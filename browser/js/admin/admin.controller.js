@@ -22,7 +22,7 @@ Trigger password reset for a user (next time they successfully log in—with the
 		{label : 'Manager Experiences', value : 'editexp', url : 'manageexp',actions:[
 																						{label : 'Add Experiences', value : 'newExperience'},
 																						{label : 'Manage Availability', value : 'managestock'},
-																						{label : 'Edit Experiences', value : 'editExperience'},
+																						{label : 'Edit Experiences', value : 'listAllForEdit'},
 																						{label : 'Manager Categories', value : 'editCategories'}
 																						]},
 		{label : 'Manage Orders', value : 'manageorders', url : 'manageorders',actions:[

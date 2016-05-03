@@ -27,10 +27,13 @@ app.config(function($stateProvider){
 			resolve:{
 				categories : function(CategoriesFactory){
 					return CategoriesFactory.fetchAll();
+				},
+				experience : function(experiencesFactory,$stateParams){
+					return {};
 				}
 			},
 			controller:'experienceAddCtrl'
-		}).state('editExperience', {
+		}).state('listAllForEdit', {
 			url:'/experiences/admin/edit',
 			templateUrl: '/js/admin/editexperience.html',
 			resolve:{
@@ -38,7 +41,19 @@ app.config(function($stateProvider){
 					return experiencesFactory.fetchAll();
 				}
 			},
-			controller:'experienceEditCtrl'
+			controller:'experienceEditList'
+		}).state('editExperiences', {
+			url:'/experiences/edit/:id',
+			templateUrl: '/js/experiences/new.html',
+			resolve:{
+				experience : function(experiencesFactory,$stateParams){
+					return experiencesFactory.fetch($stateParams.id);
+				},
+				categories : function(CategoriesFactory){
+					return CategoriesFactory.fetchAll();
+				}
+			},
+			controller:'experienceAddCtrl'
 		}).state('experience', {
 			url:'/experiences/:id',
 			templateUrl: '/js/experiences/experienceDetail.html',
