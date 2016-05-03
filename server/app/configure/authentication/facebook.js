@@ -15,10 +15,10 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
+      console.log(profile);
         UserModel.findOne({ 'facebook.id': profile.id }).exec()
             .then(function (user) {
-
+              console.log('found this guy?', user)
                 if (user) {
                     return user;
                 } else {
@@ -42,7 +42,7 @@ module.exports = function (app) {
 
     passport.use(new FacebookStrategy(facebookCredentials, verifyCallback));
 
-    app.get('/auth/facebook', passport.authenticate('facebook'));
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
