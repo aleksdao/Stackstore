@@ -38,13 +38,11 @@ router.get('/', function (req, res, next) {
             return Cart.findOneAndUpdate({ sessionId: String(req.sessionID) }, { userId: req.user._id }, { new: true }).populate('lineItems.experienceId');
           }
           else {
-            console.log('created a cart for user')
             createNewCart = true;
             return Cart.create({ userId: req.user._id })
           }
         }
         else {
-          console.log('found existing cart from user', userCart);
           existingUserCart = userCart;
           if (req.session.sessionCart) {
             combineCarts = true;
@@ -55,7 +53,6 @@ router.get('/', function (req, res, next) {
       })
       .then(function (retrievedCart) {
         if (!combineCarts) {
-          console.log('not sending combined cart');
           res.send(existingUserCart);
         }
         else if (sessionCart || createNewCart) {
