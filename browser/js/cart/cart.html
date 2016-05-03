@@ -34,14 +34,17 @@
           <tbody>
             <tr class="md-subhead accent line" ng-style="{ background: '#B9F6CA' }" md-row ng-repeat="lineItem in cart.lineItems">
               <td md-cell>{{ lineItem.experienceId.name }}</td>
-              <td md-cell>{{ lineItem.quantity }}</td>
+              <td md-cell><h-number class="numInput" value="lineItem.quantity" min="0" max="{{lineItem.experienceId.quantity}}" step="1" change="onChange(lineItem)"></h-number>
+                <md-button class="md-raised" ng-click="updateLineItemQuantity(lineItem)">Update</md-button>
+
+              </td>
               <td md-cell>{{ lineItem.experienceId.price }}</td>
               <td md-cell><md-button class="md-icon-button"  ng-click="removeFromCart(lineItem)"><md-icon class="material-icons md-18" ng-style="{ color: '#000000' }">remove_shopping_cart</md-icon></md-button></td>
             </tr>
             <tr class="accent line" ng-style="{ background: '#FF8A80' }">
-              <td md-cell>Subtotal</td>
-              <td md-cell>Nada here</td>
-              <td md-cell>{{ getSubtotal(cart) }}</td>
+              <td md-cell class="bold">Subtotal</td>
+              <td md-cell></td>
+              <td md-cell class="bold">{{ getSubtotal(cart) }}</td>
               <td md-cell></td>
             </tr>
           </tbody>
@@ -71,7 +74,7 @@
           </md-input-container>
         </div>
       </div> -->
-      <md-button class="md-primary" flex="15" ng-style="{ background: '#B9F6CA' }" ng-click="checkout()">Check out!</md-button>
+      <md-button class="md-primary bold" flex="15" ng-style="{ background: '#B9F6CA' }" ng-click="checkout()">Check out!</md-button>
 
   </div>
 
