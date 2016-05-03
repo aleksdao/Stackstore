@@ -29,8 +29,8 @@ Trigger password reset for a user (next time they successfully log in—with the
 																						{label : 'View all Orders', value : 'newexperience'},
 																						]},
 		{label : 'Manage Users', value : 'manageusers', url : 'manageusers',actions:[
-																						{label : 'Manager User', value : 'manageusers'},
-																						{label : 'Manager Admins', value : 'manageadmin'}
+																						{label : 'Manage User', value : 'manageusers'},
+																						{label : 'Manage Admins', value : 'manageadmin'}
 																						]}
 	];
 });
