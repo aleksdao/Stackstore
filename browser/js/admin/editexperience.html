@@ -1,0 +1,12 @@
+
+<table style="margin:10px">
+<th>name <input type="text" ng-model=""></th>
+<th>image<input type="text" ng-model=""></th>
+<th>short desccription<br><input type="text" ng-model=""></th>
+<th>country<input type="text" ng-model=""></th>
+<th>instock <input type="text" ng-model=""><th>price<input type="text" ng-model=""></th>
+<tr ng-repeat="exp in allexp" ui-sref="editexperience{_id : {{exp._id}}}">
+<td>{{exp.name}}</td><td><img style="width:100px" ng-src="{{exp.photoUrl}}"></td><td>{{exp.shortDescription}}</td><td>{{exp.address.country}}</td><td>{{exp.quantity}}</td><td>${{exp.price}}
+</td>
+</tr>
+</table>

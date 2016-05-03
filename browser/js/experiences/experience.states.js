@@ -21,8 +21,25 @@ app.config(function($stateProvider){
 					return CartFactory.fetchCart();
 				}
 			}//end resolve
-		})
-		.state('experience', {
+		}).state('newExperience', {
+			url:'/experiences/new',
+			templateUrl: '/js/experiences/new.html',
+			resolve:{
+				categories : function(CategoriesFactory){
+					return CategoriesFactory.fetchAll();
+				}
+			},
+			controller:'experienceAddCtrl'
+		}).state('editexperience', {
+			url:'/experiences/admin/edit',
+			templateUrl: '/js/admin/editexperience.html',
+			resolve:{
+				experiences : function(experiencesFactory){
+					return experiencesFactory.fetchAll();
+				}
+			},
+			controller:'experienceEditCtrl'
+		}).state('experience', {
 			url:'/experiences/:id',
 			templateUrl: '/js/experiences/experienceDetail.html',
 			controller : 'experienceDetailCTRL',
@@ -41,15 +58,5 @@ app.config(function($stateProvider){
 					return CartFactory.fetchCart();
 				}
 			}
-		})
-		.state('newExperience', {
-			url:'/experiences/new',
-			templateUrl: '/js/experiences/new.html',
-			resolve:{
-				categories : function(CategoriesFactory){
-					return CategoriesFactory.fetchAll();
-				}
-			},
-			controller:'experienceAddCtrl'
 		});
 });
