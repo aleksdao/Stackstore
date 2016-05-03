@@ -22,13 +22,24 @@ function isLoggedIn () {
 	}
 	isLoggedIn();
 
+	function calcAverageRating ()	{
+		var sum = 0;
+		for (var i = 0; i < experience.reviews.length; i++) {
+			sum += experience.reviews[i].rating;
+		}//end for
+		return (sum/experience.reviews.length);
+	}
+
 	$scope.experience = experience;
-	$scope.similarExperiences;
+	// $scope.similarExperiences;
 	$scope.cart = cart;
 	$scope.tempQuantity = experience.tempQuantity;
 	$scope.reviews	= experience.reviews || [];
 	//below sets number of stars in display under photo
-	$scope.rate	= experience.averageRating;
+	$scope.rate	= calcAverageRating();
+
+
+
 
 	$scope.addToCart	= function (experience) {
 		CartFactory.addToCart($scope.cart, experience)
@@ -47,7 +58,7 @@ $scope.experienceInStock = function () {
 };
 
 $scope.gotoDetail=function(exp){
-	$state.go('experience',{ id: exp._id });
+	$state.go('experience',{ id: exp._id, _experience: exp });
 };
 //below specs are for star display directive
  $scope.max = 5;
@@ -63,20 +74,14 @@ $scope.gotoDetail=function(exp){
 	 .then(function(experiences){
 		 return experiences.filter(function(experience){
 			 if (experience.category._id === $scope.experience.category._id && experience._id !== $scope.experience._id){
+				 var avgOfRating = calcAverageRating(experience);
+				 experience.averageRating = avgOfRating;
 				 return experience;
 			 }
 		 });//end filter
 	 })
 	 .then(function(experiences){
-		 return	 experiences.slice(0,4);
-	 })
-	 .then(function(experiences){
-		 return experiences.forEach(function(experience){
-			 experiencesFactory.fetch(experience._id)
-			 .then(function(experience){
-				 $scope.similarExperiences.push(experience);
-			 });
-		 });
+		 $scope.similarExperiences = experiences.slice(0,4);
 	 });
  }//end getSimilar
  getSimilar();

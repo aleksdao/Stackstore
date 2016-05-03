@@ -21,6 +21,7 @@
     "angular-material-data-table": "^0.10.9",
     "angular-messages": "^1.5.5",
     "angular-mocks": "^1.4.0",
+    "angular-number-picker": "^1.2.6",
     "angular-payments": "^1.0.7",
     "angular-sanitize": "^1.5.5",
     "angular-stripe": "^4.2.12",

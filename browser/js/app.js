@@ -1,6 +1,6 @@
 'use strict';
 
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe'])
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe', 'angularNumberPicker'])
   .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
@@ -10,8 +10,8 @@ window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router'
 app.config(['ngToastProvider', function(ngToastProvider) {
   ngToastProvider.configure({
     animation: 'slide', // or 'fade'
-    verticalPosition: 'bottom',
-    horizontalPosition: 'middle'
+    verticalPosition: 'top',
+    horizontalPosition: 'right'
   });
 }]);
 

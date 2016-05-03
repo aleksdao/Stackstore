@@ -5,4 +5,21 @@
   td {
     padding: 10px;
   }
+  th  {
+    color:white;
+    font-weight: bold;
+  }
+  .bold{
+    font-weight: bold;
+  }
+}
+.input-group {
+  width:100px;
+  padding: 0;
+  border-collapse: collapse;
+}
+.input-group-addon{
+  height: 15px;
+  overflow: hidden;
+  font-size: 1em
 }
