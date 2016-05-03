@@ -187,7 +187,7 @@ var seedReviews = function (experiences, users) {
   var reviews = [];
 
 
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 300; i++) {
     var review = {};
     review.description = faker.lorem.sentences();
     review.rating = randomizerIdx(1, 5);

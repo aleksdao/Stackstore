@@ -15,7 +15,7 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 	// $scope.isChecked;
 	$scope.isSameAsBreadcrumb = function (category) {
 		return breadcrumbCategory._id === category._id;
-	}
+	};
 
 	$scope.experienceInStock = function (experience) {
 		return experience.tempQuantity > 0;
@@ -36,7 +36,7 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 
 	$scope.isSelected = function (category) {
 		return $scope.checkedCategories.indexOf(category) >= 0;
-	}
+	};
 	$scope.toggle = function (category) {
 		if ($scope.isSelected(category)) {
 			var catsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category);
@@ -65,6 +65,13 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 		}
 	}
 	loadCategory();
+
+	$scope.selectAll	= function(){
+		$scope.checkedCategories = [];
+		for (var i = 0; i < $scope.categories.length; i++) {
+			$scope.toggle($scope.categories[i]);
+		}
+	};
 
 
 

@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, ngToast) {
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory) {
 
   // $scope.cart = cart;
   $scope.cart = cart;
@@ -43,9 +43,21 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
   $scope.getSubtotal = function (cart) {
     return CartFactory.getSubtotal(cart);
   };
+//next two functions are tied to quantity picker
+  $scope.onChange = function(lineItem){
+    console.log(lineItem.experienceId.quantity, typeof lineItem.experienceId.quantity);
+  };
+//make this do something, persist
+  $scope.updateLineItemQuantity = function(lineItem){
+    if (lineItem.quantity === 0) {
+      $scope.removeFromCart(lineItem);
+    }
+    console.log(lineItem);
+  };
+
 });
 
-app.factory('CartFactory', function ($http) {
+app.factory('CartFactory', function ($http, ngToast) {
   var factory = {};
 
   var depopulateLineItemsArr = function (lineItems) {
@@ -69,7 +81,8 @@ app.factory('CartFactory', function ($http) {
           console.log(cart);
           return cart;
       });
-  }
+  };
+
 
   factory.addToCart = function (cart, experience) {
     var lineItems;
@@ -120,6 +133,11 @@ app.factory('CartFactory', function ($http) {
     return $http.put('/api/cart/' + cart._id, { lineItems: depopulatedLineItems })
       .then(function (response) {
         var modifiedCart = response.data;
+        ngToast.create({
+          className: 'danger',
+          content: '<h2>Item removed from Cart</h2>'
+        });//end ngToast.create
+
         return modifiedCart;
       });
   };
