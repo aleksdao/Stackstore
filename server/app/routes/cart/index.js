@@ -6,8 +6,6 @@ var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
 
 
-//i don't think user needs to be authenticated to add to cart
-
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -19,54 +17,13 @@ var ensureAuthenticated = function (req, res, next) {
 router.get('/', function (req, res, next) {
   var sessionCart;
   var existingUserCart;
+  var combineCarts = false;
+  var existingUserCart;
+  var createNewCart = false;
 
   if (req.user) {
-    // if (req.session.cart) {
-    //   Cart.findOne({ sessionId: String(req.sessionID) })
-    //     .populate('lineItems.experienceId')
-    //     .then(function (foundSessionCart) {
-    //       sessionCart = foundSessionCart;
-    //       return sessionCart;
-    //     })
-    //     .then(function (sessionCart) {
-    //       return Cart.findOne({ userId: req.user._id}).populate('lineItems.experienceId');
-    //     })
-    //     .then(function (userCart) {
-    //       if (!userCart) {
-    //         return Cart.findOneAndUpdate({ sessionId: String(req.sessionID) }, { userId: req.user._id }, { new: true });
-    //       }
-          // else {
-          //   var sessionLineItems = sessionCart.lineItems;
-          //   var foundSameItem = false;
-          //   sessionCart.lineItems.forEach(function (sessionLineItem) {
-          //     userCart.lineItems.map(function (userCartLineItem) {
-          //       if (userCartLineItem.experienceId._id === sessionLineItem.experienceId._id) {
-          //         foundSameItem = true;
-          //         userCartLineItem.quantity += sessionLineItem.quantity;
-          //       }
-          //       return userCartLineItem;
-          //     })
-          //     if (!foundSameItem)
-          //       userCart.lineItems.push(sessionLineItem);
-          //   })
-          //   return userCart.save();
-    //       }
-    //     })
-    //     .then(function (retrievedCart) {
-    //       req.session.sessionCart = null;
-    //       res.send(retrievedCart);
-    //     })
-    //   }
-    // else {
-    //   Cart.create({ userId: req.user._id })
-    //     .then(function (createdCart) {
-    //       req.session.sessionCart = null;
-    //       res.send(createdCart);
-    //     })
-    // }
 
-    var combineCarts = false;
-    var existingUserCart;
+
     Cart.findOne({ userId: req.user._id })
       .populate('lineItems.experienceId')
       .then(function (userCart) {
@@ -76,18 +33,20 @@ router.get('/', function (req, res, next) {
           //if there is no session cart, create a new cart for the user.
 
           if (req.session.sessionCart) {
+            sessionCart = true;
             req.session.sessionCart = null;
             return Cart.findOneAndUpdate({ sessionId: String(req.sessionID) }, { userId: req.user._id }, { new: true }).populate('lineItems.experienceId');
           }
           else {
             console.log('created a cart for user')
+            createNewCart = true;
             return Cart.create({ userId: req.user._id })
           }
         }
         else {
-          console.log('found existing cart from user')
+          console.log('found existing cart from user', userCart);
+          existingUserCart = userCart;
           if (req.session.sessionCart) {
-            existingUserCart = userCart;
             combineCarts = true;
             req.session.sessionCart = null;
           }
@@ -95,8 +54,14 @@ router.get('/', function (req, res, next) {
         }
       })
       .then(function (retrievedCart) {
-        if (!combineCarts)
+        if (!combineCarts) {
+          console.log('not sending combined cart');
+          res.send(existingUserCart);
+        }
+        else if (sessionCart || createNewCart) {
+          console.log('sending back sessionCart or new cart');
           res.send(retrievedCart);
+        }
         else {
           var sessionLineItems = retrievedCart.lineItems;
           var foundSameItem = false;
@@ -112,7 +77,6 @@ router.get('/', function (req, res, next) {
               return userCartLineItem;
             })
             if (!foundSameItem) {
-              console.log('adding this item', sessionLineItem);
               existingUserCart.lineItems.push(sessionLineItem);
             }
           })
@@ -120,8 +84,11 @@ router.get('/', function (req, res, next) {
         }
       })
       .then(function (combinedCart) {
-        if (combineCarts)
+        if (combineCarts) {
+          console.log('sending combined cart');
           res.send(combinedCart);
+        }
+
       })
   }
   else {
