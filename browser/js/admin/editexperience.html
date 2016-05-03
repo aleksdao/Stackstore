@@ -1,0 +1,9 @@
+
+<table style="margin:10px">
+<th>name</th><th>short desccription</th><th>country</th><th>
+instock<th>price</th>
+<tr ng-repeat="exp in allexp">
+<td>{{exp.name}}</td><td>{{exp.shortDescription}}</td><td>{{exp.address.country}}</td><td>{{exp.quantity}}</td><td>${{exp.price}}
+</td>
+</tr>
+</table>

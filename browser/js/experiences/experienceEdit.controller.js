@@ -1,4 +1,4 @@
-app.controller('experienceAddCtrl',function($scope,experiencesFactory,categories){
+app.controller('experienceEditCtrl',function($scope,experiencesFactory,experiences){
 	$scope.newExperience= {
       "name": "",
       "shortDescription": "",
@@ -13,7 +13,9 @@ app.controller('experienceAddCtrl',function($scope,experiencesFactory,categories
       "category":{},
       "photoUrl": ""
     };
-	//$scope.newExperience.category=[];
+$scope.allexp=experiences;
+
+/*
 
 	$scope.addCategory=function(){
 		$scope.newExperience.category=JSON.parse($scope.tempdata.selectedCategory);
@@ -35,7 +37,7 @@ app.controller('experienceAddCtrl',function($scope,experiencesFactory,categories
 		.then(function(newRecord){
 			$scope.newExperience=newRecord;
 		});
-	};	
+	};
 
 	$scope.sendExperience=function(){
 		if($scope.newExperience._id !== undefined){
@@ -47,4 +49,5 @@ app.controller('experienceAddCtrl',function($scope,experiencesFactory,categories
 	};
 
 	$scope.categories=categories;
+	*/
 });
