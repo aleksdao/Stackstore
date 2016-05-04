@@ -60,7 +60,7 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
   };
 
 });
-
+///////////////begin CartFactory
 app.factory('CartFactory', function ($http, ngToast) {
   var factory = {};
 
@@ -164,6 +164,14 @@ app.factory('CartFactory', function ($http, ngToast) {
 
     });
     return subtotal;
+  };
+
+  factory.updateCart = function (cart) {
+    // var subtotal = 0;
+    // cart.lineItems.forEach(function (lineItem) {
+    //   subtotal += lineItem.quantity * lineItem.experienceId.price;
+    // });
+    // return subtotal;
   };
 
   return factory;
