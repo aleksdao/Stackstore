@@ -28,9 +28,6 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
 
   $scope.expire = function () {
     $http.get('/api/cart/expire')
-      .then(function (response) {
-        console.log(response.data);
-      })
   }
 
   $scope.addToCart = function (lineItem) {
