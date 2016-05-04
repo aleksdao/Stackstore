@@ -4,7 +4,91 @@ var mongoose = require('mongoose');
 var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
+var CronJob = require('cron').CronJob;
+var Promise = require('bluebird');
 
+var returnToStock = function (expToUpdate) {
+  console.log('returning to stock', expToUpdate);
+  var prevExpQuantity;
+  return Experience.findById(expToUpdate.id)
+    .then(function (experience) {
+      prevExpQuantity = experience.tempQuantity;
+      experience.tempQuantity += expToUpdate.quantityReturned;
+      return experience.save();
+    })
+    .then(function (updExperience) {
+      console.log('returned to Stock: from ', prevExpQuantity, ' to ', updExperience.tempQuantity);
+    })
+}
+
+// var expireLineItems = new CronJob('0 * * * * *', function () {
+//   var fifteenMins = 30 * 1000;
+//   var experiencesToUpdate = [];
+//   var cartsToUpdate = [];
+//   Cart.find({})
+//     .then(function (carts) {
+//       carts.forEach(function (cart) {
+//         cart.lineItems = cart.lineItems.map(function (lineItem) {
+//           var expToUpdate = {};
+//           if (Date.now() - lineItem.dateAdded > fifteenMins) {
+//             lineItem.expired = true;
+//             expToUpdate.id = lineItem.experienceId;
+//             expToUpdate.quantityReturned = lineItem.quantity;
+//             experiencesToUpdate.push(returnToStock(expToUpdate));
+//           }
+//           return lineItem;
+//         })
+//         cartsToUpdate.push(cart.save());
+//       })
+//       return Promise.all(cartsToUpdate);
+//     })
+//     .then(function () {
+//       console.log('succesffully updated carts')
+//       return Promise.all(experiencesToUpdate);
+//     })
+//     .then(function () {
+//       console.log('successfully updated experiences')
+//     })
+// }, function () {
+//
+// },
+//   true,
+//   'America/New_York'
+// );
+
+router.get('/expire', function (req, res, next) {
+  var fiveMins = 5 * 60 * 1000;
+  var experiencesToUpdate = [];
+  var cartsToUpdate = [];
+  Cart.find({})
+    .populate('lineItems.experienceId')
+    .then(function (carts) {
+      carts.forEach(function (cart) {
+        cart.lineItems = cart.lineItems.map(function (lineItem) {
+          var expToUpdate = {};
+          if (Date.now() - lineItem.dateAdded > fiveMins) {
+            console.log('this line item, ', lineItem.experienceId.name)
+            lineItem.expired = true;
+            expToUpdate.id = lineItem.experienceId;
+            expToUpdate.quantityReturned = lineItem.quantity;
+            experiencesToUpdate.push(returnToStock(expToUpdate));
+          }
+          return lineItem;
+        })
+        cartsToUpdate.push(cart.save());
+      })
+      return Promise.all(experiencesToUpdate);
+    })
+    .then(function () {
+      console.log('succesffully updated exps')
+      return Promise.all(cartsToUpdate);
+
+    })
+    .then(function (carts) {
+      console.log('successfully updated carts')
+      res.send(carts);
+    })
+})
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
