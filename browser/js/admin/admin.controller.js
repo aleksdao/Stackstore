@@ -21,12 +21,12 @@ Trigger password reset for a user (next time they successfully log in—with the
 	$scope.adminFunctions=[
 		{label : 'Manager Experiences', value : 'editexp', url : 'manageexp',actions:[
 																						{label : 'Add Experiences', value : 'newExperience'},
-																						{label : 'Manager Availability', value : 'managestock'},
-																						{label : 'Edit Experience', value : 'editexperience'},
-																						{label : 'Manager Categories', value : 'editexperience'}
+																						{label : 'Manage Availability', value : 'managestock'},
+																						{label : 'Edit Experiences', value : 'listAllForEdit'},
+																						{label : 'Manager Categories', value : 'editCategories'}
 																						]},
 		{label : 'Manage Orders', value : 'manageorders', url : 'manageorders',actions:[
-																						{label : 'View all Orders', value : 'newexperience'},
+																						{label : 'View all Orders', value : 'viewOrder'},
 																						]},
 		{label : 'Manage Users', value : 'manageusers', url : 'manageusers',actions:[
 																						{label : 'Manage User', value : 'manageusers'},
