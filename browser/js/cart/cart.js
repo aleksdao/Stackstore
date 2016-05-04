@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory) {
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, $http) {
 
   // $scope.cart = cart;
   $scope.cart = cart;
@@ -26,8 +26,15 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
     $state.go('checkout');
   };
 
+  $scope.expire = function () {
+    $http.get('/api/cart/expire')
+      .then(function (response) {
+        console.log(response.data);
+      })
+  }
+
   $scope.addToCart = function (lineItem) {
-    CartFactory.addToCart(lineItem, $scope.cart)
+    CartFactory.addToCart($scope.cart, experience)
       .then(function (cart) {
         $scope.cart = cart;
       });
@@ -65,6 +72,8 @@ app.factory('CartFactory', function ($http, ngToast) {
       var depopulatedLineItem = {};
       depopulatedLineItem.experienceId = lineItem.experienceId._id;
       depopulatedLineItem.quantity = lineItem.quantity;
+      depopulatedLineItem.dateAdded = lineItem.dateAdded;
+      depopulatedLineItem.expired = lineItem.expired;
       return depopulatedLineItem;
     });
     return depopulatedLineItems;
@@ -82,6 +91,11 @@ app.factory('CartFactory', function ($http, ngToast) {
           return cart;
       });
   };
+
+  // factory.addBackToCart (cart, lineItem) {
+  //   lineItem.expired = true;
+  //   return $http.put('/api/experiences/' + lineItem.experienceId._id)
+  // }
 
 
   factory.addToCart = function (cart, experience) {
@@ -104,6 +118,8 @@ app.factory('CartFactory', function ($http, ngToast) {
       var newLineItem = {};
       newLineItem.experienceId = experience._id;
       newLineItem.quantity = 1;
+      newLineItem.dateAdded = Date.now();
+      console.log('here is the line item getting added to lineItems array', newLineItem);
       lineItems.push(newLineItem);
     }
     experience.tempQuantity--;
@@ -145,7 +161,10 @@ app.factory('CartFactory', function ($http, ngToast) {
   factory.getSubtotal = function (cart) {
     var subtotal = 0;
     cart.lineItems.forEach(function (lineItem) {
-      subtotal += lineItem.quantity * lineItem.experienceId.price;
+      if (!lineItem.expired) {
+        subtotal += lineItem.quantity * lineItem.experienceId.price;
+      }
+
     });
     return subtotal;
   };

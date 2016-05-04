@@ -6,7 +6,12 @@ var cartSchema = new Schema({
   lineItems: [
     {
       experienceId: {type: Schema.Types.ObjectId, ref: 'Experience'},
-      quantity: Number
+      quantity: Number,
+      dateAdded: Date,
+      expired: {
+        type: Boolean,
+        default: false
+      }
     }
   ],
   sessionId: {
