@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 var stripe = require('stripe')("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 var nodemailer = require('nodemailer');
+var Promise = require('bluebird');
+var Experience = mongoose.model('Experience');
 
 var transporter = nodemailer.createTransport({
   service: 'Gmail',
@@ -17,6 +19,20 @@ router.post('/', function (req, res, next) {
   var cart = req.body.cart;
   var payment = req.body.payment;
   var orderConfirmation = {};
+  var removeStockAfterOrderPromises = [];
+
+  var removeStockFromExperience = function (lineItem) {
+    var prevExpQuantity;
+    Experience.findById(lineItem.experienceId)
+      .then(function (experience) {
+        prevExpQuantity = experience.quantity;
+        experience.quantity = experience.quantity - lineItem.quantity;
+        return experience.save();
+      }).
+      then(function (updExperience) {
+        console.log('for experience ', updExperience.name, ': we decremented qty from ', prevExpQuantity, 'to ', updExperience.quantity);
+      })
+  }
 
   console.log('cart: ', cart);
   console.log('payment: ', payment);
@@ -36,6 +52,13 @@ router.post('/', function (req, res, next) {
   .then(function (order) {
     console.log('does it create order', order);
     orderConfirmation.orderId = order._id;
+    for (var i = 0; i < order.lineItems.length; i++) {
+      removeStockAfterOrderPromises.push(removeStockFromExperience(order.lineItems[i]));
+    }
+    return Promise.all(removeStockAfterOrderPromises);
+  })
+  .then(function () {
+    console.log('success');
     return stripe.charges.create({
       amount: payment.amount,
       currency: "usd",
@@ -70,12 +93,6 @@ router.post('/', function (req, res, next) {
     }
 
   });
-
-
-
-
-
-
 
 });
 
