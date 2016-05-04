@@ -84,13 +84,10 @@ router.post('/', function (req, res, next) {
         else {
           orderConfirmation.email = info.response;
           console.log('Message sent' + info.response);
-          res.send(orderConfirmation);
         }
       })
     }
-    else {
-      res.send(charge);
-    }
+    res.send(orderConfirmation);
 
   });
 
