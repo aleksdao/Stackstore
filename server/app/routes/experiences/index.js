@@ -5,6 +5,7 @@ var Experience = mongoose.model('Experience');
 var User = mongoose.model('User');
 var Review = mongoose.model('Review');
 
+
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -32,6 +33,7 @@ router.param('id', function (req, res, next, id) {
 
 router.get('/', function (req, res, next) {
   Experience.find({})
+  .deepPopulate('reviews.user')
     .then(function (experiences) {
       res.send(experiences);
     });
@@ -40,6 +42,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   Experience.findById(req.id)
+  .deepPopulate('reviews.user')
   .then(function(experience){
     res.send(experience);
   });

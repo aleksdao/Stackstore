@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Experience = mongoose.model('Experience');
+// var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
 var CronJob = require('cron').CronJob;
@@ -123,7 +123,7 @@ router.get('/', function (req, res, next) {
           }
           else {
             createNewCart = true;
-            return Cart.create({ userId: req.user._id })
+            return Cart.create({ userId: req.user._id });
           }
         }
         else {
@@ -156,11 +156,11 @@ router.get('/', function (req, res, next) {
                 userCartLineItem.quantity += sessionLineItem.quantity;
               }
               return userCartLineItem;
-            })
+            });
             if (!foundSameItem) {
               existingUserCart.lineItems.push(sessionLineItem);
             }
-          })
+          });
           return existingUserCart.save();
         }
       })
@@ -170,7 +170,7 @@ router.get('/', function (req, res, next) {
           res.send(combinedCart);
         }
 
-      })
+      });
   }
   else {
 
@@ -184,7 +184,7 @@ router.get('/', function (req, res, next) {
       .then(function (foundCart) {
         if (!foundCart) {
           console.log('created a cart for non-logged-in-user from sessionID')
-          return Cart.create({ sessionId: String(req.sessionID) })
+          return Cart.create({ sessionId: String(req.sessionID) });
         }
         else {
           console.log('found a cart for non-logged-in-user from sessionID', foundCart);
@@ -194,10 +194,10 @@ router.get('/', function (req, res, next) {
       .then(function (retrievedCart) {
         req.session.sessionCart = retrievedCart._id;
         res.send(retrievedCart);
-      })
+      });
   }
 
-})
+});
 
 // currently this is not being used
 
@@ -208,6 +208,7 @@ router.post('/', function (req, res, next) {
     });
 });
 
+//updates the cart
 router.put('/:id', function (req, res, next) {
   Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .populate('lineItems.experienceId')

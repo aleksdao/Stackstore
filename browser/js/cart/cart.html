@@ -24,6 +24,9 @@
               <td md-cell><h-number class="numInput" value="lineItem.quantity" min="0" max="{{lineItem.experienceId.quantity}}" step="1" change="onChange(lineItem)"></h-number>
                 <md-button class="md-raised" ng-click="updateLineItemQuantity(lineItem)" ng-disabled="lineItem.expired === true">Update</md-button>
                 <md-button class="md-raised" ng-if="lineItem.expired === true" ng-disabled="lineItem.expired === false">Items is expired (can't add back to cart yet)</md-button>
+              <td md-cell><h-number class="numInput" value="lineItem.quantity" min="1" max="{{lineItem.experienceId.quantity}}" step="1" change="updateCart(lineItem)"></h-number>
+                <!-- <md-button class="md-raised" ng-click="updateCart(lineItem)">Update</md-button> -->
+
               </td>
               <td md-cell>{{ lineItem.experienceId.price }}</td>
               <td md-cell><md-button class="md-icon-button"  ng-click="removeFromCart(lineItem)"><md-icon class="material-icons md-18" ng-style="{ color: '#000000' }">remove_shopping_cart</md-icon></md-button></td>

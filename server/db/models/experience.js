@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var addressSchema = mongoose.model('Address').schema;
 var reviewSchema = mongoose.model('Review').schema;
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var categorySchema = new Schema({
   name: {
@@ -77,6 +78,12 @@ var experienceSchema = new Schema({
     default: Date.now
   }
 });
+experienceSchema.plugin(deepPopulate, {
+  populate: {
+    'reviews.user': {
+      select: 'email'
+    }
+  }});
 
 mongoose.model('Category', categorySchema);
 mongoose.model('Experience', experienceSchema);

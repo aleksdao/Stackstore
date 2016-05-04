@@ -3,7 +3,6 @@
     <uib-rating ng-model="review.rating" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating>
   </h2>
   <h5 class="reviewBody">{{review.description}}</h5>
-  <!-- <h5 class="reviewBody">{{review.ratingAverage}}</h5> -->
+  <h6>{{review.date | date:'MMM d, y' }},&nbsp by:&nbsp{{review.user.email}}</h6>
 
 </div>
-<!-- get rating average from controller -->

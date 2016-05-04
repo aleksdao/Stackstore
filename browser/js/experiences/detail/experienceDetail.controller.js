@@ -1,9 +1,16 @@
 app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, $uibModal, AuthService) {
-
+// console.log(frac.cont(2.25, 9, true));
 $scope.loggedInTrue = false;
 $scope.alreadyReviewed	= false;
 $scope.similarExperiences =[];
 
+//below uses frac library
+$scope.fractionConvertor = function (num) {
+	var thing = (frac.cont(num, 4, true));
+	var builtString = '';
+	if(thing[1] === 0){ return thing[0]; }
+	return  (thing[0] + ' ' + thing[1] + '/' + thing[2]);
+};
 
 function isLoggedIn () {
 			return  AuthService.getLoggedInUser()
@@ -12,7 +19,7 @@ function isLoggedIn () {
 					if(user !== null){
 						$scope.loggedInTrue = true;
 						for (var i = 0; i < experience.reviews.length; i++) {
-							if (experience.reviews[i].user === user._id){
+							if (experience.reviews[i].user.email === user.email){
 								$scope.alreadyReviewed	= true;
 							}
 
