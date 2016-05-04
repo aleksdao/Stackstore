@@ -12,15 +12,9 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory) {
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory) {
 
-  // $scope.cart = cart;
   $scope.cart = cart;
-  // UserFactory.getCurrentUser(cart.userId)
-  //   .then(function (user) {
-  //     console.log(user);
-  //     $scope.user = user;
-  //   });
 
   $scope.checkout = function () {
     $state.go('checkout');
@@ -48,11 +42,12 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
     console.log(lineItem.experienceId.quantity, typeof lineItem.experienceId.quantity);
   };
 //make this do something, persist
-  $scope.updateLineItemQuantity = function(lineItem){
+  $scope.updateCart = function(lineItem){
     if (lineItem.quantity === 0) {
       $scope.removeFromCart(lineItem);
+    } else {
+      CartFactory.updateCart($scope.cart);
     }
-    console.log(lineItem);
   };
 
 });
@@ -78,11 +73,9 @@ app.factory('CartFactory', function ($http, ngToast) {
     return $http.get('/api/cart')
       .then(function (response) {
           var cart = response.data;
-          console.log(cart);
           return cart;
       });
   };
-
 
   factory.addToCart = function (cart, experience) {
     var lineItems;
@@ -118,7 +111,7 @@ app.factory('CartFactory', function ($http, ngToast) {
         return $http.put('/api/cart/' + cart._id, { lineItems: lineItems });
       })
       .then(function (response) {
-        var modifiedCart = response.data;
+        // var modifiedCart = response.data;
         toReturn.modifiedCart = response.data;
         return toReturn;
       });
@@ -151,12 +144,13 @@ app.factory('CartFactory', function ($http, ngToast) {
   };
 
   factory.updateCart = function (cart) {
-    // var subtotal = 0;
-    // cart.lineItems.forEach(function (lineItem) {
-    //   subtotal += lineItem.quantity * lineItem.experienceId.price;
-    // });
-    // return subtotal;
-  };
+    return $http.put('/api/cart/' + cart._id, cart)
+      .then(function (cart) {
+        return cart.data;
+      });
+
+
+  };//end updateCart
 
   return factory;
 
