@@ -17,12 +17,7 @@ app.controller('CheckoutCtrl', function($scope, $state, cart, stripe, CartFactor
       return CheckoutFactory.order(payment, cart);
     })
     .then(function (orderConfirmation) {
-      if (orderConfirmation.stripeCharge) {
-        console.log('Charged and emailed. Successfully submitted payment for $', orderConfirmation.stripeCharge.amount);
-      }
-      else {
-        console.log('Charged. Successfully submitted payment for $', orderConfirmation.amount);
-      }
+      console.log('Charged. Successfully submitted payment for $', orderConfirmation.stripeCharge.amount);
       $state.go('experiences');
     })
     .catch(function (err) {
