@@ -121,16 +121,16 @@ router.post('/', function (req, res, next) {
   Cart.create({ userId: req.user._id })
     .then(function (createdCart) {
       res.status(201).send(createdCart);
-    })
-})
+    });
+});
 
 router.put('/:id', function (req, res, next) {
   Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .populate('lineItems.experienceId')
     .then(function (modifiedCart) {
       res.send(modifiedCart);
-    })
-})
+    });
+});
 
 module.exports = router;
 

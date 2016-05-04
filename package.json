@@ -8,7 +8,7 @@
     "test:dev:browser": "nodemon ./node_modules/.bin/karma start tests/browser/karma.conf.js tests/browser/**/*.js",
     "start": "nodemon --watch server -e js,html server/start.js",
     "seed": "node seed.js",
-    "postinstall": "gulp build"
+    "postinstall": "bower install && gulp build"
   },
   "engines": {
     "node": ">=4.0.0"
