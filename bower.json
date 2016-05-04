@@ -1,5 +1,5 @@
 {
-  "name": "FullstackGeneratedApp",
+  "name": "fullstackgeneratedapp",
   "description": "A generated project at Fullstack Academy",
   "main": "server/start.js",
   "authors": [
@@ -18,5 +18,8 @@
     "angular-stripe": "^4.2.12",
     "font-awesome": "^4.6.1",
     "bootstrap-social": "^5.0.0"
+  },
+  "resolutions": {
+    "font-awesome": "^4.6.1"
   }
 }
