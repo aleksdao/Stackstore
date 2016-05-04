@@ -37,11 +37,8 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory) {
   $scope.getSubtotal = function (cart) {
     return CartFactory.getSubtotal(cart);
   };
-//next two functions are tied to quantity picker
-  $scope.onChange = function(lineItem){
-    console.log(lineItem.experienceId.quantity, typeof lineItem.experienceId.quantity);
-  };
-//make this do something, persist
+
+//following function is tied to number picker
   $scope.updateCart = function(lineItem){
     if (lineItem.quantity === 0) {
       $scope.removeFromCart(lineItem);
