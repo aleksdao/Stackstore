@@ -6,7 +6,7 @@ $scope.similarExperiences =[];
 
 //below uses frac library
 $scope.fractionConvertor = function (num) {
-	var thing = (frac.cont(num, 4, true));
+	var thing = (frac.cont(num, 2, true));
 	var builtString = '';
 	if(thing[1] === 0){ return thing[0]; }
 	return  (thing[0] + ' ' + thing[1] + '/' + thing[2]);
@@ -113,9 +113,9 @@ $scope.gotoDetail=function(exp){
 //below is passed back to after modal closes, also averages review again
     modalInstance.result.then(function (review) {
 			$scope.alreadyReviewed	= true;
+			review.user.email = $scope.isLoggedIn.email;
       $scope.reviews.unshift(review);
 			var sum = 0;
-
 				for (var i = 0; i < $scope.reviews.length; i++) {
 					sum += $scope.reviews[i].rating;
 				}//end for

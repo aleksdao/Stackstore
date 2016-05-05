@@ -64,8 +64,12 @@ router.post('/:id/reviews', function (req, res, next) {
   .then(function(){
     return _experience.save();
   })
-    .then(function (experience) {
-      res.send(_review);
+  .then(function(){
+    return Review.findById(_review._id)
+    .populate('user', 'email');
+  })
+  .then(function (review) {
+      res.send(review);
     });
 });
 
