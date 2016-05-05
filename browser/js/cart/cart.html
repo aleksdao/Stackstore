@@ -21,11 +21,17 @@
           <tbody>
             <tr class="md-subhead accent line" ng-style="{ background: '#B3E5FC' }" md-row ng-repeat="lineItem in cart.lineItems">
               <td md-cell>{{ lineItem.experienceId.name }}</td>
-              <td md-cell><h-number class="numInput" value="lineItem.quantity" min="0" max="{{lineItem.experienceId.quantity}}" step="1" change="onChange(lineItem)"></h-number>
-                <md-button class="md-raised" ng-click="updateLineItemQuantity(lineItem)" ng-disabled="lineItem.expired === true">Update</md-button>
-                <md-button class="md-raised" ng-if="lineItem.expired === true" ng-disabled="lineItem.expired === false">Items is expired (can't add back to cart yet)</md-button>
-              <td md-cell><h-number class="numInput" value="lineItem.quantity" min="1" max="{{lineItem.experienceId.quantity}}" step="1" change="updateCart(lineItem)"></h-number>
+              <!-- <td md-cell><h-number class="numInput" value="lineItem.quantity" min="0" max="{{lineItem.experienceId.quantity}}" step="1" change="onChange(lineItem)"></h-number> -->
+
+              <td md-cell>
+                <h-number class="numInput" value="lineItem.quantity" min="1" max="{{lineItem.experienceId.quantity}}" step="1" change="updateCart(lineItem)"></h-number>
+                <md-button class="md-raised" ng-click="updateLineItemQuantity(lineItem)" ng-if="lineItem.expired === false">Update</md-button>
+                <md-button flex="50" class="md-raised md-primary" ng-if="lineItem.expired === true" ng-if="lineItem.expired === true" ng-click="reAddExpiredLineItem(lineItem)">Item is expired. Add back to cart!</md-button>
                 <!-- <md-button class="md-raised" ng-click="updateCart(lineItem)">Update</md-button> -->
+                <!-- <timer countdown="10041" max-time-unit="'minute'" interval="1000">{{mminutes}} minute{{minutesS}}, {{sseconds}} second{{secondsS}}</timer> -->
+                <!-- <timer countdown="3" interval="1000" finish-callback="">{{seconds}} second{{secondsS}}</timer> -->
+                <timer interval="1000" countdown="100">{{countdown}}</timer>
+
 
               </td>
               <td md-cell>{{ lineItem.experienceId.price }}</td>
