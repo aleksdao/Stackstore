@@ -13,9 +13,10 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, $http) {
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, experiencesFactory, $http) {
 
   $scope.cart = cart;
+
 
   $scope.checkout = function () {
     $state.go('checkout');
@@ -23,6 +24,13 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
 
   $scope.expire = function () {
     $http.get('/api/cart/expire')
+  }
+
+  $scope.reAddExpiredLineItem = function (lineItem) {
+    CartFactory.reAddExpiredLineItem(lineItem, $scope.cart)
+      .then(function (cart) {
+        $scope.cart = cart;
+      })
   }
 
   $scope.addToCart = function (lineItem) {
@@ -123,8 +131,33 @@ app.factory('CartFactory', function ($http, ngToast) {
         return toReturn;
       });
 
-
   };
+
+  factory.reAddExpiredLineItem = function (lineItem, cart) {
+    for (var i = 0; i < cart.lineItems.length; i++) {
+      if (lineItem.experienceId._id === cart.lineItems[i].experienceId._id) {
+        console.log('does it happen in here', cart.lineItems[i].experienceId.name)
+        cart.lineItems[i].expired = false;
+        break;
+      }
+
+    }
+    cart.lineItems = depopulateLineItemsArr(cart.lineItems);
+    return experiencesFactory.modifyExperienceTempQty(lineItem.experienceId._id, lineItem.quantity)
+      .then(function (experience) {
+        console.log('modifying experience qty', experience.name)
+        return $http.put('/api/cart/' + cart._id, { lineItems: cart.lineItems })
+      })
+      .then(function (response) {
+        console.log('cart', response.data)
+        var modifiedCart = response.data;
+        return modifiedCart;
+      })
+
+  }
+
+
+
 
   factory.removeFromCart = function (lineItem, cart) {
     var lineItemIdx = cart.lineItems.indexOf(lineItem);

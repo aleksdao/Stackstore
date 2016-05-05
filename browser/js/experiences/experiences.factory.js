@@ -57,6 +57,13 @@ app.factory('experiencesFactory',function($http){
 				return err;
 			});
 		},
+		modifyExperienceTempQty = function (experienceId, qty) {
+	    return $http.put('/api/experiences/' + experienceId + '/qty', { tempQuantity: qty })
+	      .then(function (response) {
+	        var experience = response.data;
+	        return experience;
+	      })
+	  }
 
 	};
 });

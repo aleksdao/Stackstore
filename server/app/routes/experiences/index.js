@@ -86,6 +86,20 @@ router.put('/:id', function (req, res, next) {
     });
 });
 
+router.put('/:id/qty', function (req, res, next) {
+  var prevExpQuantity;
+  Experience.findById(req.id)
+    .then(function (experience) {
+      prevExpQuantity = experience.tempQuantity;
+      experience.tempQuantity += req.body.tempQuantity;
+      return experience.save();
+    })
+    .then(function (updatedExperience) {
+      console.log('uupdated from ', prevExpQuantity, ' to ', updatedExperience.tempQuantity)
+      res.send(updatedExperience);
+    })
+})
+
 router.delete('/:id', function (req, res, next) {
   Experience.findByIdAndRemove(req.id)
     .then(function () {

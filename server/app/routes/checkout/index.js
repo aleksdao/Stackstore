@@ -50,6 +50,10 @@ router.post('/', function (req, res, next) {
     return lineItem;
   });
 
+  cart.lineItems = cart.lineItems.filter(function (lineItem) {
+    return lineItem.expired === false;
+  })
+
   Order.create({
     userId: cart.userId,
     totalCost: cart.subtotal,
