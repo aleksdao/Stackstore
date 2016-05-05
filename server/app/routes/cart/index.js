@@ -22,22 +22,25 @@ var returnToStock = function (expToUpdate) {
     })
 }
 
-//cron job runs every hour
+//cron job runs every minute
 
-var expireLineItems = new CronJob('0 0 * * * *', function () {
+new CronJob('0 5 * * * *', function () {
+  console.log('hi there');
   //modify minutes variable to determine how long an item can stay in a user's cart before it is expired and returned to stock
-  var minutes = 10;
+  var minutes = 1;
   var seconds = 60;
   var milliseconds = 1000;
   var expiryInterval = minutes * seconds * milliseconds;
   var experiencesToUpdate = [];
   var cartsToUpdate = [];
   Cart.find({})
+    .populate('lineItems.experienceId')
     .then(function (carts) {
       carts.forEach(function (cart) {
         cart.lineItems = cart.lineItems.map(function (lineItem) {
           var expToUpdate = {};
-          if (Date.now() - lineItem.dateAdded > expiryInterval) {
+          if (!(Date.now() - lineItem.dateAdded < expiryInterval) && !lineItem.expired) {
+            console.log('this line item, ', lineItem.experienceId.name)
             lineItem.expired = true;
             expToUpdate.id = lineItem.experienceId;
             expToUpdate.quantityReturned = lineItem.quantity;
@@ -47,18 +50,19 @@ var expireLineItems = new CronJob('0 0 * * * *', function () {
         })
         cartsToUpdate.push(cart.save());
       })
-      return Promise.all(cartsToUpdate);
-    })
-    .then(function () {
-      console.log('succesffully updated carts')
       return Promise.all(experiencesToUpdate);
     })
     .then(function () {
-      console.log('successfully updated experiences')
-    })
-}, function () {
+      console.log('succesffully updated exps')
+      return Promise.all(cartsToUpdate);
 
+    })
+    .then(function (carts) {
+      console.log('successfully updated carts')
+
+    })
 },
+  null,
   true,
   'America/New_York'
 );
@@ -76,7 +80,7 @@ router.get('/expire', function (req, res, next) {
       carts.forEach(function (cart) {
         cart.lineItems = cart.lineItems.map(function (lineItem) {
           var expToUpdate = {};
-          if (!(Date.now() - lineItem.dateAdded) < fiveMins) {
+          if (!(Date.now() - lineItem.dateAdded < fiveMins) && !lineItem.expired) {
             console.log('this line item, ', lineItem.experienceId.name)
             lineItem.expired = true;
             expToUpdate.id = lineItem.experienceId;

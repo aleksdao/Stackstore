@@ -1,6 +1,6 @@
 'use strict';
 
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe', 'angularNumberPicker'])
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe', 'angularNumberPicker', 'angularVideoBg', 'ngVidBg'])
   .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
