@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 
 var reviewSchema = new Schema({
@@ -24,6 +25,13 @@ var reviewSchema = new Schema({
   date: { type: Date,
     default: Date.now }
 });
+
+reviewSchema.plugin(deepPopulate, {
+  populate: {
+    'user': {
+      select: 'email'
+    }
+  }});
 
 
 mongoose.model('Review', reviewSchema);
