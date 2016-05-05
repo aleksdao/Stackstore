@@ -4,7 +4,101 @@ var mongoose = require('mongoose');
 // var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
+var CronJob = require('cron').CronJob;
+var Promise = require('bluebird');
+var Experience = mongoose.model('Experience');
 
+var returnToStock = function (expToUpdate) {
+  console.log('returning to stock', expToUpdate);
+  var prevExpQuantity;
+  return Experience.findById(expToUpdate.id)
+    .then(function (experience) {
+      prevExpQuantity = experience.tempQuantity;
+      experience.tempQuantity += expToUpdate.quantityReturned;
+      return experience.save();
+    })
+    .then(function (updExperience) {
+      console.log('returned to Stock: from ', prevExpQuantity, ' to ', updExperience.tempQuantity);
+    })
+}
+
+//cron job runs every hour
+
+var expireLineItems = new CronJob('0 0 * * * *', function () {
+  //modify minutes variable to determine how long an item can stay in a user's cart before it is expired and returned to stock
+  var minutes = 10;
+  var seconds = 60;
+  var milliseconds = 1000;
+  var expiryInterval = minutes * seconds * milliseconds;
+  var experiencesToUpdate = [];
+  var cartsToUpdate = [];
+  Cart.find({})
+    .then(function (carts) {
+      carts.forEach(function (cart) {
+        cart.lineItems = cart.lineItems.map(function (lineItem) {
+          var expToUpdate = {};
+          if (Date.now() - lineItem.dateAdded > expiryInterval) {
+            lineItem.expired = true;
+            expToUpdate.id = lineItem.experienceId;
+            expToUpdate.quantityReturned = lineItem.quantity;
+            experiencesToUpdate.push(returnToStock(expToUpdate));
+          }
+          return lineItem;
+        })
+        cartsToUpdate.push(cart.save());
+      })
+      return Promise.all(cartsToUpdate);
+    })
+    .then(function () {
+      console.log('succesffully updated carts')
+      return Promise.all(experiencesToUpdate);
+    })
+    .then(function () {
+      console.log('successfully updated experiences')
+    })
+}, function () {
+
+},
+  true,
+  'America/New_York'
+);
+
+//expire all button on the Cart page hits this route to expire all events that have
+//been in cart for 5+ minutes
+
+router.get('/expire', function (req, res, next) {
+  var fiveMins = 30 * 1000;
+  var experiencesToUpdate = [];
+  var cartsToUpdate = [];
+  Cart.find({})
+    .populate('lineItems.experienceId')
+    .then(function (carts) {
+      carts.forEach(function (cart) {
+        cart.lineItems = cart.lineItems.map(function (lineItem) {
+          var expToUpdate = {};
+          if (!(Date.now() - lineItem.dateAdded) < fiveMins) {
+            console.log('this line item, ', lineItem.experienceId.name)
+            lineItem.expired = true;
+            expToUpdate.id = lineItem.experienceId;
+            expToUpdate.quantityReturned = lineItem.quantity;
+            experiencesToUpdate.push(returnToStock(expToUpdate));
+          }
+          return lineItem;
+        })
+        cartsToUpdate.push(cart.save());
+      })
+      return Promise.all(experiencesToUpdate);
+    })
+    .then(function () {
+      console.log('succesffully updated exps')
+      return Promise.all(cartsToUpdate);
+
+    })
+    .then(function (carts) {
+      console.log('successfully updated carts')
+      res.send(carts);
+    })
+})
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {

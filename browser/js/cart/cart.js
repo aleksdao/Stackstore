@@ -12,16 +12,29 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CartCtrl', function ($scope, $state, cart, CartFactory) {
+
+app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFactory, experiencesFactory, $http) {
 
   $scope.cart = cart;
+
 
   $scope.checkout = function () {
     $state.go('checkout');
   };
 
+  $scope.expire = function () {
+    $http.get('/api/cart/expire')
+  }
+
+  $scope.reAddExpiredLineItem = function (lineItem) {
+    CartFactory.reAddExpiredLineItem(lineItem, $scope.cart)
+      .then(function (cart) {
+        $scope.cart = cart;
+      })
+  }
+
   $scope.addToCart = function (lineItem) {
-    CartFactory.addToCart(lineItem, $scope.cart)
+    CartFactory.addToCart($scope.cart, experience)
       .then(function (cart) {
         $scope.cart = cart;
       });
@@ -57,6 +70,8 @@ app.factory('CartFactory', function ($http, ngToast) {
       var depopulatedLineItem = {};
       depopulatedLineItem.experienceId = lineItem.experienceId._id;
       depopulatedLineItem.quantity = lineItem.quantity;
+      depopulatedLineItem.dateAdded = lineItem.dateAdded;
+      depopulatedLineItem.expired = lineItem.expired;
       return depopulatedLineItem;
     });
     return depopulatedLineItems;
@@ -73,6 +88,7 @@ app.factory('CartFactory', function ($http, ngToast) {
           return cart;
       });
   };
+
 
   factory.addToCart = function (cart, experience) {
     var lineItems;
@@ -94,6 +110,8 @@ app.factory('CartFactory', function ($http, ngToast) {
       var newLineItem = {};
       newLineItem.experienceId = experience._id;
       newLineItem.quantity = 1;
+      newLineItem.dateAdded = Date.now();
+      console.log('here is the line item getting added to lineItems array', newLineItem);
       lineItems.push(newLineItem);
     }
     experience.tempQuantity--;
@@ -113,8 +131,33 @@ app.factory('CartFactory', function ($http, ngToast) {
         return toReturn;
       });
 
-
   };
+
+  factory.reAddExpiredLineItem = function (lineItem, cart) {
+    for (var i = 0; i < cart.lineItems.length; i++) {
+      if (lineItem.experienceId._id === cart.lineItems[i].experienceId._id) {
+        console.log('does it happen in here', cart.lineItems[i].experienceId.name)
+        cart.lineItems[i].expired = false;
+        break;
+      }
+
+    }
+    cart.lineItems = depopulateLineItemsArr(cart.lineItems);
+    return experiencesFactory.modifyExperienceTempQty(lineItem.experienceId._id, lineItem.quantity)
+      .then(function (experience) {
+        console.log('modifying experience qty', experience.name)
+        return $http.put('/api/cart/' + cart._id, { lineItems: cart.lineItems })
+      })
+      .then(function (response) {
+        console.log('cart', response.data)
+        var modifiedCart = response.data;
+        return modifiedCart;
+      })
+
+  }
+
+
+
 
   factory.removeFromCart = function (lineItem, cart) {
     var lineItemIdx = cart.lineItems.indexOf(lineItem);
@@ -135,7 +178,10 @@ app.factory('CartFactory', function ($http, ngToast) {
   factory.getSubtotal = function (cart) {
     var subtotal = 0;
     cart.lineItems.forEach(function (lineItem) {
-      subtotal += lineItem.quantity * lineItem.experienceId.price;
+      if (!lineItem.expired) {
+        subtotal += lineItem.quantity * lineItem.experienceId.price;
+      }
+
     });
     return subtotal;
   };
