@@ -101,7 +101,7 @@ vertical-align: top;
 //  vertical-align: top;
 // }
 .glyphicon-star, .glyphicon-star-empty {
-  color:#FDC54C;
+  color:$starOrange;
 }
 .title	{
 	margin-left: 10px;
@@ -163,7 +163,7 @@ vertical-align: top;
 
 /*** Table Styles **/
 
- 
+
 th {
   color:#fff;
   border-bottom:4px solid #9ea7af;
@@ -175,7 +175,7 @@ th {
   //font-weight:bold;
 }
 
- 
+
 tr {
   border-top: 1px solid #C1C3D1;
   border-bottom-: 1px solid #C1C3D1;
@@ -190,7 +190,7 @@ tr:hover td {
   background:#DCDCDC;
   color:#000;
 }
- 
+
 tr:first-child {
   border-top:none;
 }
@@ -198,16 +198,16 @@ tr:first-child {
 tr:last-child {
   border-bottom:none;
 }
- 
+
 tr:nth-child(odd) td {
   background:#EBEBEB;
 }
- 
+
 
 tr:last-child td:first-child {
   border-bottom-left-radius:3px;
 }
- 
+
 tr:last-child td:last-child {
   border-bottom-right-radius:3px;
 }
@@ -215,9 +215,9 @@ td{
 padding : 8px;
 max-width : 500px;
 }
- 
+
 .adminexpsearch label{
-  width: 100%;  
+  width: 100%;
 }
 
 .adminexpsearch input{
@@ -227,5 +227,3 @@ max-width : 500px;
   border: 0px ;
   border-radius:2px;
 }
-
-

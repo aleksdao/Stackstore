@@ -3,8 +3,8 @@
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe', 'angularNumberPicker', 'angularVideoBg', 'ngVidBg'])
   .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue')
-    .accentPalette('orange');
+    .primaryPalette('grey')
+    .accentPalette('grey');
   });
 
 app.config(['ngToastProvider', function(ngToastProvider) {
