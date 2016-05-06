@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid grayBackground" >
 	<toast></toast>
 
 	<!-- <div class="col-sm-2">filter</div> -->
@@ -26,7 +26,7 @@
 						<!-- begin rating area -->
 						<div id="ratingUnderPhoto">
 							<h4>Rating :
-								<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating><span class="_italic">{{fractionConvertor(rate)}}</span>
+								<uib-rating ng-model="rate" max="max" enable-reset="false" data-readonly="isReadonly" aria-labelledby="default-rating"></uib-rating><span class="_italicFraction">{{fractionConvertor(rate)}}</span>
 							</h4>
 						</div>
 						<h4 class="description">{{experience.description}}</h4>

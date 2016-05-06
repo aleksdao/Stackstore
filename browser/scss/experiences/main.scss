@@ -1,3 +1,15 @@
+.grayBackground	{
+	background-color: $contentBackground;
+}
+
+experience-card	{
+	background-color: $contentBackground;
+}
+
+md-card	{
+	background-color: $cardBackground;
+}
+
 .shortDescription{
 	height : 40px;
 	//white-space: nowrap;
@@ -35,6 +47,7 @@
 }
 #singleExperience	{
 	  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+		background-color: $cardBackground;
 }
 #breadcrumb	{
 font-family: "tenso",sans-serif;
@@ -152,9 +165,33 @@ vertical-align: top;
 	height:auto;;
 	vertical-align: top;
 }
-._italic	{
+._italicFraction	{
 	font-style: italic;
-	color: 5
+	letter-spacing: 2px;
+
+}
+#allExperiencePage	{
+	border-top: 100px;
+}
+.md-subheader .md-subheader-inner	{
+	background-color: $contentBackground;
+	color: black;
+}
+.btn-primary	{
+	background-color: $primaryGreenLighter;
+	border-color: rgb(50, 50, 50);
+}
+.btn-primary:hover		{
+	background-color: $primaryGreen;
+	border-color: rgb(50, 50, 50);
+}
+.btn-warning	{
+	background-color: rgb(150, 150, 150);
+	border-color: rgb(50, 50, 50);
+}
+.btn-warning:hover	{
+	background-color: rgb(100, 100, 100);
+	border-color: rgb(50, 50, 50);
 }
 
 
