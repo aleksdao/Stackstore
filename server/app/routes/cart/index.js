@@ -24,7 +24,7 @@ var returnToStock = function (expToUpdate) {
 
 //cron job runs every minute
 
-new CronJob('0 5 * * * *', function () {
+new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', function () {
   console.log('hi there');
   //modify minutes variable to determine how long an item can stay in a user's cart before it is expired and returned to stock
   var minutes = 1;
