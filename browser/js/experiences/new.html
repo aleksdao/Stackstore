@@ -1,4 +1,4 @@
-<div class="col-sm-4"x1
+<div class="col-sm-4 col-sm-push-2"
 	 <p>Experience ID ({{newExperience._id}})</p>
 	 <md-input-container class="md-block" flex-gt-sm>
             <label>Categories</label>
@@ -8,7 +8,7 @@
               </md-option>
             </md-select>
           </md-input-container>   
-        <md-input-container class="md-block" ng-require="true" flex-gt-sm>
+    <md-input-container class="md-block" style="margin-top:43px" ng-require="true" flex-gt-sm>
             <label>Experiece Name</label>
             <input ng-model="newExperience.name">
       </md-input-container>	
@@ -35,7 +35,9 @@
       
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-4 col-sm-push-2">
+<p>&nbsp;</p>
+
       <md-input-container class="md-block" flex-gt-sm>
             <label>Address</label>
             <input ng-model="newExperience.address.address">
@@ -59,10 +61,10 @@
             <label>Country</label>
             <input ng-model="newExperience.address.country">
       </md-input-container>	
-
+<md-button  class="md-raised" ng-click="sendExperience()">SAVE</md-button>
       
 </div>
- <md-button  class="md-raised" ng-click="sendExperience()">SAVE</md-button>
+ 
 
 
 

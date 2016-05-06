@@ -16,7 +16,6 @@ app.controller('experienceEditList',function($scope,experiencesFactory,experienc
 $scope.allexp=experiences;
 });
 
-
 app.controller('experienceEditCtrl',function($scope,experiencesFactory,experience,categories){
 	$scope.newExperience= {
       "name": "",
