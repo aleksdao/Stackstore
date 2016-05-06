@@ -62,7 +62,7 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
 
 });
 ///////////////begin CartFactory
-app.factory('CartFactory', function ($http, ngToast) {
+app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
   var factory = {};
 
   var depopulateLineItemsArr = function (lineItems) {

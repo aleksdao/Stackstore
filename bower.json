@@ -19,7 +19,8 @@
     "font-awesome": "^4.6.1",
     "bootstrap-social": "^5.0.0",
     "humanize-duration": "^3.7.1",
-    "moment": "momentjs#^2.13.0"
+    "moment": "momentjs#^2.13.0",
+    "angular-video-bg": "^0.3.3"
   },
   "resolutions": {
     "font-awesome": "^4.6.1",
