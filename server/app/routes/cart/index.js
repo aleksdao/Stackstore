@@ -71,7 +71,7 @@ new CronJob('0 5 * * * *', function () {
 //been in cart for 5+ minutes
 
 router.get('/expire', function (req, res, next) {
-  var fiveMins = 30 * 1000;
+  var expiryInterval = 30 * 1000;
   var experiencesToUpdate = [];
   var cartsToUpdate = [];
   Cart.find({})
@@ -80,7 +80,7 @@ router.get('/expire', function (req, res, next) {
       carts.forEach(function (cart) {
         cart.lineItems = cart.lineItems.map(function (lineItem) {
           var expToUpdate = {};
-          if (!(Date.now() - lineItem.dateAdded < fiveMins) && !lineItem.expired) {
+          if (!(Date.now() - lineItem.dateAdded < expiryInterval) && !lineItem.expired) {
             console.log('this line item, ', lineItem.experienceId.name)
             lineItem.expired = true;
             expToUpdate.id = lineItem.experienceId;
