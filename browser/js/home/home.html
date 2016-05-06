@@ -1,8 +1,14 @@
 <section id="home">
   <!-- <video-bg video-id="video.id"></video-bg> -->
   <vid-bg resources="resources" poster="poster" full-screen="fullScreen" muted="muted" z-index="zIndex" play-info="playInfo" pause-play="pausePlay"></vid-bg>
-  <div style="z-index: 98; top: 45%; left: 46%; position: absolute; color: orange; font-size: 2.5em;">
-			<span>Live the life you love. Love the life you live.</span>
-      <div style="font-size: 0.5em;">Experience life to the fullest. Choose from over 100 adventures hand-curated by our beloved community</div>
-    </div>
+  
+  <div id="welcomeSearch">
+    <div class="input-group input-group-lg">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Find Your Experience" ng-model="expsearch"/>
+  </div>
+
+			<!-- <span>Live the life you love. Love the life you live.</span>
+      <div style="font-size: 0.5em;">Experience life to the fullest. Choose from over 100 adventures hand-curated by our beloved community</div> -->
+  </div>
 </section>
