@@ -25,6 +25,7 @@ md-card	{
     margin-bottom: 50px;
     border-radius: 3px;
 }
+
 .expcard > h4{
 
 }
@@ -50,7 +51,6 @@ md-card	{
 		background-color: $cardBackground;
 }
 #breadcrumb	{
-font-family: "tenso",sans-serif;
 font-style: italic;
 font-weight: 300;
 font-size: 1.2em;
@@ -70,8 +70,6 @@ margin-bottom: 10px
 	color: rgba(0, 0, 0, .7);
 	padding-left: 30px;
 	padding-right:30px;
-	font-family: "tenso",sans-serif;
-	font-style: italic;
 	font-weight: 500;
 }
 .flexColumn	{
@@ -86,7 +84,6 @@ position: relative;
 	margin-top: 120px;
 }
 .description	{
-	font-family: "tenso",sans-serif;
 	font-style: normal;
 	font-weight: 400;
 }
@@ -138,7 +135,6 @@ vertical-align: top;
  text-overflow: ellipsis;
 }
 .reviewBody{
-	font-family: "tenso",sans-serif;
 	font-style: normal;
 	font-weight: 300;
 }
