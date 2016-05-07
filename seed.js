@@ -33,6 +33,7 @@ var Address = mongoose.model('Address');
 var Review = mongoose.model('Review');
 
 var faker = require("faker");
+var experiencePairs = [];
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
@@ -54,7 +55,7 @@ var wipeCollections = function () {
 
 var randomizerIdx = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
-}
+};
 
 var seedAddresses = function () {
   var addresses = [];
@@ -67,11 +68,11 @@ var seedAddresses = function () {
     address.postalCode = faker.address.zipCode();
     address.country = faker.address.country();
     addresses.push(address);
-  })
+  });
 
   return Address.create(addresses);
 
-}
+};
 
 var seedUsers = function (addresses) {
     var users = [
@@ -130,23 +131,60 @@ var seedCategories = function () {
 
 //create photoURLs
 function makePhotoUrls () {
-  var photoNames = [
-    '1.png','5311511_orig.jpg','snowmobiles_2.jpg','7-22-13.jpg','Custom-Programs-10.jpg','Heliskiing.JPG','MASW_AnC_Class.jpg','PaintNite21.jpeg','PortTownsendClass1.jpg','Pottery-Mug.jpg','Sailing-Courses.jpg','Sippin-and-Paintin.jpg','SupAir_Player.jpg','archery-camp.jpg','archery-lessons.jpg','balloons.jpg','baseball-camp.jpg','camels.jpg','climbing.jpg','enyoing-a-camel-ride.jpg','hands-on-clay.jpg','helmet-dive.jpg','large.jpg','mike-wiegele-Deluxe-212.jpg','napali_coast17.JPG','paint_brush_palette_colors.jpg','painting-class.jpg','painting_class_closeup02.jpg','pot.jpg','pottery-class.jpg','reaching-for-brushes.jpg','rome-segway.jpg','sailing-class.jpg','sailing.jpg','snowmobiles_wit.jpg','storm-trooper-paintball.jpg','web10.jpg','wet-brushes.jpg'
+
+   experiencePairs = [
+    {name:'Solo Rock Climbing', photoUrl:'1.png'},
+    {name:'Woodworking Inlays', photoUrl:'5311511_orig.jpg'},
+    {name:'Snowmobiling in Yellowstone', photoUrl:'snowmobiles_2.jpg'},
+    {name:'Figure Drawing', photoUrl:'7-22-13.jpg'},
+    {name:'Group Rock Climbing', photoUrl:'Custom-Programs-10.jpg'},
+    {name:'Remote Heliskiing', photoUrl:'Heliskiing.JPG'},
+    {name:'Cabinet Making', photoUrl:'MASW_AnC_Class.jpg'},
+    {name:'Oil Painting & Wine', photoUrl:'PaintNite21.jpeg'},
+    {name:'Chair Woodworking', photoUrl:'PortTownsendClass1.jpg'},
+    {name:'Hands-On Pottery', photoUrl:'Pottery-Mug.jpg'},
+    {name:'Ireland Sailing', photoUrl:'Sailing-Courses.jpg'},
+    {name:'Sipping & Painting', photoUrl:'Sippin-and-Paintin.jpg'},
+    {name:'Team Paintball', photoUrl:'SupAir_Player.jpg'},
+    {name:'Archery Camp', photoUrl:'archery-camp.jpg'},
+    {name:'Archery Lessons', photoUrl:'archery-lessons.jpg'},
+    {name:'Ballooning at Dawn', photoUrl:'balloons.jpg'},
+    {name:'Dodgers Fantasy Camp', photoUrl:'baseball-camp.jpg'},
+    {name:'Colombia Camel Trip', photoUrl:'camels.jpg'},
+    {name:'Ocean Cliff Climbing', photoUrl:'climbing.jpg'},
+    {name:'Brooklyn Camel Sojurn', photoUrl:'enyoing-a-camel-ride.jpg'},
+    {name:'Advanced Clay Spinning', photoUrl:'hands-on-clay.jpg'},
+    {name:'Helmet Diving', photoUrl:'helmet-dive.jpg'},
+    {name:'NYC Segway Tour', photoUrl:'large.jpg'},
+    {name:'Extreme Heliskiing in Alberta', photoUrl:'mike-wiegele-Deluxe-212.jpg'},
+    {name:'Napoli Coast Solo Sail', photoUrl:'napali_coast17.JPG'},
+    {name:'Oil Painting', photoUrl:'paint_brush_palette_colors.jpg'},
+    {name:'Barcelona Painting Class', photoUrl:'painting-class.jpg'},
+    {name:'Impressionist Painting', photoUrl:'painting_class_closeup02.jpg'},
+    {name:'Traditional Pottery', photoUrl:'pot.jpg'},
+    {name:'Expert Pottery Class', photoUrl:'pottery-class.jpg'},
+    {name:'Solo Painting Lesson', photoUrl:'reaching-for-brushes.jpg'},
+    {name:'Rome Segway Tour', photoUrl:'rome-segway.jpg'},
+    {name:'Acapulco Sailing', photoUrl:'sailing-class.jpg'},
+    {name:'Cornwall Coast Sailing', photoUrl:'sailing.jpg'},
+    {name:'Quebec Snowmobiling', photoUrl:'snowmobiles_wit.jpg'},
+    {name:'Star Wars Paintball', photoUrl:'storm-trooper-paintball.jpg'},
+    {name:'Extreme Boot Camp', photoUrl:'web10.jpg'},
+    {name:'Advanced Oil Painting', photoUrl:'wet-brushes.jpg'}
   ];
-  var photoUrls = photoNames.map(function(file){
-    var _file = 'http://www.hillphoto.com/experience_fpo/' + file;
-    return _file;
+
+  var photoUrls = experiencePairs.map(function(pair){
+    pair.photoUrl = 'http://www.hillphoto.com/experience_fpo/' + pair.photoUrl;
+    return pair;
   });//end map
   return photoUrls;
 }
 
 var seedExperiences = function (addresses, categories, randomizerIdx) {
-    var _photoUrls = makePhotoUrls();
-    var experiences = [];
+   makePhotoUrls();
+    var experiences = experiencePairs;
 
-    _.times(50, function () {
-      var experience = {};
-      experience.name = faker.lorem.words();
+    var experiencez = experiences.map(function(experience){
       experience.shortDescription = faker.lorem.sentences();
       experience.description = faker.lorem.paragraphs();
       experience.quantity = randomizerIdx(1, 10);
@@ -154,13 +192,12 @@ var seedExperiences = function (addresses, categories, randomizerIdx) {
       experience.price = faker.commerce.price();
       experience.category = categories[randomizerIdx(0, categories.length - 1)];
       experience.address = addresses[randomizerIdx(0, addresses.length - 1)];
-      experience.photoUrl = _photoUrls[randomizerIdx(0, _photoUrls.length-1)];
       experience.averageRating = 0;
-      // experience.ratingAverage = randomizerIdx(2,5);
-      experiences.push(experience);
-    });
+      return experience;
 
-    return Experience.create(experiences);
+    });//end .map
+
+    return Experience.create(experiencez);
 
 };
 
@@ -191,7 +228,7 @@ var seedReviews = function (experiences, users) {
     var review = {};
     review.description = faker.lorem.sentences();
     review.rating = randomizerIdx(1, 5);
-    review.experience = experiences[randomizerIdx(0, 49)]._id;
+    review.experience = experiences[randomizerIdx(0, experiences.length)]._id;
     review.user = users[randomizerIdx(0, 1)]._id;
     reviews.push(review);
   }
@@ -202,26 +239,22 @@ var seedReviews = function (experiences, users) {
       experiences.forEach(function (experience) {
         var reviewAdded = false;
         reviews.forEach(function (review) {
-          // console.log('experience', experience._id)
-          // console.log(review.experience);
           if (String(review.experience) === String(experience._id)) {
-            // console.log('heres one', review.experience)
             reviewAdded = true;
             experience.reviews.push(review);
 
           }
-        })
+        });
         if(reviewAdded) {
-          console.log('yes added')
           promisifyExperiences.push(experience.save());
         }
-      })
+      });
       return Promise.all(promisifyExperiences);
-    })
+    });
 
 };
 
-var seedExperiencesWithReviews
+var seedExperiencesWithReviews;
 
 var _users;
 var _experiences;
