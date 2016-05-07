@@ -6,9 +6,9 @@ navbar {
   box-shadow: 1px 1px 14px -3px black;
 
   .container {
-    width: 91%;
+    width: 100%;
     max-width: 1340px;
-    padding-top: 20px;
+    padding-top: 15px;
   }
 
   fullstack-logo {
@@ -18,19 +18,20 @@ navbar {
   }
 
   a {
-    color: black;
+    color: $navBarText;
     font-size: 16px;
+    padding-bottom: 0px
   }
 
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
     &.active {
-      color: darken(#f31214, 10%);
+      color: $deepOrange;
     }
     &:hover {
       background: none;
-      color: #f31214;
+      color: $deepOrange;
     }
     &:focus {
       background: none;
@@ -39,17 +40,19 @@ navbar {
 
   .login-button {
     float: right;
-    border: 1px solid black;
+    border: 1px solid $navBarText;
     margin-top: 10px;
     background: none;
     outline: none !important;
+    color:  $navBarText;
+
   }
 
   .welcome {
     float: right;
     margin-top: 12px;
     span {
-      color: black;
+      color: $navBarText;
       font-size: 16px;
       margin-right: 5px;
     }
@@ -59,4 +62,29 @@ navbar {
     }
   }
 
+
+  md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: $navBackground;
+  }
+  md-toolbar {
+    height:80px;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 30px;
+    padding-bottom: 0px;
+  }
+  img{
+    padding-right: 70px;
+  }
+
+}
+navbar .welcome a {
+  color:  $deepOrange;
+}
+navbar .welcome{
+  padding-top: 13px
+}
+.btn-primary  {
+  // background-color: red;
 }

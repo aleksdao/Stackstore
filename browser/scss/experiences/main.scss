@@ -1,3 +1,15 @@
+.grayBackground	{
+	background-color: $contentBackground;
+}
+
+experience-card	{
+	background-color: $contentBackground;
+}
+
+md-card	{
+	background-color: $cardBackground;
+}
+
 .shortDescription{
 	height : 40px;
 	//white-space: nowrap;
@@ -36,6 +48,7 @@
 }
 #singleExperience	{
 	  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+		background-color: $cardBackground;
 }
 #breadcrumb	{
 font-style: italic;
@@ -98,7 +111,7 @@ vertical-align: top;
 //  vertical-align: top;
 // }
 .glyphicon-star, .glyphicon-star-empty {
-  color:#FDC54C;
+  color:$starOrange;
 }
 .title	{
 	margin-left: 10px;
@@ -148,9 +161,33 @@ vertical-align: top;
 	height:auto;;
 	vertical-align: top;
 }
-._italic	{
+._italicFraction	{
 	font-style: italic;
-	color: 5
+	letter-spacing: 2px;
+
+}
+#allExperiencePage	{
+	border-top: 100px;
+}
+.md-subheader .md-subheader-inner	{
+	background-color: $contentBackground;
+	color: black;
+}
+.btn-primary	{
+	background-color: $primaryGreenLighter;
+	border-color: rgb(50, 50, 50);
+}
+.btn-primary:hover		{
+	background-color: $primaryGreen;
+	border-color: rgb(50, 50, 50);
+}
+.btn-warning	{
+	background-color: rgb(150, 150, 150);
+	border-color: rgb(50, 50, 50);
+}
+.btn-warning:hover	{
+	background-color: rgb(100, 100, 100);
+	border-color: rgb(50, 50, 50);
 }
 
 
@@ -159,7 +196,7 @@ vertical-align: top;
 
 /*** Table Styles **/
 
- 
+
 th {
   color:#fff;
   border-bottom:4px solid #9ea7af;
@@ -171,7 +208,7 @@ th {
   //font-weight:bold;
 }
 
- 
+
 tr {
   border-top: 1px solid #C1C3D1;
   border-bottom-: 1px solid #C1C3D1;
@@ -186,7 +223,7 @@ tr:hover td {
   background:#DCDCDC;
   color:#000;
 }
- 
+
 tr:first-child {
   border-top:none;
 }
@@ -194,16 +231,16 @@ tr:first-child {
 tr:last-child {
   border-bottom:none;
 }
- 
+
 tr:nth-child(odd) td {
   background:#EBEBEB;
 }
- 
+
 
 tr:last-child td:first-child {
   border-bottom-left-radius:3px;
 }
- 
+
 tr:last-child td:last-child {
   border-bottom-right-radius:3px;
 }
@@ -211,9 +248,9 @@ td{
 padding : 8px;
 max-width : 500px;
 }
- 
+
 .adminexpsearch label{
-  width: 100%;  
+  width: 100%;
 }
 
 .adminexpsearch input{
@@ -223,5 +260,3 @@ max-width : 500px;
   border: 0px ;
   border-radius:2px;
 }
-
-

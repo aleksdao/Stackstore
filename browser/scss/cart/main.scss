@@ -1,14 +1,19 @@
 #cart {
+  padding-top: 25px;
+
   table {
     border-spacing: 10px;
   }
   td {
     padding: 10px;
+    // background-color: rgb(240, 240, 240);
   }
   th  {
+    background-color: rgb(200, 200, 200);
     color:white;
     font-weight: bold;
   }
+
   .bold{
     font-weight: bold;
   }
@@ -22,4 +27,13 @@
     overflow: hidden;
     font-size: 1em
   }
+  a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab  {
+    background-color: rgb(200, 200, 200);
+  }
+  a.md-button.md-default-theme.md-primary, a.md-button.md-primary, .md-button.md-default-theme.md-primary, .md-button.md-primary  {
+    background-color: $primaryGreen;
+    color:  white;
+  }
+
+
 }
