@@ -1,0 +1,43 @@
+#orderConfirmation {
+  padding-top: 25px;
+
+  md-table-container  {
+    margin-top: 25px;
+  }
+
+  table {
+    border-spacing: 10px;
+  }
+  td {
+    padding: 10px;
+    // background-color: rgb(240, 240, 240);
+  }
+  th  {
+    background-color: rgb(180, 180, 180);
+    color:white;
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+  .bold{
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .input-group {
+    width:100px;
+    padding: 0;
+    border-collapse: collapse;
+  }
+  .input-group-addon{
+    height: 15px;
+    overflow: hidden;
+    font-size: 1em
+  }
+  img {
+    height:50px;
+  }
+  .dataText {
+    font-size: 1.2em;
+  }
+
+}

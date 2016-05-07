@@ -23,15 +23,15 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
   };
 
   $scope.expire = function () {
-    $http.get('/api/cart/expire')
-  }
+    $http.get('/api/cart/expire');
+  };
 
   $scope.reAddExpiredLineItem = function (lineItem) {
     CartFactory.reAddExpiredLineItem(lineItem, $scope.cart)
       .then(function (cart) {
         $scope.cart = cart;
-      })
-  }
+      });
+  };
 
   $scope.addToCart = function (lineItem) {
     CartFactory.addToCart($scope.cart, experience)
@@ -111,7 +111,6 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
       newLineItem.experienceId = experience._id;
       newLineItem.quantity = 1;
       newLineItem.dateAdded = Date.now();
-      console.log('here is the line item getting added to lineItems array', newLineItem);
       lineItems.push(newLineItem);
     }
     experience.tempQuantity--;
@@ -121,7 +120,6 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
 
     return $http.put('/api/experiences/' + experience._id, experience)
       .then(function (response) {
-        console.log(response.data);
         toReturn.tempQuantity = response.data.tempQuantity;
         return $http.put('/api/cart/' + cart._id, { lineItems: lineItems });
       })
@@ -136,7 +134,6 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
   factory.reAddExpiredLineItem = function (lineItem, cart) {
     for (var i = 0; i < cart.lineItems.length; i++) {
       if (lineItem.experienceId._id === cart.lineItems[i].experienceId._id) {
-        console.log('does it happen in here', cart.lineItems[i].experienceId.name)
         cart.lineItems[i].expired = false;
         break;
       }
@@ -145,16 +142,14 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
     cart.lineItems = depopulateLineItemsArr(cart.lineItems);
     return experiencesFactory.modifyExperienceTempQty(lineItem.experienceId._id, lineItem.quantity)
       .then(function (experience) {
-        console.log('modifying experience qty', experience.name)
-        return $http.put('/api/cart/' + cart._id, { lineItems: cart.lineItems })
+        return $http.put('/api/cart/' + cart._id, { lineItems: cart.lineItems });
       })
       .then(function (response) {
-        console.log('cart', response.data)
         var modifiedCart = response.data;
         return modifiedCart;
-      })
+      });
 
-  }
+  };
 
 
 

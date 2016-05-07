@@ -14,12 +14,12 @@ var transporter = nodemailer.createTransport({
     user: process.env.NODEMAILER_USER,
     pass: process.env.NODEMAILER_PASSWORD
   }
-})
+});
 
 router.post('/', function (req, res, next) {
   var cart = req.body.cart;
   var payment = req.body.payment;
-  var orderConfirmation = {};
+  var orderConfirmation = {'cart': cart};
   var removeStockAfterOrderPromises = [];
 
   var removeStockFromExperience = function (lineItem) {
@@ -32,8 +32,8 @@ router.post('/', function (req, res, next) {
       }).
       then(function (updExperience) {
         console.log('for experience ', updExperience.name, ': we decremented qty from ', prevExpQuantity, 'to ', updExperience.quantity);
-      })
-  }
+      });
+  };
 
   var emptyCart = function (cart) {
     console.log('emtpying cart', cart)
@@ -41,8 +41,8 @@ router.post('/', function (req, res, next) {
       .then(function (_cart) {
         _cart.lineItems = [];
         return _cart.save();
-      })
-  }
+      });
+  };
 
 
   cart.lineItems = cart.lineItems.map(function (lineItem) {
@@ -52,7 +52,7 @@ router.post('/', function (req, res, next) {
 
   cart.lineItems = cart.lineItems.filter(function (lineItem) {
     return lineItem.expired === false;
-  })
+  });
 
   Order.create({
     userId: cart.userId,
@@ -100,7 +100,7 @@ router.post('/', function (req, res, next) {
             orderConfirmation.email = info.response;
             console.log('Message sent' + info.response);
           }
-        })
+        });
       }
       res.send(orderConfirmation);
 
