@@ -4,14 +4,25 @@ var MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var path = require('path');
 var mongoose = require('mongoose');
-var UserModel = mongoose.model('User');
+var User = mongoose.model('User');
+var nodemailer = require('nodemailer');
+var crypto = require('crypto');
+var nodemailerCredentials = require('../../../env/development').NODEMAILER;
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
-    'twitter',
+    // 'twitter',
     // 'facebook',
     // 'google'
 ];
+
+var transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: nodemailerCredentials.USER,
+    pass: nodemailerCredentials.PASSWORD
+  }
+});
 
 module.exports = function (app) {
 
@@ -38,7 +49,7 @@ module.exports = function (app) {
     // When we receive a cookie from the browser, we use that id to set our req.user
     // to a user found in the database.
     passport.deserializeUser(function (id, done) {
-        UserModel.findById(id, done);
+        User.findById(id, done);
     });
 
     // We provide a simple GET /session in order to get session information directly.
@@ -60,6 +71,111 @@ module.exports = function (app) {
         // console.log('req.usr', req.user);
         res.status(200).end();
     });
+
+    // app.get('/forgot', function (req, res, next) {
+    //
+    // })
+
+    app.post('/forgot', function (req, res, next) {
+      // console.log('inside forgot route');
+      var randomToken = crypto.randomBytes(20).toString('hex');
+      User.findOne({ email: req.body.email })
+        .then(function (foundUser) {
+          if (!foundUser) {
+            // throw new Error('Found no Users');
+            var notFound = new Error('We could not find that e-mail address.');
+            notFound.status = 404;
+            return next(notFound);
+          }
+          else {
+            foundUser.resetPasswordToken = randomToken;
+            foundUser.resetPasswordExpires = Date.now() + 360000;
+            return foundUser.save();
+          }
+        })
+        .then(function (foundUser) {
+          if (foundUser) {
+            console.log('found user: ', foundUser);
+            var mailOptions = {
+              from: 'passwordreset@stackstore.com',
+              to: 'rahx1t@gmail.com',
+              subject: 'Experience! Adventures! Password Reset',
+              text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                    'http://' + req.headers.host + '/reset/' + randomToken + '\n\n' +
+                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+                res.send(error);
+              }
+              else {
+                res.send('An e-mail has been sent to ' + foundUser.email + ' with further instructions');
+              }
+            })
+          }
+
+        })
+        .then(null, next);
+
+
+
+
+    })
+
+    app.get('/api/reset/:token', function (req, res, next) {
+      console.log('hello there')
+      console.log('do we get into the reset route');
+      User.findOne({ resetPasswordToken: req.params.token })
+        .then(function (foundUser) {
+          if (!foundUser) {
+            return next('Password reset token is invalid or has expired.');
+          }
+          else {
+            res.send(foundUser);
+            //load the Reset Password template
+          }
+        })
+    })
+
+    app.post('/api/reset/:token', function (req, res, next) {
+      User.findOne({ resetPasswordToken: req.params.token })
+        .then(function (foundUser) {
+          if (!foundUser) {
+            return next('Password reset token is invalid or has expired.');
+          }
+          else {
+            foundUser.password = req.body.password;
+            foundUser.resetPasswordToken = null;
+            foundUser.resetPasswordExpires = null;
+            return foundUser.save();
+          }
+        })
+        .then(function (foundUser) {
+          if (foundUser) {
+            var mailOptions = {
+            to: 'rahx1t@gmail.com',
+            from: 'passwordreset@stackstore.com',
+            subject: 'Your password has been changed',
+            text: 'Hello,\n\n' +
+              'This is a confirmation that the password for your account ' + foundUser.email + ' has just been changed.\n'
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+                res.send(error);
+              }
+              else {
+                console.log('Success! Your password has been changed');
+                res.send('Success! Your password has been changed');
+              }
+            });
+          }
+        });
+
+    })
 
     // Each strategy enabled gets registered.
     ENABLED_AUTH_STRATEGIES.forEach(function (strategyName) {

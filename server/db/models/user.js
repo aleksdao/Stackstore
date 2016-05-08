@@ -39,6 +39,12 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+    },
+    resetPasswordToken: {
+      type: String
+    },
+    resetPasswordExpires: {
+      type: Date
     }
 });
 
