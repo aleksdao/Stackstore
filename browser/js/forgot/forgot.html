@@ -1,0 +1,20 @@
+<div class="container">
+
+  <form id="login-form" name="forgotForm" ng-submit="forgotForm.$valid && forgotPassword(forgot.email)">
+      <h3>Forgot Password</h3>
+
+      <alert type="danger" ng-show="error">
+          {{ error }}
+      </alert>
+
+      <alert type="success" ng-show="successMsg">
+          {{ successMsg }}
+      </alert>
+
+      <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="text" ng-model="forgot.email" class="form-control" id="email" placeholder="Enter email">
+      </div>
+      <button type="submit" class="btn btn-default">Reset Password</button>
+  </form>
+</div>

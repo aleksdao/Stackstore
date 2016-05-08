@@ -7,12 +7,13 @@ var nodemailer = require('nodemailer');
 var Promise = require('bluebird');
 var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
+var nodemailerCredentials = require('../../../env/development').NODEMAILER;
 
 var transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: process.env.NODEMAILER_USER,
-    pass: process.env.NODEMAILER_PASSWORD
+    user: nodemailerCredentials.USER,
+    pass: nodemailerCredentials.PASSWORD
   }
 });
 
