@@ -88,7 +88,7 @@ router.post('/', function (req, res, next) {
       if (process.env.NODEMAILER_USER) {
         var mailOptions = {
           from: 'rahx1t@gmail.com',
-          to: 'rahx1t@gmail.com',
+          to: 'johngruska@gmail.com',
           subject: 'Order Confirmation from Experience! Adventures! ' + orderConfirmation.orderId,
           text: 'Success!'
         };
