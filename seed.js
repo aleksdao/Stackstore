@@ -31,6 +31,7 @@ var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var Address = mongoose.model('Address');
 var Review = mongoose.model('Review');
+var Cart = mongoose.model('Cart');
 
 var faker = require("faker");
 var experiencePairs = [];
@@ -42,8 +43,11 @@ var wipeCollections = function () {
     var removeExperiences = Experience.remove({});
     var removeCarts = Cart.remove({});
     var removeAddresses = Address.remove({});
+    var removeCarts = Cart.remove({});
+
 
     return Promise.all([
+        removeCarts,
         removeUsers,
         removeCategories,
         removeReviews,

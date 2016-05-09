@@ -27,7 +27,7 @@ var returnToStock = function (expToUpdate) {
 new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', function () {
   console.log('hi there');
   //modify minutes variable to determine how long an item can stay in a user's cart before it is expired and returned to stock
-  var minutes = 1;
+  var minutes = 15;
   var seconds = 60;
   var milliseconds = 1000;
   var expiryInterval = minutes * seconds * milliseconds;
@@ -71,7 +71,7 @@ new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', function () {
 //been in cart for 5+ minutes
 
 router.get('/expire', function (req, res, next) {
-  var expiryInterval = 30 * 1000;
+  var expiryInterval = 5 * 60 * 1000;
   var experiencesToUpdate = [];
   var cartsToUpdate = [];
   Cart.find({})
@@ -158,11 +158,15 @@ router.get('/', function (req, res, next) {
           res.send(retrievedCart);
         }
         else {
+          // console.log('in this else statement')
+          console.log('sessionCart', retrievedCart);
+          console.log('existingUserCart', existingUserCart);
           var sessionLineItems = retrievedCart.lineItems;
-          var foundSameItem = false;
           sessionLineItems.forEach(function (sessionLineItem) {
+            var foundSameItem = false;
             existingUserCart.lineItems.map(function (userCartLineItem) {
               //why does this require String? the below conditional didn't pass until I casted with String
+              console.log(userCartLineItem.experienceId._id, sessionLineItem.experienceId._id)
               if (String(userCartLineItem.experienceId._id) === String(sessionLineItem.experienceId._id)) {
 
                 console.log('found same item');

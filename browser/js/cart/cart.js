@@ -17,6 +17,8 @@ app.controller('CartCtrl', function ($scope, $state, cart, CartFactory, UserFact
 
   $scope.cart = cart;
 
+  // $scope.showTooltip = $scope.cart.lineItems.length === 0;
+
 
   $scope.checkout = function () {
     $state.go('checkout');
@@ -135,6 +137,7 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
     for (var i = 0; i < cart.lineItems.length; i++) {
       if (lineItem.experienceId._id === cart.lineItems[i].experienceId._id) {
         cart.lineItems[i].expired = false;
+        cart.lineItems[i].dateAdded = Date.now();
         break;
       }
 
