@@ -17,7 +17,7 @@ module.exports = {
     "callbackURL": "http://127.0.0.1:1337/auth/google/callback"
   },
   "NODEMAILER": {
-    "USER": "rahx1t@gmail.com",
-    "PASSWORD": "love2dowell"
+    "USER": "experienceadventurestoday@gmail.com",
+    "PASSWORD": "st@ckstore"
   }
 };
