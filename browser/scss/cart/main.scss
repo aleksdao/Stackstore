@@ -9,9 +9,11 @@
     // background-color: rgb(240, 240, 240);
   }
   th  {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(175, 175, 175);
     color:white;
     font-weight: bold;
+    font-size: 1.4em;
+
   }
 
   .bold{
@@ -33,6 +35,15 @@
   a.md-button.md-default-theme.md-primary, a.md-button.md-primary, .md-button.md-default-theme.md-primary, .md-button.md-primary  {
     background-color: $primaryGreen;
     color:  white;
+  }
+  img {
+    height:50px;
+  }
+  .moveRight  {
+    text-align: right;
+  }
+  .dataText {
+    font-size: 1.2em;
   }
 
 
