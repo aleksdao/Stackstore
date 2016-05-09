@@ -1,3 +1,4 @@
+//maybe you can break this out into separate files?
 app.config(function ($stateProvider) {
   $stateProvider
     .state('cart', {
@@ -83,6 +84,7 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
   //whether it is via sessionID from non-logged-in-user or via userId from logged
   //in user. check routes/cart/index.js to see the logic
 
+  //one concern is that we are storing non-logged in carts on the server-- could turn into a scalability issue at some point
   factory.fetchCart = function () {
     return $http.get('/api/cart')
       .then(function (response) {
@@ -93,6 +95,7 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
 
 
   factory.addToCart = function (cart, experience) {
+    // when I see logic which pertains to cart, I wonder whether we should have some entity object -- ie Cart, like we did in Auther?
     var lineItems;
     if(cart.lineItems)
       lineItems = depopulateLineItemsArr(cart.lineItems);
@@ -134,6 +137,7 @@ app.factory('CartFactory', function ($http, ngToast, experiencesFactory) {
   };
 
   factory.reAddExpiredLineItem = function (lineItem, cart) {
+    //might want to look to lodash library for this sort of thing... 
     for (var i = 0; i < cart.lineItems.length; i++) {
       if (lineItem.experienceId._id === cart.lineItems[i].experienceId._id) {
         cart.lineItems[i].expired = false;

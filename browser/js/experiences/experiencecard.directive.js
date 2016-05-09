@@ -1,16 +1,19 @@
+//totally fine-- but wondering if you want to put in an isolate scope-- so directives are more self contained
 app.directive('experienceCard',function(){
 	return{
 		restrict : 'AE',
 		templateUrl : '/js/experiences/experience-card.html'
 	};
 });
+
 app.directive('experienceSmall',function(){
 	return{
 		restrict : 'AE',
 		templateUrl : '/js/experiences/directive-views/experience-card-small.html'
 	};
 });
-app.directive('review',function(){
+
+app.directive('review', function(){
 	return{
 		restrict : 'AE',
 		templateUrl : '/js/experiences/directive-views/experience-review.html'

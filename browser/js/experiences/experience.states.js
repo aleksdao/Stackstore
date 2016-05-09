@@ -1,9 +1,11 @@
+//there are alot of files in this folder-- perhaps adding some additional folders to make it easier to maintain?
+// nice restful routes
 app.config(function($stateProvider){
 	$stateProvider
 		.state('experiences',{
 			url:'/experiences',
 			templateUrl: '/js/experiences/allexperiences.html',
-			controller : 'experiencesCTRL',
+			controller : 'experiencesCTRL',//why caps?
 			params:	{
 				category:	{}
 			},
@@ -21,19 +23,22 @@ app.config(function($stateProvider){
 					return CartFactory.fetchCart();
 				}
 			}//end resolve
-		}).state('newExperience', {
+		})
+    .state('newExperience', {
 			url:'/experiences/new',
 			templateUrl: '/js/experiences/new.html',
 			resolve:{
 				categories : function(CategoriesFactory){
 					return CategoriesFactory.fetchAll();
 				},
-				experience : function(experiencesFactory,$stateParams){
-					return {};
+				experience : 
+          function(experiencesFactory,$stateParams){//?
+					  return {};
 				}
 			},
 			controller:'experienceAddCtrl'
-		}).state('listAllForEdit', {
+		})
+    .state('listAllForEdit', {
 			url:'/experiences/admin/edit',
 			templateUrl: '/js/admin/editexperience.html',
 			resolve:{
@@ -42,7 +47,8 @@ app.config(function($stateProvider){
 				}
 			},
 			controller:'experienceEditList'
-		}).state('editExperiences', {
+		})
+    .state('editExperiences', {
 			url:'/experiences/edit/:id',
 			templateUrl: '/js/experiences/new.html',
 			resolve:{
@@ -54,7 +60,8 @@ app.config(function($stateProvider){
 				}
 			},
 			controller:'experienceAddCtrl'
-		}).state('experience', {
+		})
+    .state('experience', {
 			url:'/experiences/:id',
 			templateUrl: '/js/experiences/experienceDetail.html',
 			controller : 'experienceDetailCTRL',
