@@ -178,7 +178,7 @@ function makePhotoUrls () {
   ];
 
   var photoUrls = experiencePairs.map(function(pair){
-    pair.photoUrl = 'http://www.hillphoto.com/experience_fpo/' + pair.photoUrl;
+    pair.photoUrl = 'https://www.hillphoto.com/experience_fpo/' + pair.photoUrl;
     return pair;
   });//end map
   return photoUrls;
