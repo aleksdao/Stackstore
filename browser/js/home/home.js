@@ -24,7 +24,10 @@ app.config(function ($stateProvider) {
                         if( document.getElementById('actions') !== null){
                           document.getElementById('actions').innerHTML='<md-button class="gobutton"><h1 class="splashaction">'+actionsarray[i]+'</h1></md-button>';
                         }
+                        if( document.getElementById('actions') !== null){
+
                         if(i == actionsarray.length-1){document.getElementById('actions').innerHTML='<div class="gobuttonlast"><h1 class="splashaction">'+actionsarray[i]+'</h1></div>'; }
+                      }
                         i++;
                     },700);
 

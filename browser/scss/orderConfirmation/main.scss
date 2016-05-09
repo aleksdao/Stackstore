@@ -1,4 +1,4 @@
-#orderConfirmation {
+#orderConfirmation,#orderHistory {
   padding-top: 25px;
 
   md-table-container  {
@@ -38,6 +38,12 @@
   }
   .dataText {
     font-size: 1.2em;
+  }
+  .orderBlock {
+    margin-top: 30px;
+  }
+  .finalRow{
+    background-color: $deepOrange;
   }
 
 }

@@ -1,5 +1,5 @@
 app.controller('CheckoutCtrl', function($scope, $state, cart, stripe, CartFactory, CheckoutFactory, user) {
-  console.log(user);
+  // console.log(user);
   $scope.cart = cart;
   $scope.user = user;
   if (user) {

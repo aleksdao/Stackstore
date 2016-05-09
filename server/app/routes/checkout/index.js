@@ -38,7 +38,7 @@ router.post('/', function (req, res, next) {
   };
 
   var emptyCart = function (cart) {
-    console.log('emtpying cart', cart)
+    console.log('emtpying cart', cart);
     return Cart.findById(cart._id)
       .then(function (_cart) {
         _cart.lineItems = [];
@@ -63,7 +63,7 @@ router.post('/', function (req, res, next) {
     billingAddress: billingAddress
   })
     .then(function (order) {
-      console.log('creating order, ', order)
+      console.log('creating order, ', order);
       orderConfirmation.orderId = order._id;
       for (var i = 0; i < order.lineItems.length; i++) {
         removeStockAfterOrderPromises.push(removeStockFromExperience(order.lineItems[i]));
@@ -108,6 +108,8 @@ router.post('/', function (req, res, next) {
     });
 
   });
+
+
 
 
 module.exports = router;
