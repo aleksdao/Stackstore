@@ -36,6 +36,7 @@ router.get('/me/:id', function (req, res, next) {
   User.findById(req.params.id)
     .populate('addresses')
     .then(function (user) {
+      console.log(user);
       res.send(user);
     })
 })

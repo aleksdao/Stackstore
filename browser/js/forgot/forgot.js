@@ -15,10 +15,8 @@ app.factory('ForgotPasswordFactory', function ($http) {
   }
 
   factory.confirmToken = function (token) {
-    console.log('do we get in here', token);
     return $http.get('/api/reset/' + token)
       .then(function (response) {
-        console.log('resposne.data', response.data);
         return response.data;
       })
   }
@@ -43,8 +41,6 @@ app.config(function ($stateProvider) {
               else {
                 $scope.error = 'We could not find that e-mail in the database. Please try again.'
               }
-              // console.log(response);
-              // $scope.error = error;
             })
         }
       }
@@ -68,7 +64,6 @@ app.config(function ($stateProvider) {
         $scope.resetPassword = function (password) {
           ForgotPasswordFactory.resetPassword($stateParams.token, password)
             .then(function (response) {
-              console.log(response);
               $scope.confirm = true;
               $scope.resetPassword = null;
               $timeout(function () {

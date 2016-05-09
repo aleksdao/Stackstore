@@ -65,24 +65,17 @@ module.exports = function (app) {
 
     // Simple /logout route.
     app.get('/logout', function (req, res) {
-        // console.log(req.sessionID);
         req.session.destroy();
         req.logout();
-        // console.log('req.usr', req.user);
         res.status(200).end();
     });
 
-    // app.get('/forgot', function (req, res, next) {
-    //
-    // })
 
     app.post('/forgot', function (req, res, next) {
-      // console.log('inside forgot route');
       var randomToken = crypto.randomBytes(20).toString('hex');
       User.findOne({ email: req.body.email })
         .then(function (foundUser) {
           if (!foundUser) {
-            // throw new Error('Found no Users');
             var notFound = new Error('We could not find that e-mail address.');
             notFound.status = 404;
             return next(notFound);
@@ -95,7 +88,6 @@ module.exports = function (app) {
         })
         .then(function (foundUser) {
           if (foundUser) {
-            console.log('found user: ', foundUser);
             var mailOptions = {
               from: 'passwordreset@stackstore.com',
               to: 'rahx1t@gmail.com',
@@ -107,7 +99,6 @@ module.exports = function (app) {
             };
             transporter.sendMail(mailOptions, function (error, info) {
               if (error) {
-                console.log(error);
                 res.send(error);
               }
               else {
@@ -118,15 +109,9 @@ module.exports = function (app) {
 
         })
         .then(null, next);
-
-
-
-
     })
 
     app.get('/api/reset/:token', function (req, res, next) {
-      console.log('hello there')
-      console.log('do we get into the reset route');
       User.findOne({ resetPasswordToken: req.params.token })
         .then(function (foundUser) {
           if (!foundUser) {
@@ -164,11 +149,9 @@ module.exports = function (app) {
 
             transporter.sendMail(mailOptions, function (error, info) {
               if (error) {
-                console.log(error);
                 res.send(error);
               }
               else {
-                console.log('Success! Your password has been changed');
                 res.send('Success! Your password has been changed');
               }
             });

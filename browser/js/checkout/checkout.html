@@ -8,77 +8,101 @@
       <div flex-gt-sm="80">
         <h3>Amount to be Charged: {{subtotal() | currency}}</h3>
       </div>
-      <!-- <div flex-gt-sm="80">
-        <h3>Billing Address</h3>
-      </div>
-      <div layout-gt-sm="row">
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>First name</label>
-          <input ng-model="user.firstName">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Last name</label>
-          <input ng-model="user.lastName">
-        </md-input-container>
-      </div>
-      <md-input-container class="md-block">
-        <label>Address</label>
-        <input ng-model="user.address">
-      </md-input-container>
-      <md-input-container class="md-block">
-        <label>Address 2</label>
-        <input ng-model="user.address2">
-      </md-input-container>
-      <div layout-gt-sm="row">
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>City</label>
-          <input ng-model="user.city">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>State</label>
-          <md-select ng-model="user.state">
-            <md-option ng-repeat="state in states" value="{{state.abbrev}}">
-              {{state.abbrev}}
-            </md-option>
+      <!-- here is the start -->
+  <form name="addressForm">
+    <div class='md-whiteframe-4dp'>
+      <!-- <h2 class='md-title'>Tell us some info about you</h2> -->
+      <h3>Billing Address</h3>
+      <md-radio-group ng-model="newOrExistingAddress">
+        <md-radio-button value="new" class="md-primary">Use new address</md-radio-button>
+        <md-radio-button value="existing" class="md-primary" ng-disabled="!user._id">Use existing address</md-radio-button>
+      </md-radio-group>
+      <div layout='row'>
+        <md-input-container flex ng-if="newOrExistingAddress === 'existing'">
+          <md-select ng-model="user.billingAddress" placeholder="Select billing address">
+            <md-optgroup label='Billing Address'>
+              <md-option ng-value='address' ng-repeat='address in user.addresses'>{{ displayFormattedAddress(address) }}</md-option>
+            </md-optgroup>
           </md-select>
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>Postal Code</label>
-          <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
-                 required ng-pattern="/^[0-9]{5}$/">
-          <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-            <div ng-message="required" class="my-message">You must supply a postal code.</div>
-            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
-              code.
-            </div>
-            <div ng-message="md-maxlength" class="my-message">
-              Don't use the long version silly...we don't need to be that specific...
-            </div>
+      </div>
+    </div>
+  <!-- here is the break -->
+    <div flex-gt-sm="80">
+      <!-- <h3>Billing Address</h3> -->
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>First name</label>
+        <input name="firstName" required minlength="2" maxlength="20" ng-model="user.firstName">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Last name</label>
+        <input name="lastName" required minlength="2" maxlength="20" ng-model="user.lastName">
+      </md-input-container>
+    </div>
+    <md-input-container class="md-block">
+      <label>Address</label>
+      <input name="address" required minlength="2" maxlength="50" ng-model="user.billingAddress.address">
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>Address 2</label>
+      <input ng-model="user.billingAddress.address2">
+    </md-input-container>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>City</label>
+        <input name="city" required minlength="2" maxlength="30" ng-model="user.billingAddress.city">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>State</label>
+        <md-select ng-model="user.billingAddress.state">
+          <md-option required ng-repeat="state in states" value="{{state.name}}">
+            {{state.abbreviation}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Postal Code</label>
+        <input name="postalCode" ng-model="user.billingAddress.postalCode" placeholder="12345"
+               required ng-pattern="/^[0-9]{5}$/">
+        <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+          <div ng-message="required" class="my-message">You must supply a postal code.</div>
+          <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+            code.
           </div>
-        </md-input-container>
-      </div> -->
+        </div>
+      </md-input-container>
+    </div>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Email</label>
+      <input name="email" required ng-model="user.email" placeholder="{{ user.email }}">
+    </md-input-container>
+  </form>
+    <form name="paymentForm">
       <div flex-gt-sm="80">
         <h3>Payment Details</h3>
       </div>
       <md-input-container class="md-block">
         <label>Card Number</label>
-        <input type="text" ng-model="payment.card.number">
+        <input type="text" required ng-model="payment.card.number" placeholder="4242424242424242">
       </md-input-container>
       <div layout-gt-sm="row">
         <md-input-container class="md-block">
           <label>Expiration Month (MM)</label>
-          <input type="text" ng-model="payment.card.exp_month">
+          <input type="text" required maxlength="2" ng-model="payment.card.exp_month" placeholder="12">
         </md-input-container>
         <md-input-container class="md-block">
           <label>Expiration Year (YY)</label>
-          <input type="text" ng-model="payment.card.exp_year">
+          <input type="text" required maxlength="2" ng-model="payment.card.exp_year" placeholder="16">
         </md-input-container>
         <md-input-container class="md-block">
           <label>CVC</label>
           <input type="text" ng-model="payment.card.cvc">
         </md-input-container>
       </div>
-      <md-button class="md-primary" flex="15" ng-style="{ background: '#B9F6CA' }" ng-click="charge()">Complete Order</md-button>
+      <md-button class="md-primary" flex="15" ng-disabled="addressForm.$invalid || paymentForm.$invalid" ng-style="{ background: '#B9F6CA' }" ng-click="charge()">Complete Order</md-button>
+    </form>
     </div>
   </div>
 </section>

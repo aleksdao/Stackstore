@@ -20,6 +20,7 @@ var transporter = nodemailer.createTransport({
 router.post('/', function (req, res, next) {
   var cart = req.body.cart;
   var payment = req.body.payment;
+  var billingAddress = req.body.billingAddress;
   var orderConfirmation = {'cart': cart};
   var removeStockAfterOrderPromises = [];
 
@@ -59,8 +60,7 @@ router.post('/', function (req, res, next) {
     userId: cart.userId,
     totalCost: cart.subtotal,
     lineItems: cart.lineItems,
-    shippingAddress: cart.shippingAddress,
-    billingAddress: cart.billingAddress
+    billingAddress: billingAddress
   })
     .then(function (order) {
       console.log('creating order, ', order)
