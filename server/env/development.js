@@ -15,5 +15,9 @@ module.exports = {
     "clientID": "27534909989-qqq1ummcj308sbekquv4pt696uhbjm0c.apps.googleusercontent.com",
     "clientSecret": "q2gcPh6kyalKYgigipEDxgs3",
     "callbackURL": "http://127.0.0.1:1337/auth/google/callback"
+  },
+  "NODEMAILER": {
+    "USER": "rahx1t@gmail.com",
+    "PASSWORD": "love2dowell"
   }
 };

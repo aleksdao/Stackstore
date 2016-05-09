@@ -35,7 +35,7 @@
 
               </td>
               <td md-cell>{{ lineItem.experienceId.price }}</td>
-              <td md-cell><md-button class="md-icon-button"  ng-click="removeFromCart(lineItem)"><md-icon class="material-icons md-18" ng-style="{ color: '#000000' }">remove_shopping_cart</md-icon></md-button></td>
+              <td md-cell><md-button class="md-icon-button" ng-click="removeFromCart(lineItem)"><md-icon class="material-icons md-18" ng-style="{ color: '#000000' }">remove_shopping_cart</md-icon></md-button></td>
             </tr>
             <tr class="accent line" ng-style="{ background: '#ef6145' }">
               <td md-cell class="bold">Subtotal</td>
@@ -48,7 +48,10 @@
       </md-table-container>
 
       <md-button class="md-primary bold pull-left" flex="15"  ng-click="expire()">Test expiring!</md-button>
-      <md-button class="md-primary bold pull-right" flex="15"  ng-click="checkout()">Check out!</md-button>
+      <md-button class="md-primary bold pull-right" flex="15"  ng-disabled="!cart.lineItems.length" ng-click="checkout()">
+        Check out!
+        <!-- <md-tooltip md-visible="showTooltip" md-direction="top">Add an experience to your cart</md-tooltip> -->
+      </md-button>
 
 
 

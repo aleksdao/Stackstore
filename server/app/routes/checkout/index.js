@@ -7,18 +7,20 @@ var nodemailer = require('nodemailer');
 var Promise = require('bluebird');
 var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
+var nodemailerCredentials = require('../../../env/development').NODEMAILER;
 
 var transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: process.env.NODEMAILER_USER,
-    pass: process.env.NODEMAILER_PASSWORD
+    user: nodemailerCredentials.USER,
+    pass: nodemailerCredentials.PASSWORD
   }
 });
 
 router.post('/', function (req, res, next) {
   var cart = req.body.cart;
   var payment = req.body.payment;
+  var billingAddress = req.body.billingAddress;
   var orderConfirmation = {'cart': cart};
   var removeStockAfterOrderPromises = [];
 
@@ -58,8 +60,7 @@ router.post('/', function (req, res, next) {
     userId: cart.userId,
     totalCost: cart.subtotal,
     lineItems: cart.lineItems,
-    shippingAddress: cart.shippingAddress,
-    billingAddress: cart.billingAddress
+    billingAddress: billingAddress
   })
     .then(function (order) {
       console.log('creating order, ', order)

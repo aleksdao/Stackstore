@@ -7,6 +7,12 @@ app.config(function ($stateProvider) {
       resolve: {
         cart: function (CartFactory) {
           return CartFactory.fetchCart();
+        },
+        user: function (AuthService, UserFactory) {
+          return AuthService.getLoggedInUser()
+            .then(function (user) {
+              if (user) return UserFactory.getCurrentUser(user._id);
+            });
         }
       }
     });

@@ -22,14 +22,13 @@ app.config(function ($stateProvider) {
                 var actionsarray=['SURF','SURF','RIDE','RIDE','RIDE','RIDE','SKI','RUN','RUN','CLIMB','DARE','DREAM','DREAM','LIVE','LIVE'];
                     setInterval(function(){
                         if(i >= actionsarray.length){return};
-                        console.log('ssss');
                         document.getElementById('actions').innerHTML='<md-button class="gobutton"><h1 class="splashaction">'+actionsarray[i]+'</h1></md-button>';
                         if(i == actionsarray.length-1){document.getElementById('actions').innerHTML='<div class="gobuttonlast"><h1 class="splashaction">'+actionsarray[i]+'</h1></div>'; }
                         i++;
                     },700);
-                
-                
-                
+
+
+
             })();
             setTimeout(function(){
                 $state.go('experiences');
