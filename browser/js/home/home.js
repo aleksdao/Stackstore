@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
             '*.ogv',
             '/video/Experience_Splash.mp4',
         ];
-        $scope.poster = 'https://www.hillphoto.com/experience_fpo/mike-wiegele-Deluxe-212.jpg';
+        $scope.poster = 'https://www.hillphoto.com/experience_fpo/black.jpg';
         $scope.fullScreen = false;
         $scope.muted = true;
         $scope.zIndex = '99';

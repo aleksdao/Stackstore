@@ -23,14 +23,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="md-subhead accent line dataText"  md-row ng-repeat="lineItem in order.lineItems">
+        <tr class="md-subhead dataText"  md-row ng-repeat="lineItem in order.lineItems">
             <td md-cell>{{ lineItem.quantity }}</td>
             <td md-cell>{{ lineItem.experienceId.name }}</td>
             <td md-cell><img class="img-responsive" ng-src="{{lineItem.experienceId.photoUrl}}"></td>
             <td md-cell>${{ lineItem.price | number}}</td>
             <td md-cell>${{lineItem.price * lineItem.quantity| number}}</td>
         </tr>
-        <tr class="accent line finalRow" ng-style="{ background: '#ef6145' }">
+        <tr class="finalRow" >
           <td md-cell></td>
           <td md-cell></td>
           <td md-cell></td>
