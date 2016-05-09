@@ -40,11 +40,19 @@ var schema = new mongoose.Schema({
     google: {
         id: String
     },
-    resetPasswordToken: {
+    forgotPasswordToken: {
       type: String
     },
-    resetPasswordExpires: {
+    forgotPasswordExpires: {
       type: Date
+    },
+    forgotPassword: {
+      type: Boolean,
+      default: false
+    },
+    resetPassword: {
+      type: Boolean,
+      default: false
     }
 });
 

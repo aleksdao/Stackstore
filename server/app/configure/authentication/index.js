@@ -81,8 +81,8 @@ module.exports = function (app) {
             return next(notFound);
           }
           else {
-            foundUser.resetPasswordToken = randomToken;
-            foundUser.resetPasswordExpires = Date.now() + 360000;
+            foundUser.forgotPasswordToken = randomToken;
+            foundUser.forgotPasswordExpires = Date.now() + 360000;
             return foundUser.save();
           }
         })
@@ -112,7 +112,7 @@ module.exports = function (app) {
     })
 
     app.get('/api/reset/:token', function (req, res, next) {
-      User.findOne({ resetPasswordToken: req.params.token })
+      User.findOne({ forgotPasswordToken: req.params.token })
         .then(function (foundUser) {
           if (!foundUser) {
             return next('Password reset token is invalid or has expired.');
@@ -125,15 +125,15 @@ module.exports = function (app) {
     })
 
     app.post('/api/reset/:token', function (req, res, next) {
-      User.findOne({ resetPasswordToken: req.params.token })
+      User.findOne({ forgotPasswordToken: req.params.token })
         .then(function (foundUser) {
           if (!foundUser) {
             return next('Password reset token is invalid or has expired.');
           }
           else {
             foundUser.password = req.body.password;
-            foundUser.resetPasswordToken = null;
-            foundUser.resetPasswordExpires = null;
+            foundUser.forgotPasswordToken = null;
+            foundUser.forgotPasswordExpires = null;
             return foundUser.save();
           }
         })

@@ -69,7 +69,7 @@ var seedAddresses = function () {
     address.address = faker.address.streetAddress();
     address.city = faker.address.city();
     address.state = faker.address.state();
-    address.postalCode = faker.address.zipCode();
+    address.postalCode = faker.address.zipCode().slice(0, 5);
     address.country = faker.address.country();
     addresses.push(address);
   });

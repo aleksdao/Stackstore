@@ -22,6 +22,9 @@ router.use('/experiences', require('./experiences'));
 router.use('/cart', require('./cart'));
 router.use('/categories', require('./categories'));
 router.use('/checkout', require('./checkout'));
+router.use('/admin', require('./admin'));
+
+
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {

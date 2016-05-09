@@ -15,13 +15,12 @@ app.controller('CheckoutCtrl', function($scope, $state, cart, stripe, CartFactor
   }
 
   $scope.displayFormattedAddress = function (address) {
-    var relevantFields = ["address", "address2", "city", "state", "postalCode"];
     var readableAddress = [];
-    for (var key in address) {
-      if (relevantFields.indexOf(key) >= 0 && address[key]) {
-        readableAddress.push(address[key]);
-      }
-    }
+    Object.keys(address).forEach(function (key) {
+      if (["address", "address2", "city", "state", "postalCode"].indexOf(key) >= 0 && address[key])
+      readableAddress.push(address[key]);
+
+    })
     return readableAddress.join(", ");
   }
 

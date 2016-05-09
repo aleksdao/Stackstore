@@ -29,7 +29,7 @@ Trigger password reset for a user (next time they successfully log in—with the
 																						{label : 'View all Orders', value : 'viewOrder'},
 																						]},
 		{label : 'Manage Users', value : 'manageusers', url : 'manageusers',actions:[
-																						{label : 'Manage User', value : 'manageusers'},
+																						{label : 'Manage User', value : 'manageUsers'},
 																						{label : 'Manage Admins', value : 'manageadmin'}
 																						]}
 	];

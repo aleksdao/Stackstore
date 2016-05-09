@@ -4,9 +4,16 @@ app.factory('UserFactory', function ($http) {
     return $http.get('/api/members/me/' + userId)
       .then(function (response) {
         var user = response.data;
-        console.log('sending back', user);
         return user;
       });
   };
+
+  factory.fetchAll = function () {
+    return $http.get('/api/members')
+      .then(function (response) {
+        return response.data;
+      })
+  }
+
   return factory;
 })
