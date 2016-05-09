@@ -6,7 +6,7 @@
     <h4>Purchaser Email:&nbsp{{user.email}}</h4>
     <h4>Order Confirmation Id:&nbsp{{confirmation.orderId}}</h4>
     <h4>Order Date:&nbsp{{date | date:'MM-dd-yyyy'}}</h4>
-    <h4>Total charged:{{confirmation.stripeCharge.currency}}&nbsp${{confirmation.stripeCharge.amount}}</h4>
+    <h4>Total charged:{{confirmation.stripeCharge.currency}}&nbsp${{confirmation.stripeCharge.amount | number}}</h4>
 
 
   <md-table-container class="md-whiteframe-4dp">
@@ -25,15 +25,15 @@
             <td md-cell>{{ lineItem.quantity }}</td>
             <td md-cell>{{ lineItem.experienceId.name }}</td>
             <td md-cell><img class="img-responsive" ng-src="{{lineItem.experienceId.photoUrl}}"></td>
-            <td md-cell>{{ lineItem.experienceId.price }}</td>
-            <td md-cell>{{lineItem.price * lineItem.quantity}}</td>
+            <td md-cell>${{ lineItem.experienceId.price | number}}</td>
+            <td md-cell>${{lineItem.price * lineItem.quantity| number}}</td>
         </tr>
         <tr class="accent line" ng-style="{ background: '#ef6145' }">
           <td md-cell></td>
           <td md-cell></td>
           <td md-cell></td>
           <td md-cell class="bold">Total</td>
-          <td md-cell class="bold">{{total}}</td>
+          <td md-cell class="bold">${{total| number}}</td>
         </tr>
       </tbody>
     </table>
