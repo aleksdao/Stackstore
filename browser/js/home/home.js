@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
             '*.ogv',
             '/video/Experience_Splash.mp4',
         ];
-        $scope.poster = 'http://placehold.it/2000&text=you%20may%20want%20to%20have%20a%20poster';
+        // $scope.poster = 'http://placehold.it/2000&text=you%20may%20want%20to%20have%20a%20poster';
         $scope.fullScreen = false;
         $scope.muted = true;
         $scope.zIndex = '99';
