@@ -7,11 +7,11 @@ app.config(function ($stateProvider) {
             id: 'eZp2CQgxs9c'
           };
           $scope.resources = [
-            // 'http://techslides.com/demos/sample-videos/small.webm',
             '*.ogv',
             '/video/Experience_Splash.mp4',
         ];
-        // $scope.poster = 'http://placehold.it/2000&text=you%20may%20want%20to%20have%20a%20poster';
+
+        $scope.poster = 'https://www.hillphoto.com/experience_fpo/mike-wiegele-Deluxe-212.jpg';
         $scope.fullScreen = false;
         $scope.muted = true;
         $scope.zIndex = '99';
@@ -21,8 +21,10 @@ app.config(function ($stateProvider) {
                 var i=0;
                 var actionsarray=['SURF','SURF','RIDE','RIDE','RIDE','RIDE','SKI','RUN','RUN','CLIMB','DARE','DREAM','DREAM','LIVE','LIVE'];
                     setInterval(function(){
-                        if(i >= actionsarray.length){return};
-                        document.getElementById('actions').innerHTML='<md-button class="gobutton"><h1 class="splashaction">'+actionsarray[i]+'</h1></md-button>';
+                        if(i >= actionsarray.length){ return; }
+                        if( document.getElementById('actions') !== null){
+                          document.getElementById('actions').innerHTML='<md-button class="gobutton"><h1 class="splashaction">'+actionsarray[i]+'</h1></md-button>';
+                        }
                         if(i == actionsarray.length-1){document.getElementById('actions').innerHTML='<div class="gobuttonlast"><h1 class="splashaction">'+actionsarray[i]+'</h1></div>'; }
                         i++;
                     },700);
