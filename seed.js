@@ -31,7 +31,6 @@ var Experience = mongoose.model('Experience');
 var Cart = mongoose.model('Cart');
 var Address = mongoose.model('Address');
 var Review = mongoose.model('Review');
-var Cart = mongoose.model('Cart');
 
 var faker = require("faker");
 var experiencePairs = [];
@@ -43,7 +42,6 @@ var wipeCollections = function () {
     var removeExperiences = Experience.remove({});
     var removeCarts = Cart.remove({});
     var removeAddresses = Address.remove({});
-    var removeCarts = Cart.remove({});
 
 
     return Promise.all([
@@ -52,7 +50,6 @@ var wipeCollections = function () {
         removeCategories,
         removeReviews,
         removeExperiences,
-        removeCarts,
         removeAddresses
     ]);
 };
@@ -213,7 +210,7 @@ var seedCarts = function (users, experiences) {
     cart.lineItems = [];
     for (var j = 0; j < 10; j++) {
       var lineItem = {};
-      lineItem.experienceId = experiences[randomizerIdx(0, 49)];
+      lineItem.experienceId = experiences[randomizerIdx(0, experiences.length - 1)];
       lineItem.quantity = randomizerIdx(1,5);
       cart.lineItems.push(lineItem);
     }
