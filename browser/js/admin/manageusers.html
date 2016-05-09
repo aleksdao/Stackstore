@@ -1,0 +1,22 @@
+<alert type="success" ng-show="successMsg">
+    {{ successMsg }}
+</alert>
+<table style="margin:auto auto;width:90%">
+  <th><label>Email address<br><input type="text"></label></th>
+  <th><label>First Name<br><input type="text"></label></th>
+  <th><label>Last Name<br><input type="text"></label></th>
+  <!-- <th><label>Addresses<br><input type="text"></label></th> -->
+  <th><label>Role<br><input type="text"></label></th>
+  <th><label>Reset Password<br><input type="text"></label></th>
+  <tr ng-repeat="user in users">
+    <td>{{user.email}}</td>
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+    <!-- <td>{{user.addresses}}</td> -->
+    <!-- <td ng-if="isAdmin(user)">Admin<br><button ng-click="demoteFromAdmin(user)">Demote from Admin</button></td><td ng-if="!isAdmin(user)">Customer<br><button ng-click="promoteToAdmin(user)">Promote to Admin</button></td> -->
+    <td><md-switch ng-model="user.admin" ng-change="onChange(user, user.admin)">
+    {{ userRole(user) }}
+  </md-switch></td>
+    <td><button ng-click="resetPassword(user)">Reset Password</button></td>
+  </tr>
+</table>

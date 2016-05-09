@@ -43,6 +43,7 @@ router.get('/me/:id', function (req, res, next) {
 
 router.get('/', function (req, res, next) {
   User.find({})
+  .populate('addresses')
   .then(function (users) {
     res.status(200).json(users);
   });
