@@ -4,13 +4,13 @@
       <h2>Checkout</h2>
     </div>
     <md-divider></md-divider>
-    <div class="md-whiteframe-4dp">
+    <div class="md-whiteframe-4dp" style="padding: 35px;">
       <div flex-gt-sm="80">
         <h3>Amount to be Charged: {{subtotal() | currency}}</h3>
       </div>
       <!-- here is the start -->
   <form name="addressForm">
-    <div class='md-whiteframe-4dp'>
+    <div class='md-whiteframe-4dp' style="padding: 25px;">
       <!-- <h2 class='md-title'>Tell us some info about you</h2> -->
       <h3>Billing Address</h3>
       <md-radio-group ng-model="newOrExistingAddress">
@@ -31,8 +31,8 @@
     <div flex-gt-sm="80">
       <!-- <h3>Billing Address</h3> -->
     </div>
-    <div layout-gt-sm="row">
-      <md-input-container class="md-block" flex-gt-sm>
+    <div layout-gt-sm="row" style="margin-top:25px">
+      <md-input-container class="md-block" flex-gt-sm >
         <label>First name</label>
         <input name="firstName" required minlength="2" maxlength="20" ng-model="user.firstName">
       </md-input-container>
