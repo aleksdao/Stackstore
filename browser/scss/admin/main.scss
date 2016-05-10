@@ -1,3 +1,46 @@
+#manageUsersTable {
+  padding-top: 25px;
+
+  md-table-container  {
+    margin-top: 25px;
+  }
+
+  table {
+    border-spacing: 10px;
+  }
+  td {
+    padding: 10px;
+    background-color: rgb(240, 240, 240);
+  }
+  th  {
+		background-color: rgb(180, 180, 180);
+    color:white;
+    font-size: 1.2em;
+  }
+
+	md-switch .md-bar {
+		background-color: #FFFFFF;
+	}
+
+	md-switch.md-checked .md-bar {
+		background-color: rgba(89, 226, 168, 0.6);
+		color: rgba(89, 226, 168, 0.6)
+
+	}
+
+	// md-switch .md-thumb {
+  //    /* not selected switch color */
+	// 	 background-color: #141b2e;
+	// }
+
+	md-switch.md-checked .md-thumb {
+	    // background-color: rgba(89, 226, 168, 0.6);
+			color: #FFFFFF; /* selected switch color */
+			background-color: #FFFFFF
+	}
+
+}
+
 .actionsbut{
 	width: none !important;
 }
