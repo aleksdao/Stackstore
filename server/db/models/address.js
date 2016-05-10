@@ -24,6 +24,12 @@ var addressSchema = Schema ({
   country: {
     type: String,
     required: true
+  },
+  lat:  {
+    type: Number
+  },
+  long:  {
+    type: Number
   }
 });
 

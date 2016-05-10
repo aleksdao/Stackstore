@@ -7,7 +7,7 @@ $scope.similarExperiences =[];
 
 uiGmapGoogleMapApi.then(function(maps) {
 	console.log('inside here');
-	$scope.map = { center: { latitude: 37.8, longitude: -122.4 }, zoom: 8 };
+	$scope.map = { center: { latitude: experience.address.lat, longitude: experience.address.long }, zoom: 8 };
 	 });
 
 
