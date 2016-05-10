@@ -1,22 +1,56 @@
 <alert type="success" ng-show="successMsg">
     {{ successMsg }}
 </alert>
-<table style="margin:auto auto;width:90%">
+<div id="manageUsersTable" style="margin:auto auto;width:90%">
+<md-toolbar class="md-table-toolbar md-accent">
+  <div class="md-toolbar-tools">
+    <h1>Manage Users</h1>
+  </div>
+</md-toolbar>
+<md-divider></md-divider>
+<md-table-container class="md-whiteframe-4dp">
+  <table md-table>
+    <thead md-head>
+      <tr md-row class="">
+        <th md-column ng-model="searchEmail"><label>Email address</label></th>
+        <!-- <th md-column><label>First Name<br><input type="text"></label></th>
+        <th md-column><label>Last Name<br><input type="text"></label></th> -->
+        <th md-column><label>Role</label></th>
+        <th md-column></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="md-subhead accent line dataText" ng-repeat="user in users | filter: { email : searchEmail }">{{searchEmail}}
+        <td md-cell>{{user.email}}</td>
+        <!-- <td md-cell>{{user.firstName}}</td>
+        <td md-cell>{{user.lastName}}</td> -->
+        <td>
+          <md-switch  ng-class="md-primary" ng-model="user.admin" ng-change="onChange(user, user.admin)">
+            {{ userRole(user) }}
+          </md-switch>
+        </td>
+        <td><md-button class="md-raised" ng-click="resetPassword(user)">Reset Password</button></td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+</div>
+
+<!-- <table id="manage-users" style="margin:auto auto;width:90%">
   <th><label>Email address<br><input type="text"></label></th>
   <th><label>First Name<br><input type="text"></label></th>
   <th><label>Last Name<br><input type="text"></label></th>
-  <!-- <th><label>Addresses<br><input type="text"></label></th> -->
   <th><label>Role<br><input type="text"></label></th>
-  <th><label>Reset Password<br><input type="text"></label></th>
+  <th><label>Reset Password</label></th>
   <tr ng-repeat="user in users">
     <td>{{user.email}}</td>
     <td>{{user.firstName}}</td>
-    <td>{{user.lastName}}</td>
-    <!-- <td>{{user.addresses}}</td> -->
-    <!-- <td ng-if="isAdmin(user)">Admin<br><button ng-click="demoteFromAdmin(user)">Demote from Admin</button></td><td ng-if="!isAdmin(user)">Customer<br><button ng-click="promoteToAdmin(user)">Promote to Admin</button></td> -->
-    <td><md-switch ng-model="user.admin" ng-change="onChange(user, user.admin)">
-    {{ userRole(user) }}
-  </md-switch></td>
-    <td><button ng-click="resetPassword(user)">Reset Password</button></td>
+    <td>{{user.lastName}}</td> -->
+    <!-- <td>
+      <md-switch ng-model="user.admin" ng-change="onChange(user, user.admin)" ng-class="md-primary">
+        {{ userRole(user) }}
+      </md-switch>
+    </td>
+    <td><md-button class="md-raised" ng-click="resetPassword(user)">Reset Password</button></td>
   </tr>
-</table>
+</table> -->
