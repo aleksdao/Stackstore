@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
             '/video/Experience_Splash.mp4',
         ];
 
-        $scope.poster = 'https://www.hillphoto.com/experience_fpo/mike-wiegele-Deluxe-212.jpg';
+        $scope.poster = 'https://www.hillphoto.com/experience_fpo/black.jpg';
         $scope.fullScreen = false;
         $scope.muted = true;
         $scope.zIndex = '99';
@@ -25,7 +25,10 @@ app.config(function ($stateProvider) {
                         if( document.getElementById('actions') !== null){
                           document.getElementById('actions').innerHTML='<md-button class="gobutton"><h1 class="splashaction">'+actionsarray[i]+'</h1></md-button>';
                         }
+                        if( document.getElementById('actions') !== null){
+
                         if(i == actionsarray.length-1){document.getElementById('actions').innerHTML='<div class="gobuttonlast"><h1 class="splashaction">'+actionsarray[i]+'</h1></div>'; }
+                      }
                         i++;
                     },700);
 

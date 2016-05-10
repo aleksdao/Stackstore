@@ -8,14 +8,9 @@ module.exports = router;
 //Feel free to remove if you don't need it
 
 router.use('/', function (req, res, next) {
-  console.log('session', req.sessionID);
+  // console.log('session', req.sessionID);
   next();
-  // User.find({})
-  //   .then(function (users) {
-  //     req.user = users[0];
-  //     next();
-  //   })
-})
+});
 
 router.use('/members', require('./members'));
 router.use('/experiences', require('./experiences'));
@@ -23,6 +18,7 @@ router.use('/cart', require('./cart'));
 router.use('/categories', require('./categories'));
 router.use('/checkout', require('./checkout'));
 router.use('/admin', require('./admin'));
+router.use('/orders', require('./orders'));
 
 
 // Make sure this is after all of

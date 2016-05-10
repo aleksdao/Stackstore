@@ -12,6 +12,8 @@ var orderSchema = Schema ({
   ],
   tax: Number,
   shippingCost: Number,
+  date: { type: Date,
+    default: Date.now }, 
   totalCost: Number,
   userId: {
     type: Schema.Types.ObjectId,
@@ -19,6 +21,6 @@ var orderSchema = Schema ({
   },
   shippingAddress: addressSchema,
   billingAddress: addressSchema
-})
+});
 
 mongoose.model('Order', orderSchema);
