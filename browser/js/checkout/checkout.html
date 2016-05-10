@@ -15,7 +15,7 @@
       <h3>Billing Address</h3>
       <md-radio-group ng-model="newOrExistingAddress">
         <md-radio-button value="new" class="md-primary">Use new address</md-radio-button>
-        <md-radio-button value="existing" class="md-primary" ng-disabled="!user._id">Use existing address</md-radio-button>
+        <md-radio-button value="existing" class="md-primary" ng-if="user._id">Use existing address</md-radio-button>
       </md-radio-group>
       <div layout='row'>
         <md-input-container flex ng-if="newOrExistingAddress === 'existing'">
