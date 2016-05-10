@@ -11,8 +11,8 @@ var nodemailerCredentials = require('../../../env/development').NODEMAILER;
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
-    // 'twitter',
-    // 'facebook',
+    'twitter',
+    'facebook',
     'google'
 ];
 
