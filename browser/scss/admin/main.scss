@@ -13,7 +13,7 @@
     background-color: rgb(240, 240, 240);
   }
   th  {
-    background-color: #141b2e;
+		background-color: rgb(180, 180, 180);
     color:white;
     font-size: 1.2em;
   }
@@ -23,17 +23,20 @@
 	}
 
 	md-switch.md-checked .md-bar {
-	    background-color: #FFFFFF; /* set selected bar color */
+		background-color: rgba(89, 226, 168, 0.6);
+		color: rgba(89, 226, 168, 0.6)
+
 	}
 
-	md-switch .md-thumb {
-     /* not selected switch color */
-		 background-color: #ef6145;
-	}
+	// md-switch .md-thumb {
+  //    /* not selected switch color */
+	// 	 background-color: #141b2e;
+	// }
 
 	md-switch.md-checked .md-thumb {
-	    background-color: rgba(89, 226, 168, 0.6);
-			color: rgba(89, 226, 168, 0.6) /* selected switch color */
+	    // background-color: rgba(89, 226, 168, 0.6);
+			color: #FFFFFF; /* selected switch color */
+			background-color: #FFFFFF
 	}
 
 }
