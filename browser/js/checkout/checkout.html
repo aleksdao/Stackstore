@@ -81,10 +81,14 @@
     <form name="paymentForm">
       <div flex-gt-sm="80">
         <h3>Payment Details</h3>
+
+      </div>
+      <div class="pull-right">
+        <img src="/images/dark_outline/outline.png" height="26" width="119">
       </div>
       <md-input-container class="md-block">
         <label>Card Number</label>
-        <input type="text" required ng-model="payment.card.number" placeholder="4242424242424242">
+        <input type="text" required ng-model="payment.card.number">
       </md-input-container>
       <div layout-gt-sm="row">
         <md-input-container class="md-block">
