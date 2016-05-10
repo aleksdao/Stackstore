@@ -6,8 +6,9 @@
     </md-card-title-text>
 
   </md-card-title>
-  <uib-rating id="ratingOnCard" class="md-raised" ng-model="averageRating" max="max" enable-reset="false" data-readonly="true" aria-labelledby="default-rating"></uib-rating>
-
+  <div>
+    <uib-rating id="ratingOnCard" class="md-raised" ng-model="averageRating" max="max" enable-reset="false" data-readonly="true" aria-labelledby="default-rating"></uib-rating><span class="cardPrice">${{exp.price | number}}</span>
+  </div>
   <md-card-content ng-click="gotoDetail(exp)">
     <p class="block-ellipsis">
       {{exp.shortDescription}}
@@ -15,7 +16,7 @@
   </md-card-content>
 
   <md-card-actions layout="row" layout-align="end center">
-    <h4 class="cardPrice">${{exp.price | number}}</h4>
+
     <md-button class="md-raised" flex="15" ng-click="gotoDetail(exp)"><md-icon class="material-icons">info_outline</md-icon></md-button>
     <!-- <md-button class="md-raised" ng-click="addToCart(exp)" ng-if="experienceInStock(exp)">Add to cart</md-button> -->
     <md-button class="md-raised" flex="15" ng-style='{ background: "rgb(89, 226, 168)" }' ng-if='experienceInStock(exp)' ng-click="addToCart(exp)"><md-icon class="material-icons" ng-style='{ color: "#FFFFFF" }'>add_shopping_cart</md-icon></md-button>
