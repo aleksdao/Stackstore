@@ -31,7 +31,7 @@
 		<div class="col-sm-10">
 			<div class="row">
 		    <div class="col-xs-12">
-					<h4>Number of experiences: {{ allexp.length }}</h4>
+					<h4>Number of experiences: {{ (allexp|filter: {name: expsearch} | categoryFilter:checkedCategories | averageRatingFilter:greaterThanRating | priceFilter:minPrice).length }}</h4>
 		      <div class="input-group input-group-lg">
 		        <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
 		        <input type="text" class="form-control" placeholder="Find Your Experience" ng-model="expsearch"/>

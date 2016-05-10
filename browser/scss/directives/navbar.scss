@@ -46,10 +46,16 @@ navbar {
     outline: none !important;
     color:  $navBarText;
   }
+  .login-button:active{
+    color:  $deepOrange;
+  }
   .login-button:visited{
     color:  $navBarText;
   }
   .login-button:hover{
+    color:  $deepOrange;
+  }
+  .login-button:focus{
     color:  $deepOrange;
   }
 

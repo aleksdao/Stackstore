@@ -191,10 +191,32 @@ vertical-align: top;
 }
 .card-headline	{
 	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 
 }
-
+#ratingOnCard	{
+	min-height: 10px;
+	height: 30px;
+	padding-left: 18px;
+	line-height: 30px
+}
+md-card md-card-content	{
+	margin-top: 0;
+	padding-top: 0;
+}
+p.ng-binding	{
+	line-height: 100%;
+}
+.md-no-style.md-list-item-inner.md-ink-ripple	{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.cardPrice	{
+	padding-right: 20px;
+	margin-bottom: 0;
+	vertical-align: bottom;
+}
 
 
 
