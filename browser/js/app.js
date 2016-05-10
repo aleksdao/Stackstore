@@ -1,11 +1,18 @@
 'use strict';
 
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe', 'angularNumberPicker', 'angularVideoBg', 'ngVidBg'])
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'md.data.table', 'ngToast', 'angular-stripe', 'angularNumberPicker', 'angularVideoBg', 'ngVidBg', 'uiGmapgoogle-maps'])
   .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
     .accentPalette('grey');
   });
+app.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+           key: 'AIzaSyAtdngKfpQOsqoTDxHyv6sZYAULQkxVe7U',
+        v: '3', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+});
 
 app.config(['ngToastProvider', function(ngToastProvider) {
   ngToastProvider.configure({

@@ -58,6 +58,7 @@ var randomizerIdx = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+
 var seedAddresses = function () {
   var addresses = [];
 
@@ -65,9 +66,15 @@ var seedAddresses = function () {
     var address = {};
     address.address = faker.address.streetAddress();
     address.city = faker.address.city();
+    // address.city = 'San Francisco';
     address.state = faker.address.state();
+    // address.state = 'CA';
     address.postalCode = faker.address.zipCode().slice(0, 5);
-    address.country = faker.address.country();
+    // address.country = 'USA';
+    address.lat = randomizerIdx(35, 42);
+    address.long = randomizerIdx(-122, -74);
+console.log(address.long);
+      address.country = faker.address.country();
     addresses.push(address);
   });
 
