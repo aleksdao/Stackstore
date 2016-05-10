@@ -5,16 +5,16 @@ cursor: pointer;
     margin-top: 40px;
     text-align: center;
   }
-  #welcomeSearch  {
-    z-index: 98;
-    top: 40%;
-    left: 20%;
-    width: 50%;
-    // height: 20%;
-    position: absolute;
-    color: orange;
-    font-size: 4em;
-  }
+  // #welcomeSearch  {
+  //   z-index: 98;
+  //   top: 40%;
+  //   left: 20%;
+  //   width: 50%;
+  //   // height: 20%;
+  //   position: absolute;
+  //   color: orange;
+  //   font-size: 4em;
+  // }
   .form-control {
     filter:alpha(opacity=75);
     opacity:0.75;
@@ -28,7 +28,7 @@ cursor: pointer;
     margin-top: 0%;
     width: 50%;
     height: 40%;
-    border-radius: 4px;   
+    border-radius: 4px;
   }
 }
 .splashtag{
@@ -56,7 +56,7 @@ cursor: pointer;
   cursor: pointer;
 }
 .gobuttonlast{
- color:red;
+ color:$deepOrange;
  font-size:600%;
  text-align : center;
  opacity: 0.9;
@@ -64,4 +64,7 @@ cursor: pointer;
  background-color: #fff;
  border-radius:10px;
  cursor: pointer;
+}
+#actions  {
+  text-align: center;
 }
