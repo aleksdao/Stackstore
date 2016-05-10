@@ -1,19 +1,21 @@
 <md-card >
-        <img ng-src="{{exp.photoUrl}}" class="md-card-image" alt="Washed Out" ng-click="gotoDetail(exp)">
-        <md-card-title class="card-headline">
-          <md-card-title-text >
-            <span class="md-headline" ng-click="gotoDetail(exp)">{{exp.name }} </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content ng-click="gotoDetail(exp)">
-          <p class="block-ellipsis">
-            {{exp.shortDescription}}
-          </p>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button class="md-raised" ng-click="gotoDetail(exp)">Details</md-button>
-          <md-button class="md-raised" ng-click="addToCart(exp)" ng-if="experienceInStock(exp)">Add to cart</md-button>
-          <md-button class="md-raised" ng-if="!experienceInStock(exp)" ng-disabled="!experienceInStock(exp)">Out of Stock</md-button>
+  <img ng-src="{{exp.photoUrl}}" class="md-card-image" alt="Washed Out" ng-click="gotoDetail(exp)">
+  <md-card-title class="card-headline">
+    <md-card-title-text >
+      <span class="md-headline" ng-click="gotoDetail(exp)">{{exp.name }} </span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content ng-click="gotoDetail(exp)">
+    <p class="block-ellipsis">
+      {{exp.shortDescription}}
+    </p>
+  </md-card-content>
 
-        </md-card-actions>
-      </md-card>
+  <md-card-actions layout="row" layout-align="end center">
+    <uib-rating class="md-raised" ng-model="averageRating" max="max" enable-reset="false" data-readonly="true" aria-labelledby="default-rating"></uib-rating>
+    <md-button class="md-raised" flex="15" ng-click="gotoDetail(exp)"><md-icon class="material-icons">info_outline</md-icon></md-button>
+    <!-- <md-button class="md-raised" ng-click="addToCart(exp)" ng-if="experienceInStock(exp)">Add to cart</md-button> -->
+    <md-button class="md-raised" flex="15" ng-style='{ background: "rgb(89, 226, 168)" }' ng-if='experienceInStock(exp)' ng-click="addToCart(exp)"><md-icon class="material-icons" ng-style='{ color: "#FFFFFF" }'>add_shopping_cart</md-icon></md-button>
+    <md-button class="md-raised" flex="15" ng-if="!experienceInStock(exp)" ng-disabled="!experienceInStock(exp)">Out of Stock</md-button>
+  </md-card-actions>
+</md-card>

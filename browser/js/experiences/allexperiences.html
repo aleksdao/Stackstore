@@ -9,7 +9,24 @@
 					<p> {{ category.name }} </p>
 				</md-list-item>
 			</md-list>
-			<md-button class="md-raised" ng-click="selectAll()"> Select All </md-button>
+			<md-button class="md-primary bold" ng-click="selectAll()"> Select All </md-button>
+
+			<md-divider></md-divider>
+			<md-subheader>Min Rating</md-subheader>
+			<h4><uib-rating ng-model="greaterThanRating" max="max" enable-reset="false" data-readonly="false" aria-labelledby="default-rating"></uib-rating></h4>
+			<md-divider></md-divider>
+			<md-subheader>Price</md-subheader>
+			<md-input-container>
+				<label>Min</label>
+				<input type="number" ng-model="minPrice">
+			</md-input-container>
+			<md-input-container>
+				<label>Max</label>
+				<input type="number" ng-model="maxPrice">
+			</md-input-container>
+
+
+
 		</div>
 		<div class="col-sm-10">
 			<div class="row">
@@ -23,7 +40,8 @@
 		  </div>
 			<md-content layout-paddng>
 				<div layout="row" layout-wrap>
-					<experience-card ng-repeat="exp in allexp | filter: {name: expsearch}" flex-gt-md="33" flex-gt-sm="50" flex="100"></experience-card>
+					<!-- <experience-card ng-repeat="exp in allexp | filter: {name: expsearch} | priceFilter:minPrice" flex-gt-md="33" flex-gt-sm="50" flex="100"></experience-card> -->
+					<experience-card ng-repeat="exp in allexp | filter: {name: expsearch} | categoryFilter:checkedCategories | averageRatingFilter:greaterThanRating | priceFilter:minPrice" flex-gt-md="33" flex-gt-sm="50" flex="100"></experience-card>
 				</div>
 			</md-content>
 

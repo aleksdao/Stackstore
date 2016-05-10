@@ -13,7 +13,7 @@ $scope.fractionConvertor = function (num) {
 };
 
 function isLoggedIn () {
-			return  AuthService.getLoggedInUser()
+			return AuthService.getLoggedInUser()
 				.then(function(user){
 					$scope.isLoggedIn = user;
 					if(user !== null){

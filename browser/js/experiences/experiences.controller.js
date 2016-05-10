@@ -1,6 +1,56 @@
+app.filter('averageRatingFilter', function () {
+	return function (experiences, greaterThanRating) {
+
+		var output = experiences.filter(function (experience) {
+
+			function calcAverageRating (experience)	{
+				var sum = 0;
+				for (var i = 0; i < experience.reviews.length; i++) {
+					sum += experience.reviews[i].rating;
+				}//end for
+				return (sum/experience.reviews.length);
+			}
+			var averageRating = calcAverageRating(experience);
+
+			return averageRating >= greaterThanRating;
+		})
+		return output;
+	}
+})
+
+app.filter('priceFilter', function () {
+	return function (experiences, minPrice, maxPrice) {
+		minPrice = minPrice || null;
+		maxPrice = maxPrice || null;
+		// console.log('min', minPrice, 'max', maxPrice);
+		var output = experiences.filter(function (experience) {
+			// console.log('price', experience.price)
+			if (maxPrice && minPrice) return experience.price >= minPrice && experience.price <= maxPrice;
+			else if (maxPrice && !minPrice) return experience.price <= maxPrice;
+			else return experience.price >= minPrice;
+		})
+		return output;
+	}
+})
+
+app.filter('categoryFilter', function () {
+	return function (experiences, checkedCategories) {
+		if (!checkedCategories.length) return experiences;
+		checkedCategories = checkedCategories.map(function (category) {
+			return category._id;
+		})
+		console.log(checkedCategories);
+		var output = experiences.filter(function (experience) {
+			return checkedCategories.indexOf(experience.category._id) >= 0;
+		})
+		return output;
+	}
+})
+
 app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, breadcrumbCategory, cart, CartFactory){
 
 	$scope.allexp = experiences;
+	$scope.greaterThanRating = 0;
 
 	$scope.categories = categories;
 	$scope.checkedCategories = [];
@@ -8,6 +58,12 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 	$scope.cart = cart;
 
 	// var experience = {}
+
+	//for reviews filter
+
+	$scope.max = 5;
+	// $scope.greaterThanRating = 0;
+	//end reviews filter
 
 	$scope.gotoDetail=function(exp){
 		$state.go('experience',{ id: exp._id , _experience: exp});
@@ -37,26 +93,16 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 	$scope.isSelected = function (category) {
 		return $scope.checkedCategories.indexOf(category) >= 0;
 	};
+
 	$scope.toggle = function (category) {
 		if ($scope.isSelected(category)) {
-			var catsAndExperiences = CategoriesFactory.removeCatAndExp($scope.allexp, $scope.checkedCategories, category);
-				$scope.checkedCategories = catsAndExperiences.categories;
-				if ($scope.checkedCategories.length === 0)
-					$scope.allexp = experiences;
-				else {
-					$scope.allexp = catsAndExperiences.experiences;
-
-				}
+			$scope.checkedCategories.splice($scope.checkedCategories.indexOf(category), 1);
 		}
 		else {
-			CategoriesFactory.addCatAndExp($scope.allexp, $scope.checkedCategories, category)
-				.then(function (catsAndExperiences) {
-					$scope.allexp = catsAndExperiences.experiences;
-					$scope.checkedCategories = catsAndExperiences.categories;
-			});
+			$scope.checkedCategories.push(category);
 		}
+	}
 
-	};//end $scope.toggle
 
 	function loadCategory () {
 		if(breadcrumbCategory.name !== undefined){

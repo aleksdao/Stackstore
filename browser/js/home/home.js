@@ -32,8 +32,6 @@ app.config(function ($stateProvider) {
                         i++;
                     },700);
 
-
-
             })();
             setTimeout(function(){
                 $state.go('experiences');
