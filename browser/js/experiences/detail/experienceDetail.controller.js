@@ -1,8 +1,15 @@
-app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, $uibModal, AuthService) {
+app.controller('experienceDetailCTRL', function ($scope, experiencesFactory, experience, CartFactory, cart, ngToast, $state, $uibModal, AuthService, $interval,  uiGmapGoogleMapApi) {
 // console.log(frac.cont(2.25, 9, true));
 $scope.loggedInTrue = false;
 $scope.alreadyReviewed	= false;
 $scope.similarExperiences =[];
+ // $scope.map = {center: {latitude: 51.219053, longitude: 4.404418 }, zoom: 14 };
+
+uiGmapGoogleMapApi.then(function(maps) {
+	console.log('inside here');
+	$scope.map = { center: { latitude: 37.8, longitude: -122.4 }, zoom: 8 };
+	 });
+
 
 //below uses frac library
 $scope.fractionConvertor = function (num) {
@@ -126,5 +133,7 @@ $scope.gotoDetail=function(exp){
       console.log('Added a new review to array ', review);
     });
   };
+
+
 
 });//end controller
