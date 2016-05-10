@@ -56,7 +56,7 @@ app.config(function($stateProvider){
 			controller:'experienceAddCtrl'
 		}).state('experience', {
 			url:'/experiences/:id',
-			templateUrl: '/js/experiences/experienceDetail.html',
+			templateUrl: '/js/experiences/detail/experienceDetail.html',
 			controller : 'experienceDetailCTRL',
 			resolve : {
 				experience: function  (experiencesFactory, $stateParams) {
