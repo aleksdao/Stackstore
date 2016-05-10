@@ -28,9 +28,8 @@
       </div>
     </div>
   <!-- here is the break -->
-    <div flex-gt-sm="80">
+    <div flex-gt-sm="80" ng-show="user.billingAddress || newOrExistingAddress === 'new'">
       <!-- <h3>Billing Address</h3> -->
-    </div>
     <div layout-gt-sm="row" style="margin-top:25px">
       <md-input-container class="md-block" flex-gt-sm >
         <label>First name</label>
@@ -105,4 +104,6 @@
     </form>
     </div>
   </div>
+</div>
+
 </section>
