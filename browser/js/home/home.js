@@ -33,9 +33,9 @@ app.config(function ($stateProvider) {
                     },700);
 
             })();
-            setTimeout(function(){
-                $state.go('experiences');
-            },20000);
+            // setTimeout(function(){
+            //     $state.go('experiences');
+            // },20000);
         }
      });
 
