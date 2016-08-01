@@ -1,6 +1,8 @@
 <toast></toast>
 <div  class="container-fluid grayBackground" id="allExperiencePage">
 	<div class="row">
+
+	<!-- below follows all of the filtering mechanism, as a col-sm-2 block	 -->
 		<div class="col-sm-2">
 			<md-list>
 				<md-subheader class='md-no-sticky md-primary'>Categories</md-subheader>
@@ -28,10 +30,12 @@
 
 
 		</div>
+
+		<!-- below follows all of the experiences, as a sm-10 col -->
 		<div class="col-sm-10">
 			<div class="row">
 		    <div class="col-xs-12">
-					<h4>Number of experiences: {{ (allexp|filter: {name: expsearch} | categoryFilter:checkedCategories | averageRatingFilter:greaterThanRating | priceFilter:minPrice).length }}</h4>
+					<h4>Number of experiences: {{ (allexp|filter: {name: expsearch} | categoryFilter:checkedCategories | averageRatingFilter:greaterThanRating | priceFilter:minPrice:maxPrice).length }}</h4>
 		      <div class="input-group input-group-lg">
 		        <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
 		        <input type="text" class="form-control" placeholder="Find Your Experience" ng-model="expsearch"/>
@@ -40,8 +44,8 @@
 		  </div>
 			<md-content layout-paddng>
 				<div layout="row" layout-wrap>
-					<!-- <experience-card ng-repeat="exp in allexp | filter: {name: expsearch} | priceFilter:minPrice" flex-gt-md="33" flex-gt-sm="50" flex="100"></experience-card> -->
-					<experience-card ng-repeat="exp in allexp | filter: {name: expsearch} | categoryFilter:checkedCategories | averageRatingFilter:greaterThanRating | priceFilter:minPrice" flex-gt-md="33" flex-gt-sm="50" flex="100"></experience-card>
+
+					<experience-card ng-repeat="exp in allexp | filter: {name: expsearch} | categoryFilter:checkedCategories | averageRatingFilter:greaterThanRating | priceFilter:minPrice:maxPrice" flex-gt-md="33" flex-gt-sm="50" flex="100"></experience-card>
 				</div>
 			</md-content>
 

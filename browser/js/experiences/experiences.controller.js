@@ -22,7 +22,7 @@ app.filter('priceFilter', function () {
 	return function (experiences, minPrice, maxPrice) {
 		minPrice = minPrice || null;
 		maxPrice = maxPrice || null;
-		// console.log('min', minPrice, 'max', maxPrice);
+		console.log('min', minPrice, 'max', maxPrice);
 		var output = experiences.filter(function (experience) {
 			// console.log('price', experience.price)
 			if (maxPrice && minPrice) return experience.price >= minPrice && experience.price <= maxPrice;
