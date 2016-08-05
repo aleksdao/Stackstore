@@ -1,9 +1,13 @@
+.smallLogo  {
+  display: none;
+}
+
 navbar {
 
   display: block;
-  background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;
+  background: $navBackground;
+  border-bottom: 1px solid $navBackground;
+  box-shadow: 1px 1px 14px -3px $navBackground;
 
   .container {
     width: 100%;
@@ -60,25 +64,26 @@ navbar {
   }
 
   .welcome {
-    float: right;
-    margin-top: 12px;
-    span {
-      color: $navBarText;
-      font-size: 16px;
-      margin-right: 5px;
-    }
+    padding-top: 30px;
+    padding-bottom: 0px;
+    color: $navBarText;
+    font-size: 16px;
+    margin-right: 5px;
     a {
       color: #f30046;
       cursor: pointer;
     }
   }
 
-
   md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
     background-color: $navBackground;
   }
   md-toolbar {
     height:80px;
+  }
+  navbar a  {
+    padding-top: 30px;
+    padding-bottom: 0px;
   }
 
   .navbar-nav > li > a {
@@ -98,4 +103,55 @@ navbar .welcome{
 }
 .btn-primary  {
   // background-color: red;
+}
+h4.ng-binding {
+    padding-top: 18px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+h4  {
+  font-size: 16px
+}
+@media only screen and (max-width: 845px) {
+  .bigLogo  {
+    visibility: hidden;
+  }
+  navbar a  {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .smallLogo  {
+    float: left !important;
+    display: block;
+    position: absolute;
+    z-index: 100;
+    margin-left: 10px;
+    margin-top: 10px;
+    left: 0px;
+    top: 0px;
+  }
+  img{
+    padding-right: 0px;
+  }
+  // navbar.ng-isolate-scope {
+  //     height: 55px;
+  // }
+  #filterBlock  {
+    display: none;
+  }
+}
+navbar.ng-isolate-scope {
+    background-color: $navBackground;
+}
+div#myNavbar {
+    background-color: $navBackground;
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: $navBackground;
 }

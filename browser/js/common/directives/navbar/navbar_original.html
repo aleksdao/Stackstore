@@ -1,0 +1,19 @@
+  <nav class="navbar navbar-inverse">
+
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="./images/Logo-v5.png" />
+        </div>
+        <ul class="nav navbar-nav">
+            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+            </li>
+        </ul>
+        <button ng-show="!user" ui-sref="newUser" class="btn login-button">Signup</button>
+        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+        <div ng-show="user" class="welcome">
+            <span>Welcome, {{ user.email }}!</span>
+            <a ng-click="logout()">Logout</a>
+        </div>
+    </div>
+  </nav>

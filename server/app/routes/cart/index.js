@@ -19,13 +19,12 @@ var returnToStock = function (expToUpdate) {
     })
     .then(function (updExperience) {
       console.log('returned to Stock: from ', prevExpQuantity, ' to ', updExperience.tempQuantity);
-    })
-}
+    });
+};
 
 //cron job runs every minute
 
 new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', function () {
-  console.log('hi there');
   //modify minutes variable to determine how long an item can stay in a user's cart before it is expired and returned to stock
   var minutes = 15;
   var seconds = 60;
@@ -40,27 +39,24 @@ new CronJob('0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', function () {
         cart.lineItems = cart.lineItems.map(function (lineItem) {
           var expToUpdate = {};
           if (!(Date.now() - lineItem.dateAdded < expiryInterval) && !lineItem.expired) {
-            console.log('this line item, ', lineItem.experienceId.name)
             lineItem.expired = true;
             expToUpdate.id = lineItem.experienceId;
             expToUpdate.quantityReturned = lineItem.quantity;
             experiencesToUpdate.push(returnToStock(expToUpdate));
           }
           return lineItem;
-        })
+        });
         cartsToUpdate.push(cart.save());
-      })
+      });
       return Promise.all(experiencesToUpdate);
     })
     .then(function () {
-      console.log('succesffully updated exps')
       return Promise.all(cartsToUpdate);
 
     })
     .then(function (carts) {
-      console.log('successfully updated carts')
 
-    })
+    });
 },
   null,
   true,
@@ -81,28 +77,25 @@ router.get('/expire', function (req, res, next) {
         cart.lineItems = cart.lineItems.map(function (lineItem) {
           var expToUpdate = {};
           if (!(Date.now() - lineItem.dateAdded < expiryInterval) && !lineItem.expired) {
-            console.log('this line item, ', lineItem.experienceId.name)
             lineItem.expired = true;
             expToUpdate.id = lineItem.experienceId;
             expToUpdate.quantityReturned = lineItem.quantity;
             experiencesToUpdate.push(returnToStock(expToUpdate));
           }
           return lineItem;
-        })
+        });
         cartsToUpdate.push(cart.save());
-      })
+      });
       return Promise.all(experiencesToUpdate);
     })
     .then(function () {
-      console.log('succesffully updated exps')
       return Promise.all(cartsToUpdate);
 
     })
     .then(function (carts) {
-      console.log('successfully updated carts')
       res.send(carts);
-    })
-})
+    });
+});
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {

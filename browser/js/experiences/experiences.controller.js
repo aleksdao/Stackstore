@@ -13,39 +13,36 @@ app.filter('averageRatingFilter', function () {
 			var averageRating = calcAverageRating(experience);
 
 			return averageRating >= greaterThanRating;
-		})
+		});
 		return output;
-	}
-})
+	};
+});
 
 app.filter('priceFilter', function () {
 	return function (experiences, minPrice, maxPrice) {
 		minPrice = minPrice || null;
 		maxPrice = maxPrice || null;
-		console.log('min', minPrice, 'max', maxPrice);
 		var output = experiences.filter(function (experience) {
-			// console.log('price', experience.price)
 			if (maxPrice && minPrice) return experience.price >= minPrice && experience.price <= maxPrice;
 			else if (maxPrice && !minPrice) return experience.price <= maxPrice;
 			else return experience.price >= minPrice;
-		})
+		});
 		return output;
-	}
-})
+	};
+});
 
 app.filter('categoryFilter', function () {
 	return function (experiences, checkedCategories) {
 		if (!checkedCategories.length) return experiences;
 		checkedCategories = checkedCategories.map(function (category) {
 			return category._id;
-		})
-		console.log(checkedCategories);
+		});
 		var output = experiences.filter(function (experience) {
 			return checkedCategories.indexOf(experience.category._id) >= 0;
-		})
+		});
 		return output;
-	}
-})
+	};
+});
 
 app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,experiences, $state,$timeout, CategoriesFactory, categories, breadcrumbCategory, cart, CartFactory){
 
@@ -101,7 +98,7 @@ app.controller('experiencesCTRL',function($scope, ngToast, experiencesFactory,ex
 		else {
 			$scope.checkedCategories.push(category);
 		}
-	}
+	};
 
 
 	function loadCategory () {

@@ -1,22 +1,37 @@
-<md-toolbar>
-    <div class="container">
-        <div class="navbar-header">
-            <img src="./images/Logo-v5.png" />
-        </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="newUser" class="btn login-button">Signup</button>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
-    </div>
-</md-toolbar>
 
-<!-- <md-toolbar>
-  <h1>
-</md-toolbar> -->
+<nav class="navbar navbar-inverse">
+
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand bigLogo" ui-sref="experiences"><img src="./images/Logo-v5.png" /></a>
+
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+            <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-show="!user"><a ui-sref="newUser"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li ng-show="!user"><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li ng-show="user" class="welcome">
+          <h4>Welcome, {{ user.email }}!</h4>
+        </li>
+        <li ng-show="user">
+          <a ng-click="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</nav>
